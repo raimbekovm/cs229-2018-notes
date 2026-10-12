@@ -14,6 +14,7 @@
 #
 #   YTDLP_COOKIES_FILE=~/cookies.txt     a Netscape cookies.txt exported from a browser
 #   YTDLP_COOKIES_BROWSER=chrome         read the browser's own cookie store
+#                                        ("chrome:Profile 3" picks a profile)
 #
 # The second needs the host app (PyCharm, Terminal, iTerm) to hold Full Disk Access
 # in System Settings → Privacy & Security; without it macOS refuses to let any
