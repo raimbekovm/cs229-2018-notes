@@ -109,14 +109,14 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 3]{.cs-card__index}
 
-[Locally Weighted and Logistic Regression]{.cs-card__title}
+[[Locally Weighted and Logistic Regression](lectures/03-locally-weighted-logistic.qmd)]{.cs-card__title}
 
 [Least squares as maximum likelihood, a regression that refits around every query, and the logistic model for classification with Newton's method.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -309,7 +309,7 @@ them by theme.
 |:--|:------|:-------|
 | 1 | Introduction | Complete |
 | 2 | Linear Regression and Gradient Descent | Complete |
-| 3 | Locally Weighted and Logistic Regression | Planned |
+| 3 | Locally Weighted and Logistic Regression | Complete |
 | 4 | Perceptron and Generalized Linear Models | Planned |
 | 5 | GDA and Naive Bayes | Planned |
 | 6 | Support Vector Machines | Planned |

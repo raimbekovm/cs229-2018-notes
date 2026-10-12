@@ -42,3 +42,12 @@ invented one as a verified credit.
 | `02-linear-regression/diagram_contours.svg` | own work | Drawn by `make_diagrams.py`: contours of the least-squares cost on 47 synthetic houses, with the batch and stochastic gradient descent paths actually run on them. Redraws the contour sketches Ng drew at the board. |
 | `02-linear-regression/diagram_learning_rate.svg` | own work | Drawn by `make_diagrams.py`: gradient descent on J(θ) = θ² at three learning rates. |
 | `02-linear-regression/diagram_gd_lines.svg` | own work | Drawn by `make_diagrams.py`: the hypothesis after successive gradient descent steps on the synthetic housing data. Redraws the idea of the slide sequence Ng showed, from computed values. |
+
+## Lecture 3 — Locally Weighted and Logistic Regression
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `03-locally-weighted-logistic/diagram_lwr.svg` | own work | Drawn by `make_diagrams.py`: locally weighted regression on synthetic data, at one query point and for three bandwidths. Redraws the board sketches of the local fit and the weight bump. |
+| `03-locally-weighted-logistic/diagram_linear_vs_logistic.svg` | own work | Drawn by `make_diagrams.py`: least-squares and logistic fits to synthetic tumour labels, with and without one far example. Redraws Ng's board argument against linear regression for classification. |
+| `03-locally-weighted-logistic/diagram_links.svg` | own work | Drawn by `make_diagrams.py`: the logistic, normal and Cauchy CDFs and their logarithms. |
+| `03-locally-weighted-logistic/diagram_newton.svg` | own work | Drawn by `make_diagrams.py`: Newton's method run on the derivative of a one-parameter logistic log-likelihood. Redraws the tangent-line sketch from the board. |
