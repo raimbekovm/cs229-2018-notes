@@ -24,3 +24,12 @@ invented one as a verified credit.
 | :--- | :----- | :----- |
 | `readme-hero.svg` | own work | Drawn by `make_readme_hero.py`: batch gradient descent on a quadratic bowl, computed from the update rule it illustrates. |
 | `social-card.svg`, `social-card.png` | own work | Drawn by `make_readme_hero.py`, same geometry as the banner; the PNG is rasterised from the SVG. |
+
+## Lecture 1 — Introduction
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `01-introduction/diagram_regression.svg` | own work | Drawn by `make_diagrams.py`: synthetic house sizes and prices, with a line and a quadratic fitted by least squares. Redraws the housing-price sketch Ng drew at the board. |
+| `01-introduction/diagram_tumour_1d.svg` | own work | Drawn by `make_diagrams.py`: synthetic tumour sizes, shown as label-against-size and projected onto one axis. Redraws the board sketch of the same two views. |
+| `01-introduction/diagram_tumour_2d.svg` | own work | Drawn by `make_diagrams.py`: synthetic size-and-age data with the boundary fitted by logistic regression (Newton's method). Redraws the two-feature board sketch. |
+| `01-introduction/diagram_clusters.svg` | own work | Drawn by `make_diagrams.py`: synthetic unlabelled points clustered by k-means (Lloyd's algorithm). Redraws the unlabelled-data board sketch. |

@@ -29,8 +29,8 @@ format:
       2018 recording for every section.
     </p>
     <div class="cs-hero__actions">
-      <a class="cs-btn cs-btn--primary" href="#lectures">See the lectures</a>
-      <a class="cs-btn cs-btn--ghost" href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU">Watch the course</a>
+      <a class="cs-btn cs-btn--primary" href="lectures/01-introduction.qmd">Start with lecture 1</a>
+      <a class="cs-btn cs-btn--ghost" href="CS229-2018-Lecture-Notes.pdf">Read as PDF</a>
     </div>
   </div>
   <!-- Batch gradient descent zig-zagging down a quadratic bowl: the picture
@@ -89,14 +89,14 @@ them by theme.
 
 ::: {.cs-cards}
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 1]{.cs-card__index}
 
-[Introduction]{.cs-card__title}
+[[Introduction](lectures/01-introduction.qmd)]{.cs-card__title}
 
-[What machine learning is, the four areas the course covers, and the vocabulary every later lecture leans on.]{.cs-card__blurb}
+[What machine learning is, the five areas the course covers, and the board pictures every later lecture is drawn on.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -307,7 +307,7 @@ them by theme.
 
 | # | Topic | Status |
 |:--|:------|:-------|
-| 1 | Introduction | Planned |
+| 1 | Introduction | Complete |
 | 2 | Linear Regression and Gradient Descent | Planned |
 | 3 | Locally Weighted and Logistic Regression | Planned |
 | 4 | Perceptron and Generalized Linear Models | Planned |
