@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 350" width="660" height="350"
+     role="img" aria-labelledby="figRegressionTitle figRegressionDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figRegressionTitle">Housing prices: regression</title>
+  <desc id="figRegressionDesc">Scatter of house size against price with a fitted straight line and a fitted quadratic, and the prices both read off at 1250 square feet.</desc>
+  <line x1="80.0" y1="300.0" x2="610.0" y2="300.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="300.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="300.0" x2="80.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="80.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="168.3" y1="300.0" x2="168.3" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="168.3" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.5</text>
+  <line x1="256.7" y1="300.0" x2="256.7" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="256.7" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="345.0" y1="300.0" x2="345.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="345.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1.5</text>
+  <line x1="433.3" y1="300.0" x2="433.3" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="433.3" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">2</text>
+  <line x1="521.7" y1="300.0" x2="521.7" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="521.7" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">2.5</text>
+  <line x1="610.0" y1="300.0" x2="610.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="610.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">3</text>
+  <line x1="76.0" y1="300.0" x2="80.0" y2="300.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="304.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="76.0" y1="246.0" x2="80.0" y2="246.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="250.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">100</text>
+  <line x1="76.0" y1="192.0" x2="80.0" y2="192.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="196.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">200</text>
+  <line x1="76.0" y1="138.0" x2="80.0" y2="138.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="142.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">300</text>
+  <line x1="76.0" y1="84.0" x2="80.0" y2="84.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="88.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">400</text>
+  <line x1="76.0" y1="30.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="34.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">500</text>
+  <text x="345.0" y="336.0" font-size="12" fill="currentColor" text-anchor="middle">size of house (1000 ft²)</text>
+  <text x="40.0" y="165.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 165.0)">price ($1000s)</text>
+  <circle cx="174.5" cy="196.4" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="187.7" cy="166.0" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="230.1" cy="177.4" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="247.9" cy="141.2" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="267.3" cy="159.7" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="272.8" cy="139.8" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="275.5" cy="151.7" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="342.9" cy="122.2" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="347.6" cy="106.1" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="355.2" cy="112.5" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="356.4" cy="85.6" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="384.0" cy="129.3" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="385.3" cy="123.7" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="411.2" cy="82.2" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="423.7" cy="90.4" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="430.1" cy="88.1" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="441.3" cy="125.3" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="449.4" cy="82.3" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="452.3" cy="90.0" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="460.0" cy="110.3" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="464.7" cy="104.6" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="472.8" cy="104.9" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="485.3" cy="87.1" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="493.4" cy="96.1" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="505.2" cy="100.2" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="517.9" cy="90.5" r="3.4" fill="currentColor" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <polyline points="133.00,183.73 137.42,182.54 141.83,181.35 146.25,180.17 150.67,178.98 155.08,177.79 159.50,176.61 163.92,175.42 168.33,174.23 172.75,173.05 177.17,171.86 181.58,170.67 186.00,169.49 190.42,168.30 194.83,167.11 199.25,165.93 203.67,164.74 208.08,163.55 212.50,162.36 216.92,161.18 221.33,159.99 225.75,158.80 230.17,157.62 234.58,156.43 239.00,155.24 243.42,154.06 247.83,152.87 252.25,151.68 256.67,150.50 261.08,149.31 265.50,148.12 269.92,146.94 274.33,145.75 278.75,144.56 283.17,143.38 287.58,142.19 292.00,141.00 296.42,139.82 300.83,138.63 305.25,137.44 309.67,136.26 314.08,135.07 318.50,133.88 322.92,132.70 327.33,131.51 331.75,130.32 336.17,129.14 340.58,127.95 345.00,126.76 349.42,125.57 353.83,124.39 358.25,123.20 362.67,122.01 367.08,120.83 371.50,119.64 375.92,118.45 380.33,117.27 384.75,116.08 389.17,114.89 393.58,113.71 398.00,112.52 402.42,111.33 406.83,110.15 411.25,108.96 415.67,107.77 420.08,106.59 424.50,105.40 428.92,104.21 433.33,103.03 437.75,101.84 442.17,100.65 446.58,99.47 451.00,98.28 455.42,97.09 459.83,95.91 464.25,94.72 468.67,93.53 473.08,92.35 477.50,91.16 481.92,89.97 486.33,88.78 490.75,87.60 495.17,86.41 499.58,85.22 504.00,84.04 508.42,82.85 512.83,81.66 517.25,80.48 521.67,79.29 526.08,78.10 530.50,76.92 534.92,75.73 539.33,74.54 543.75,73.36 548.17,72.17 552.58,70.98 557.00,69.80" fill="none" stroke="#3b528b" stroke-width="2" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="133.00,217.37 137.42,214.46 141.83,211.58 146.25,208.73 150.67,205.92 155.08,203.14 159.50,200.40 163.92,197.70 168.33,195.03 172.75,192.40 177.17,189.80 181.58,187.23 186.00,184.70 190.42,182.21 194.83,179.75 199.25,177.33 203.67,174.94 208.08,172.59 212.50,170.28 216.92,167.99 221.33,165.75 225.75,163.54 230.17,161.36 234.58,159.22 239.00,157.12 243.42,155.05 247.83,153.01 252.25,151.01 256.67,149.05 261.08,147.12 265.50,145.23 269.92,143.37 274.33,141.55 278.75,139.76 283.17,138.01 287.58,136.29 292.00,134.61 296.42,132.97 300.83,131.36 305.25,129.78 309.67,128.24 314.08,126.74 318.50,125.27 322.92,123.83 327.33,122.43 331.75,121.07 336.17,119.74 340.58,118.45 345.00,117.19 349.42,115.97 353.83,114.78 358.25,113.63 362.67,112.51 367.08,111.43 371.50,110.39 375.92,109.38 380.33,108.40 384.75,107.46 389.17,106.56 393.58,105.69 398.00,104.85 402.42,104.05 406.83,103.29 411.25,102.56 415.67,101.87 420.08,101.21 424.50,100.59 428.92,100.00 433.33,99.45 437.75,98.93 442.17,98.45 446.58,98.01 451.00,97.60 455.42,97.22 459.83,96.88 464.25,96.58 468.67,96.31 473.08,96.07 477.50,95.88 481.92,95.71 486.33,95.58 490.75,95.49 495.17,95.43 499.58,95.41 504.00,95.43 508.42,95.47 512.83,95.56 517.25,95.68 521.67,95.83 526.08,96.02 530.50,96.24 534.92,96.51 539.33,96.80 543.75,97.13 548.17,97.50 552.58,97.90 557.00,98.34" fill="none" stroke="#440154" stroke-width="2" stroke-opacity="1.0" stroke-dasharray="7 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="300.8" y1="300.0" x2="300.8" y2="138.6" stroke="#3b528b" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <line x1="80.0" y1="138.6" x2="300.8" y2="138.6" stroke="#3b528b" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <line x1="300.8" y1="300.0" x2="300.8" y2="131.4" stroke="#440154" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <line x1="80.0" y1="131.4" x2="300.8" y2="131.4" stroke="#440154" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <text x="304.8" y="292.0" font-size="11" fill="currentColor" text-anchor="start" fill-opacity="0.85">your house</text>
+  <line x1="98.0" y1="42.0" x2="114.0" y2="42.0" stroke="#3b528b" stroke-width="2" stroke-opacity="1.0"/>
+  <text x="118.0" y="46.0" font-size="11" fill="currentColor" text-anchor="start">straight line</text>
+  <line x1="204.6" y1="42.0" x2="220.6" y2="42.0" stroke="#440154" stroke-width="2" stroke-opacity="1.0" stroke-dasharray="7 4"/>
+  <text x="224.6" y="46.0" font-size="11" fill="currentColor" text-anchor="start">quadratic</text>
+</svg>

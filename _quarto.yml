@@ -80,6 +80,9 @@ book:
   # cross-reference.
   chapters:
     - index.qmd
+    - part: "Supervised Learning"
+      chapters:
+        - lectures/01-introduction.qmd
 
 format:
   html:
