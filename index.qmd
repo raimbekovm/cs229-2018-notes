@@ -1,0 +1,382 @@
+---
+subtitle: "Machine Learning — Stanford University, Autumn 2018"
+description: "Lecture notes written from the Stanford CS229 Machine Learning videos (Andrew Ng, Autumn 2018): the board derivations, the intuition given out loud, and a timestamp into the recording for every section."
+format:
+  html:
+    # The hero replaces the title block and the page is a landing page, not an
+    # article; a margin TOC of five headings would only crowd it.
+    number-sections: false
+    toc: false
+    page-layout: full
+---
+
+<!-- The title is a heading rather than a `title:` key so it can carry
+     {.unnumbered}: a book numbers every chapter, the landing page included,
+     and without it lecture 1 would be chapter 2. -->
+
+# CS229 2018 Lecture Notes {.unnumbered}
+
+::: {.content-visible when-format="html"}
+
+```{=html}
+<section class="cs-hero">
+  <div class="cs-hero__copy">
+    <p class="cs-hero__eyebrow">CS229 lecture notes &middot; Stanford &middot; Autumn 2018 &middot; Unofficial</p>
+    <h1 class="cs-hero__title">Andrew Ng&rsquo;s CS229,<br><em>written up from the board.</em></h1>
+    <p class="cs-hero__lede">
+      Linear regression to reinforcement learning &mdash; the derivations worked
+      at the blackboard, the intuition given out loud, and a timestamp into the
+      2018 recording for every section.
+    </p>
+    <div class="cs-hero__actions">
+      <a class="cs-btn cs-btn--primary" href="#lectures">See the lectures</a>
+      <a class="cs-btn cs-btn--ghost" href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU">Watch the course</a>
+    </div>
+  </div>
+  <!-- Batch gradient descent zig-zagging down a quadratic bowl: the picture
+       lecture 2 is built around. Computed by figures/make_readme_hero.py,
+       which rewrites everything between the two markers. -->
+  <figure class="cs-descent">
+    <div class="cs-descent__field">
+      <!-- hero:start -->
+<svg class="cs-descent__svg" viewBox="0 0 560 320" role="img" aria-label="Gradient descent zig-zagging down the contours of a quadratic cost toward its minimum" style="--cs-descent-len: 371">
+  <g transform="rotate(-28.0 280.0 160.0)" class="cs-descent__bowl">
+    <ellipse cx="280.0" cy="160.0" rx="228.2" ry="88.4" fill="#440154"/>
+    <ellipse cx="280.0" cy="160.0" rx="161.4" ry="62.5" fill="#3e3779"/>
+    <ellipse cx="280.0" cy="160.0" rx="114.1" ry="44.2" fill="#32678b"/>
+    <ellipse cx="280.0" cy="160.0" rx="80.7" ry="31.3" fill="#21918c"/>
+    <ellipse cx="280.0" cy="160.0" rx="57.1" ry="22.1" fill="#4ab670"/>
+    <ellipse cx="280.0" cy="160.0" rx="40.3" ry="15.6" fill="#93d34e"/>
+    <ellipse cx="280.0" cy="160.0" rx="28.5" ry="11.0" fill="#fde725"/>
+  </g>
+  <polyline class="cs-descent__path" points="187.0,281.7 167.5,169.3 226.5,223.9 218.9,167.7 249.3,193.7 246.8,165.5 262.5,177.8 261.9,163.7 270.1,169.4 270.1,162.3"/>
+  <circle class="cs-descent__step" cx="187.0" cy="281.7" r="3.2" style="--i: 0.000"/>
+  <circle class="cs-descent__step" cx="167.5" cy="169.3" r="3.2" style="--i: 0.111"/>
+  <circle class="cs-descent__step" cx="226.5" cy="223.9" r="3.2" style="--i: 0.222"/>
+  <circle class="cs-descent__step" cx="218.9" cy="167.7" r="3.2" style="--i: 0.333"/>
+  <circle class="cs-descent__step" cx="249.3" cy="193.7" r="3.2" style="--i: 0.444"/>
+  <circle class="cs-descent__step" cx="246.8" cy="165.5" r="3.2" style="--i: 0.556"/>
+  <circle class="cs-descent__step" cx="262.5" cy="177.8" r="3.2" style="--i: 0.667"/>
+  <circle class="cs-descent__step" cx="261.9" cy="163.7" r="3.2" style="--i: 0.778"/>
+  <circle class="cs-descent__step" cx="270.1" cy="169.4" r="3.2" style="--i: 0.889"/>
+  <circle class="cs-descent__step" cx="270.1" cy="162.3" r="3.2" style="--i: 1.000"/>
+</svg>
+      <!-- hero:end -->
+    </div>
+    <figcaption class="cs-descent__label">cost contours &middot; batch gradient descent &middot; lecture 2</figcaption>
+  </figure>
+</section>
+```
+
+:::
+
+::: {.callout-tip title="How to read these notes"}
+Each lecture is a standalone page written to be read straight through. The
+recording stays one click away: the chapter links its video under the title,
+and every section carries a timestamp that opens the lecture at the moment the
+idea is introduced, so you can watch the derivation being built when the prose
+is not enough. Sections, equations and figures are numbered and individually
+linkable.
+:::
+
+## Lectures {#lectures}
+
+The course runs to twenty lectures and one discussion section. Chapters are
+published as they are written, in course order; the [roadmap](#roadmap) groups
+them by theme.
+
+::: {.content-visible when-format="html"}
+
+::: {.cs-cards}
+
+:::: {.cs-card}
+[Lecture 1]{.cs-card__index}
+
+[Introduction]{.cs-card__title}
+
+[What machine learning is, the four areas the course covers, and the vocabulary every later lecture leans on.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 2]{.cs-card__index}
+
+[Linear Regression and Gradient Descent]{.cs-card__title}
+
+[Fitting a hypothesis by least squares: batch and stochastic gradient descent, and the normal equations that skip iteration altogether.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 3]{.cs-card__index}
+
+[Locally Weighted and Logistic Regression]{.cs-card__title}
+
+[Least squares as maximum likelihood, a regression that refits around every query, and the logistic model for classification with Newton's method.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 4]{.cs-card__index}
+
+[Perceptron and Generalized Linear Models]{.cs-card__title}
+
+[The perceptron, the exponential family, and the recipe that turns a choice of distribution into a learning algorithm, softmax regression included.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 5]{.cs-card__index}
+
+[GDA and Naive Bayes]{.cs-card__title}
+
+[Modelling how each class generates its inputs instead of the boundary between them: Gaussian discriminant analysis and naive Bayes.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 6]{.cs-card__index}
+
+[Support Vector Machines]{.cs-card__title}
+
+[Laplace smoothing and the event models for text, then the geometric margin and the optimisation problem that maximises it.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 7]{.cs-card__index}
+
+[Kernels]{.cs-card__title}
+
+[The dual of the margin problem, inner products in feature spaces you never compute, and the soft margin for data that will not separate.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 8]{.cs-card__index}
+
+[Data Splits, Models and Cross-Validation]{.cs-card__title}
+
+[Bias and variance, regularisation, and how to choose a model with data you did not train on.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Discussion section]{.cs-card__index}
+
+[Learning Theory]{.cs-card__title}
+
+[Why training error says anything about test error: the union bound, Hoeffding's inequality, uniform convergence and the VC dimension.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 9]{.cs-card__index}
+
+[Decision Trees and Ensemble Methods]{.cs-card__title}
+
+[Greedy recursive splits, the losses that choose them, and the bagging, random forests and boosting that make trees competitive.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 10]{.cs-card__index}
+
+[Introduction to Neural Networks]{.cs-card__title}
+
+[Logistic regression as a single neuron, and what stacking them into layers buys.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 11]{.cs-card__index}
+
+[Backprop and Improving Neural Networks]{.cs-card__title}
+
+[Backpropagation worked out by hand, then initialisation, normalisation and the optimisers that make training work in practice.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 12]{.cs-card__index}
+
+[Debugging ML Models and Error Analysis]{.cs-card__title}
+
+[Diagnosing a learning algorithm that does not work: bias versus variance, optimisation versus objective, and error and ablative analysis.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 13]{.cs-card__index}
+
+[Expectation-Maximization Algorithms]{.cs-card__title}
+
+[Clustering with k-means, mixtures of Gaussians, and the EM algorithm that fits a model with latent variables.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 14]{.cs-card__index}
+
+[EM Algorithm and Factor Analysis]{.cs-card__title}
+
+[EM as coordinate ascent on a lower bound built from Jensen's inequality, and factor analysis for few examples in many dimensions.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 15]{.cs-card__index}
+
+[PCA and ICA]{.cs-card__title}
+
+[Projecting data onto the directions of greatest variance, and separating mixed signals by their non-Gaussianity.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 16]{.cs-card__index}
+
+[Independent Component Analysis and RL]{.cs-card__title}
+
+[Finishing ICA by maximum likelihood, then Markov decision processes and the Bellman equations.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 17]{.cs-card__index}
+
+[MDPs and Value/Policy Iteration]{.cs-card__title}
+
+[Solving an MDP by value iteration and policy iteration, and learning its model from experience.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 18]{.cs-card__index}
+
+[Continuous State MDP and Model Simulation]{.cs-card__title}
+
+[Discretisation and its limits, simulators, and fitted value iteration for continuous states.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 19]{.cs-card__index}
+
+[Reward Model and Linear Dynamical System]{.cs-card__title}
+
+[Linear dynamics with quadratic rewards: the linear quadratic regulator, differential dynamic programming and LQG.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::: {.cs-card}
+[Lecture 20]{.cs-card__index}
+
+[RL Debugging and Diagnostics]{.cs-card__title}
+
+[Diagnosing a reinforcement learning system that does not work, from the simulator to the reward.]{.cs-card__blurb}
+
+[Planned]{.cs-card__status}
+::::
+
+:::
+
+:::
+
+::: {.content-visible when-format="pdf"}
+
+| # | Topic | Status |
+|:--|:------|:-------|
+| 1 | Introduction | Planned |
+| 2 | Linear Regression and Gradient Descent | Planned |
+| 3 | Locally Weighted and Logistic Regression | Planned |
+| 4 | Perceptron and Generalized Linear Models | Planned |
+| 5 | GDA and Naive Bayes | Planned |
+| 6 | Support Vector Machines | Planned |
+| 7 | Kernels | Planned |
+| 8 | Data Splits, Models and Cross-Validation | Planned |
+| — | Learning Theory | Planned |
+| 9 | Decision Trees and Ensemble Methods | Planned |
+| 10 | Introduction to Neural Networks | Planned |
+| 11 | Backprop and Improving Neural Networks | Planned |
+| 12 | Debugging ML Models and Error Analysis | Planned |
+| 13 | Expectation-Maximization Algorithms | Planned |
+| 14 | EM Algorithm and Factor Analysis | Planned |
+| 15 | PCA and ICA | Planned |
+| 16 | Independent Component Analysis and RL | Planned |
+| 17 | MDPs and Value/Policy Iteration | Planned |
+| 18 | Continuous State MDP and Model Simulation | Planned |
+| 19 | Reward Model and Linear Dynamical System | Planned |
+| 20 | RL Debugging and Diagnostics | Planned |
+
+: Lectures and their status.
+
+:::
+
+## What these notes are
+
+The [official CS229 notes](https://cs229.stanford.edu/) are the formal account
+of the course, and a good one. What they cannot carry is the lecture itself:
+the order in which Andrew Ng motivates an idea before he formalises it, the
+picture he draws to make an update rule obvious, the question from the room
+that exposes the step everyone was about to skip.
+
+These notes are written from the Autumn 2018 recordings rather than from the
+official notes, and they are meant to sit beside both. Each page aims to be:
+
+- **Faithful to the lecture** — it follows what was taught and why, and links
+  each section to the moment in the video where it happens.
+- **Complete in its mathematics** — the derivations done at the board are
+  written out in full, with every symbol defined.
+- **A bridge, not a copy** — where the official notes go further, the chapter
+  says which section to read next rather than reproducing it.
+
+## Roadmap {#roadmap}
+
+::: {.cs-roadmap}
+1. **Supervised learning** — linear and logistic regression, generalized linear models, generative learning, support vector machines and kernels
+2. **Generalization** — bias and variance, model selection, learning theory
+3. **Trees and neural networks** — decision trees and ensembles, neural networks and backpropagation
+4. **Applying machine learning** — debugging learning algorithms and error analysis
+5. **Unsupervised learning** — k-means, EM, factor analysis, PCA and ICA
+6. **Reinforcement learning** — MDPs, value and policy iteration, continuous states, LQR
+:::
+
+## Contributing
+
+Found an error? Corrections are genuinely welcome — there is an **Edit this page**
+link at the bottom of every lecture, which opens a pull request in your browser.
+For anything larger, open an [issue](https://github.com/raimbekovm/cs229-2018-notes/issues).
+
+## Disclaimer
+
+This is an **unofficial** resource, not affiliated with Stanford University.
+For official course materials see [cs229.stanford.edu](https://cs229.stanford.edu/)
+and the [2018 lecture videos](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU).
+
+The notes are released under the
+[MIT licence](https://github.com/raimbekovm/cs229-2018-notes/blob/main/LICENSE),
+which covers the writing and the diagrams made for this project. Any figure
+reproduced from elsewhere remains the property of its original authors and is
+credited in its caption — see
+[NOTICE](https://github.com/raimbekovm/cs229-2018-notes/blob/main/NOTICE.md).

@@ -1,0 +1,1794 @@
+/*-- scss:defaults --*/
+
+// Shared across light and dark. Every colour lives in theme.scss /
+// theme-dark.scss; this file only defines what does not change between them —
+// type, scale, geometry — plus the structural rules at the bottom.
+//
+// The palette both mode files draw from is viridis, the perceptual colormap
+// machine learning plots its cost surfaces, decision regions and confusion
+// matrices in. Deliberately not Stanford Cardinal — these notes are unofficial
+// and a cardinal site would imply an affiliation that does not exist.
+
+// Both Bootswatch bases pull a webfont from Google of their own — cosmo asks
+// for Source Sans Pro, darkly for Lato — through an @import at the top of their
+// SCSS. Neither is used by anything here (the families below win), but the
+// request goes out on every page load, which defeats self-hosting the type in
+// fonts/. Setting the variable to false takes the theme's `@if` branch.
+$web-font-path: false;
+
+$font-family-sans-serif:
+  "Space Grotesk",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  sans-serif !default;
+$font-family-serif: "Source Serif 4", Georgia, Cambria, "Times New Roman", serif !default;
+$font-family-monospace: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace !default;
+
+$cs-font-display: $font-family-sans-serif !default;
+$cs-font-body: $font-family-serif !default;
+$cs-font-mono: $font-family-monospace !default;
+
+$font-size-root: 17px !default;
+$line-height-base: 1.7 !default;
+
+// Display faces need a tighter, more decisive scale than the body text.
+$h1-font-size: 2.45rem !default;
+$h2-font-size: 1.72rem !default;
+$h3-font-size: 1.28rem !default;
+$h4-font-size: 1.06rem !default;
+$headings-font-weight: 600 !default;
+
+$border-radius: 8px !default;
+$code-font-size: 0.86em !default;
+
+// Geometry the two Bootswatch bases disagree on, and that this file is supposed
+// to own. Left to them, darkly pads the navbar 1rem and cosmo 0.5rem, and cosmo
+// strips the breadcrumb of padding and radius altogether — so switching schemes
+// moved every element on the page up by 30px and dropped the breadcrumb pill.
+// The values here are darkly's, because dark is the default scheme and is what
+// the design was drawn against.
+$navbar-padding-y: 1rem !default;
+$breadcrumb-padding-y: 0.375rem !default;
+$breadcrumb-padding-x: 0.75rem !default;
+$breadcrumb-border-radius: 0.25rem !default;
+
+// Fallbacks so this file always compiles even if a mode file forgets a token.
+$cs-paper: #ffffff !default;
+$cs-surface: #f6f7f9 !default;
+$cs-ink: #16191f !default;
+$cs-ink-muted: #565f6b !default;
+$cs-ink-faint: #8b939e !default;
+$cs-rule: #e2e6ea !default;
+$cs-rule-strong: #cbd2d9 !default;
+$cs-control-border: #8b939e !default;
+$cs-accent: #196f7d !default;
+$cs-accent-hover: #12525c !default;
+$cs-accent-wash: rgba(33, 120, 142, 0.09) !default;
+$cs-plum: #3f0f52 !default;
+$cs-indigo: #414487 !default;
+$cs-teal: #21788e !default;
+$cs-jade: #22a884 !default;
+$cs-lime: #7ad151 !default;
+$cs-citron: #c9a227 !default;
+$cs-hero-bg: #12141c !default;
+$cs-hero-ink: #f3f5f8 !default;
+$cs-hero-ink-muted: #a7b0bd !default;
+// Text-safe counterparts, darkened (light mode) or lightened (dark mode) until
+// they clear WCAG AA against that mode's paper. Verified, not eyeballed.
+$cs-tx-teal: #16707f !default;
+$cs-tx-indigo: #3a3f7e !default;
+$cs-tx-jade: #0d7a5c !default;
+$cs-tx-plum: #4c1160 !default;
+$cs-tx-citron: #7d6410 !default;
+$cs-figure-filter: none !default;
+// Several figures are line art on a transparent background — the own-work TikZ
+// SVGs among them. Without a plate they are black strokes on a dark page.
+$cs-figure-plate: #ffffff !default;
+// The hero's own ramp. The defaults below are the dark-panel values, so a mode
+// file that overrides nothing gets the panel as it has always looked; theme.scss
+// overrides the set to light it with the mode.
+$cs-hero-accent: #22a884 !default;
+$cs-hero-accent-2: #7ad151 !default;
+$cs-hero-accent-3: #fde725 !default;
+// Panel chrome. Hardcoded as rgba(255, 255, 255, …) until the hero had to work
+// on a light ground too, at which point every one of them inverted.
+$cs-hero-border: rgba(255, 255, 255, 0.08) !default;
+$cs-hero-ghost-border: rgba(255, 255, 255, 0.22) !default;
+$cs-hero-label: rgba(255, 255, 255, 0.55) !default;
+$cs-btn-primary-ink: #06231b !default;
+$cs-btn-primary-ink-hover: #10230a !default;
+// The conv figure keeps its own dark plate in both modes, for the same reason
+// $cs-figure-plate stays light in both: the viridis map and the white kernel
+// are drawn for one ground and do not survive the other.
+$cs-hero-field-bg: rgba(255, 255, 255, 0.03) !default;
+$cs-hero-field-border: rgba(255, 255, 255, 0.09) !default;
+// The field is dark in both schemes, so what is drawn on it has its own ink.
+$cs-hero-field-ink: #f2f5f8 !default;
+// Declared down here rather than with the other breadcrumb variables because it
+// reads $cs-surface, which the fallbacks above have to have set first. Left to
+// the bases this was darkly's #32353c against cosmo's transparent — the pill
+// existed in one scheme and not the other. It is the same surface the sidebar
+// sits on, so it should come from the same token.
+$breadcrumb-bg: $cs-surface !default;
+
+$cs-shadow:
+  0 1px 2px rgba(16, 20, 28, 0.04),
+  0 8px 24px -12px rgba(16, 20, 28, 0.16) !default;
+
+/*-- scss:rules --*/
+
+// ---------------------------------------------------------------------------
+// Reading surface
+// ---------------------------------------------------------------------------
+
+body {
+  font-family: $cs-font-body;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+// A serif at 17px over ~66 characters is the measure these notes are written
+// for; the stock container is roughly half again as wide.
+main.content {
+  max-width: 43rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-title,
+.sidebar-title {
+  font-family: $cs-font-display;
+  letter-spacing: -0.018em;
+}
+
+h2 {
+  margin-top: 3.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid $cs-rule;
+}
+
+h3 {
+  margin-top: 2.4rem;
+  margin-bottom: 0.75rem;
+}
+
+h4 {
+  margin-top: 1.9rem;
+  font-family: $cs-font-mono;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $cs-ink-muted;
+}
+
+// Section numbers are addresses into the book, not decoration — every one of
+// them is a shareable link target. Setting them in tabular mono says so.
+.header-section-number {
+  font-family: $cs-font-mono;
+  font-size: 0.78em;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  color: $cs-tx-teal;
+  padding-right: 0.55rem;
+  vertical-align: 0.08em;
+}
+
+p {
+  margin-bottom: 1.15rem;
+}
+
+main.content {
+  li {
+    margin-bottom: 0.3rem;
+  }
+
+  li > p {
+    margin-bottom: 0.55rem;
+  }
+
+  li > p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: rgba($cs-accent, 0.35);
+}
+
+a:hover {
+  text-decoration-color: $cs-accent-hover;
+}
+
+// ---------------------------------------------------------------------------
+// Title block
+// ---------------------------------------------------------------------------
+
+#title-block-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid $cs-rule;
+
+  .quarto-title h1.title {
+    margin-bottom: 0.35rem;
+    line-height: 1.12;
+  }
+
+  .subtitle {
+    font-family: $cs-font-mono;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $cs-tx-teal;
+  }
+
+  .description {
+    font-size: 1.02rem;
+    color: $cs-ink-muted;
+    max-width: 34rem;
+  }
+
+  .quarto-title-meta {
+    font-family: $cs-font-mono;
+    // Quarto scales the two halves of this block off the value here — 0.8em on
+    // `.quarto-title-meta-heading`, 0.9em on the contents — from a selector
+    // carrying an id, so the heading is always the smallest type on the page.
+    // At 0.76rem it landed on 10.3px, small enough to lose the uppercase
+    // letterforms it is set in. Raised until the heading clears 11px rather
+    // than pinned at a higher specificity, which would only fight the cascade.
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    padding-top: 1rem;
+    margin-top: 1.1rem;
+
+    .quarto-title-meta-heading {
+      color: $cs-ink-faint;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// Quarto emits the meta grid even with no author or date, which on every
+// lecture page left 2rem of air above the first paragraph. Its own selector is
+// #title-block-header.quarto-title-block.default .quarto-title-meta, so this
+// has to carry the same specificity to win.
+#title-block-header.quarto-title-block .quarto-title-meta:not(:has(.quarto-title-meta-heading)) {
+  display: none;
+}
+
+.quarto-page-breadcrumbs .breadcrumb {
+  font-family: $cs-font-mono;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  // The pill's box belongs to this file, not to the base theme: cosmo rounds it
+  // to 0 and darkly to 0.25rem, which is the last thing that still moved when
+  // the scheme changed.
+  border-radius: $breadcrumb-border-radius;
+}
+
+// ---------------------------------------------------------------------------
+// Navbar
+// ---------------------------------------------------------------------------
+
+// The header is fixed, so the article has to be pushed down by exactly its
+// height. Quarto hard-codes `padding-top: 82px` for that and then corrects it
+// from JavaScript after load, by measuring the header it has just laid out.
+// 82px is right for Quarto's own navbar; this one carries a second row below
+// the collapse breakpoint, so the correction drops the whole article 38px once
+// the reader is already looking at it. Measured at 0.04 of the page's layout
+// shift — the single largest contributor on a phone.
+//
+// These are the heights the header actually takes, measured on the rendered
+// site at every width from 320 to 3440 and identical on the landing page and
+// on a lecture. Pinning them makes the correction a no-op. The JavaScript
+// still runs, so if the header ever changes height the cost is the jump coming
+// back, not a broken page.
+body.nav-fixed {
+  padding-top: 120px;
+
+  @media (min-width: 768px) {
+    padding-top: 126px;
+  }
+
+  @media (min-width: 992px) {
+    padding-top: 81px;
+  }
+}
+
+.navbar {
+  background: $cs-paper;
+  border-bottom: 1px solid $cs-rule;
+  min-height: 3.6rem;
+
+  .navbar-title {
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+  }
+
+  // Bootstrap leaves nav links on the body font, which here is the serif; next
+  // to the title and the two pills that reads as a stray piece of prose.
+  .nav-link,
+  .navbar-nav .nav-link {
+    font-family: $cs-font-display;
+    font-size: 0.86rem;
+    font-weight: 500;
+  }
+
+  // A hairline of the full ramp under the navbar: the site's one persistent
+  // reminder of where the palette comes from.
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: linear-gradient(to right, $cs-plum, $cs-indigo, $cs-teal, $cs-jade, $cs-lime, $cs-citron);
+  }
+}
+
+.sidebar-title,
+.sidebar-header .navbar-brand {
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.quarto-navigation-tool {
+  color: $cs-ink-muted;
+
+  &:hover {
+    color: $cs-accent;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Colour-scheme switch
+// ---------------------------------------------------------------------------
+//
+// Quarto ships this as a bare 26px icon in the navbar corner. It reads as
+// decoration: nothing about it says "theme", and nothing says which theme is
+// on. Give it a border, an icon and a word, so it looks like a control and
+// states the mode it is currently in.
+//
+// With the dark theme listed first in _quarto.yml, `.alternate` on the toggle
+// means dark is the live scheme and its absence means light. Confirmed by
+// clicking it and reading back body.className, not assumed from the name.
+.quarto-color-scheme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  // Bootstrap's px-1 utility is !important, so the horizontal padding has to
+  // match it to win; Quarto puts that class on the element itself.
+  padding: 0.28rem 0.66rem !important;
+  min-height: 2rem;
+  border: 1px solid $cs-control-border;
+  border-radius: 999px;
+  font-family: $cs-font-display;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1;
+  color: $cs-ink-muted;
+  background: $cs-surface;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+
+  .bi {
+    font-size: 0.9rem;
+    line-height: 1;
+
+    // sun-fill
+    &::before {
+      content: "\f5a1";
+    }
+  }
+
+  &::after {
+    content: "Light";
+  }
+
+  &.alternate {
+    // moon-stars-fill
+    .bi::before {
+      content: "\f495";
+    }
+
+    &::after {
+      content: "Dark";
+    }
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $cs-ink;
+    border-color: $cs-accent;
+    background: $cs-accent-wash;
+  }
+}
+
+// Quarto colours every tool in the bar through
+// `.navbar .quarto-navbar-tools .quarto-navigation-tool`, three classes deep,
+// which outranks a bare class selector. Restate the pill's colours at the same
+// weight rather than leaving them to whatever that derivation produces.
+.navbar .quarto-navbar-tools .quarto-color-scheme-toggle {
+  color: $cs-ink-muted;
+
+  &:hover,
+  &:focus-visible {
+    color: $cs-ink;
+  }
+}
+
+// Below the navbar breakpoint Quarto moves the tools into the sidebar header,
+// where the row is tight; drop the word and keep the pill.
+@media (max-width: 991.98px) {
+  .quarto-color-scheme-toggle {
+    padding: 0.28rem 0.44rem !important;
+
+    &::after,
+    &.alternate::after {
+      content: "";
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar navigation
+// ---------------------------------------------------------------------------
+
+#quarto-sidebar {
+  background: $cs-surface;
+  border-right: 1px solid $cs-rule;
+
+  .sidebar-item {
+    font-family: $cs-font-display;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .sidebar-item-container .sidebar-item-text {
+    padding-top: 0.34rem;
+    padding-bottom: 0.34rem;
+  }
+
+  // Part headings ("Fundamentals") organise the book; make them read as
+  // labels rather than as another link.
+  .sidebar-item.sidebar-item-section > .sidebar-item-container > .sidebar-item-text {
+    font-family: $cs-font-mono;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: $cs-ink-faint;
+  }
+
+  .chapter-number {
+    font-family: $cs-font-mono;
+    font-size: 0.78em;
+    font-variant-numeric: tabular-nums;
+    color: $cs-ink-faint;
+    margin-right: 0.15rem;
+  }
+
+  a.sidebar-item-text {
+    color: $cs-ink-muted;
+    border-left: 2px solid transparent;
+    padding-left: 0.55rem;
+    margin-left: -0.55rem;
+    border-radius: 0 4px 4px 0;
+
+    &:hover {
+      color: $cs-ink;
+      background: $cs-accent-wash;
+    }
+
+    &.active {
+      color: $cs-accent;
+      font-weight: 600;
+      border-left-color: $cs-accent;
+      background: $cs-accent-wash;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Search
+// ---------------------------------------------------------------------------
+//
+// `type: textbox` in _quarto.yml swaps the overlay's lone magnifier for a real
+// field. That alone is not enough: Quarto's default placeholder is the empty
+// string, so the input still arrives with nothing in it and no border worth the
+// name. _quarto.yml sets the placeholder under `language`; the rest is here.
+#quarto-search {
+  // It sits in the navbar tools row, so it has to sit on the same axis as the
+  // PDF link and the scheme pill rather than stretch the row.
+  display: flex;
+  align-items: center;
+  width: 15rem;
+  max-width: 100%;
+  margin-left: 0.85rem;
+
+  .aa-Autocomplete {
+    width: 100%;
+  }
+}
+
+// The navbar field and the field inside the full-screen search are the same
+// control on different surfaces, so they are styled together. Without this the
+// detached one keeps Bootstrap's .form-control colours and arrives as a light
+// island in the middle of a dark overlay.
+#quarto-search,
+.aa-DetachedFormContainer {
+  .aa-Form {
+    // Matches the scheme pill's min-height so the two controls sit on one line.
+    height: 2rem;
+    width: 100%;
+    border: 1px solid $cs-control-border;
+    border-radius: 7px;
+    background: $cs-paper;
+    // Set here rather than on .aa-Input: the library's own rule for the input
+    // is `.aa-Form .aa-InputWrapper .aa-Input` and outweighs anything shorter,
+    // but it resolves to `inherit`, so colouring the form carries through.
+    color: $cs-ink;
+    box-shadow: none;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+
+    &:focus-within {
+      border-color: $cs-accent;
+      box-shadow: 0 0 0 3px $cs-accent-wash;
+    }
+  }
+
+  // Everything below goes through .aa-Form on purpose. The autocomplete library
+  // reaches its own controls as `.aa-Form .aa-InputWrapper .aa-Input`, and a
+  // shorter selector loses to it — which is how the detached field ended up
+  // with rgb(29,32,39) text on an rgb(18,21,28) ground, a contrast of 1.2.
+  .aa-Form {
+    .aa-InputWrapperPrefix,
+    .aa-InputWrapper,
+    .aa-InputWrapperSuffix {
+      height: 100%;
+    }
+
+    // The magnifier is the only thing naming what the field does, so it gets
+    // the muted ink rather than the faint one — at $cs-ink-faint on the dark
+    // paper it measures 4.47:1 and all but disappears.
+    .aa-SubmitButton,
+    .aa-ClearButton {
+      color: $cs-ink-muted;
+      background: transparent;
+      padding-left: 0.5rem;
+      padding-right: 0.25rem;
+    }
+
+    // The library colours the glyph itself and then halves its opacity, via
+    // `.aa-Form .aa-InputWrapperPrefix .aa-Label svg`. Anything shorter loses,
+    // so this override walks the same path.
+    .aa-InputWrapperPrefix .aa-Label svg,
+    .aa-InputWrapperSuffix .aa-ClearButton svg,
+    .aa-SubmitIcon,
+    .aa-ClearIcon {
+      width: 15px;
+      height: 15px;
+      color: $cs-ink-muted;
+      opacity: 1;
+    }
+
+    // Same story, one level deeper: the library declares an explicit colour at
+    // `.aa-Form .aa-InputWrapper .aa-Input` and it is not `inherit`, so the
+    // form's colour never reaches the text. In the navbar the #quarto-search id
+    // was enough to outrank it; the detached field has no id, so this has to
+    // walk the identical path.
+    .aa-InputWrapper .aa-Input {
+      font-family: $cs-font-display;
+      font-size: 0.85rem;
+      color: $cs-ink;
+
+      // The placeholder is the field's only label, so it has to clear AA rather
+      // than sit at the decorative grey the library dims it to.
+      &::placeholder {
+        color: $cs-ink-muted;
+        opacity: 1;
+      }
+    }
+
+    .aa-InputWrapperSuffix .aa-ClearButton {
+      color: $cs-ink-muted;
+      opacity: 1;
+
+      &:hover,
+      &:focus {
+        color: $cs-accent;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Below the navbar breakpoint Quarto replaces the field with a button that
+// opens a full-screen search. Give it the same pill as the scheme switch so the
+// two controls in the corner read as a matched pair rather than loose icons.
+.aa-DetachedSearchButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  min-width: 2.35rem;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid $cs-control-border;
+  border-radius: 999px;
+  background: $cs-surface;
+  color: $cs-ink-muted;
+
+  .aa-DetachedSearchButtonIcon {
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $cs-ink;
+    border-color: $cs-accent;
+    background: $cs-accent-wash;
+  }
+}
+
+.aa-DetachedFormContainer {
+  border-bottom: 1px solid $cs-rule;
+
+  .aa-DetachedCancelButton {
+    font-family: $cs-font-display;
+    font-size: 0.82rem;
+    color: $cs-ink-muted;
+    background: transparent;
+    border: none;
+
+    &:hover,
+    &:focus-visible {
+      color: $cs-accent;
+      box-shadow: none;
+    }
+  }
+}
+
+// The results popover. Quarto renders it detached from #quarto-search, so this
+// cannot be nested above.
+.aa-Panel {
+  font-family: $cs-font-display;
+  background: $cs-paper;
+  border: 1px solid $cs-rule-strong;
+  border-radius: 8px;
+  box-shadow: $cs-shadow;
+
+  .aa-SourceHeaderTitle,
+  .search-result-section {
+    font-family: $cs-font-mono;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $cs-ink-faint;
+  }
+
+  .search-result-title {
+    color: $cs-ink;
+  }
+
+  .search-result-text {
+    color: $cs-ink-muted;
+  }
+
+  mark,
+  .search-match {
+    background: $cs-accent-wash;
+    color: $cs-accent;
+    padding: 0 0.1em;
+    border-radius: 2px;
+  }
+}
+
+// Quarto's own match highlight is derived from the Bootswatch base and lands on
+// solid black in dark mode, i.e. invisible on the panel. Its selectors run to
+// `.aa-DetachedOverlay li.aa-Item[aria-selected=true] .search-item mark`, so an
+// override has to carry the same weight — hence the repetition here rather than
+// a tidy one-liner.
+.aa-DetachedOverlay li.aa-Item[aria-selected="false"] .search-item mark.search-match,
+#quarto-search-results li.aa-Item[aria-selected="false"] .search-item mark.search-match {
+  background-color: $cs-accent-wash;
+  color: $cs-accent;
+}
+
+// On the selected row the fill is $primary, so the highlight has to sit on the
+// teal. It darkens rather than lightens: a white wash at any alpha strong
+// enough to be seen drops white-on-it to 3.69:1, while deepening the teal puts
+// it at 9.60:1 and reads as a firmer mark besides.
+.aa-DetachedOverlay li.aa-Item[aria-selected="true"] .search-item mark.search-match,
+#quarto-search-results li.aa-Item[aria-selected="true"] .search-item mark.search-match {
+  background-color: rgba(0, 0, 0, 0.32);
+  color: #fff;
+}
+
+// ---------------------------------------------------------------------------
+// Table of contents
+// ---------------------------------------------------------------------------
+
+#quarto-margin-sidebar {
+  #toc-title {
+    font-family: $cs-font-mono;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: $cs-ink-faint;
+    border-bottom: 1px solid $cs-rule;
+    padding-bottom: 0.55rem;
+    margin-bottom: 0.6rem;
+  }
+
+  nav#TOC {
+    font-family: $cs-font-display;
+    font-size: 0.82rem;
+    line-height: 1.35;
+
+    .nav-link {
+      color: $cs-ink-muted;
+      border-left: 2px solid $cs-rule;
+      padding: 0.22rem 0 0.22rem 0.7rem;
+
+      &:hover {
+        color: $cs-ink;
+        border-left-color: $cs-rule-strong;
+      }
+
+      &.active {
+        color: $cs-accent;
+        font-weight: 600;
+        border-left-color: $cs-accent;
+      }
+    }
+  }
+
+  .toc-actions {
+    font-family: $cs-font-mono;
+    font-size: 0.74rem;
+    border-top: 1px solid $cs-rule;
+    padding-top: 0.8rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Figures
+// ---------------------------------------------------------------------------
+
+figure {
+  margin: 2.4rem auto;
+
+  img {
+    border-radius: 6px;
+    border: 1px solid $cs-rule;
+    background: $cs-figure-plate;
+    padding: 0.5rem;
+    filter: $cs-figure-filter;
+  }
+
+  figcaption {
+    font-family: $cs-font-body;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: $cs-ink-muted;
+    margin-top: 0.7rem;
+    padding-left: 0.8rem;
+    border-left: 2px solid $cs-teal;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Callouts — mapped onto the ramp so the type of a box is legible at a glance
+// ---------------------------------------------------------------------------
+
+div.callout {
+  margin: 2rem 0;
+  border: 1px solid $cs-rule;
+  border-left-width: 3px;
+  border-radius: 6px;
+  background: $cs-surface;
+
+  // The `border-left-width` above never reached a reader. Quarto ships
+  // `.callout.callout-style-default { border-width: 1px 1px 1px 5px }`, and its
+  // 0-2-0 outranks the 0-1-1 of a bare `div.callout` — so the hairline stripe
+  // this theme asks for was drawn as a 5px slab on every callout on the site.
+  // Matching that specificity is what puts the declaration above into effect;
+  // the plain one stays because it is what any non-default callout style reads.
+  &.callout-style-default {
+    border-left-width: 3px;
+  }
+
+  // `.callout-title` is not a class Quarto emits. The header it builds is an
+  // icon container next to `.callout-title-container`, so every rule this theme
+  // aimed at `.callout-title` — the display face here, and the per-type colours
+  // at the bottom of this section — matched nothing and the titles shipped in
+  // the body face at the body colour. Both are listed: the container is what
+  // 1.10 writes, and the bare class costs nothing if a later Quarto brings it
+  // back.
+  .callout-title,
+  .callout-title-container {
+    font-family: $cs-font-display;
+    font-weight: 600;
+    font-size: 0.98rem;
+    letter-spacing: -0.005em;
+  }
+
+  .callout-header {
+    background: transparent !important;
+    padding-top: 0.75rem;
+    padding-bottom: 0.35rem;
+  }
+
+  // Lost the same way, and more visibly: `.callout.callout-titled >
+  // .callout-header` is 0-3-0 against the 0-2-1 above, so the header kept
+  // Quarto's `padding-top: 0.2em` and its `margin-bottom: -0.2em`. The title sat
+  // 4px below the border with 5.6px under it — an asymmetric, cramped box on
+  // every titled callout. `padding-bottom` was the only half that ever applied.
+  &.callout-titled > .callout-header {
+    padding-top: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  .callout-body-container {
+    font-size: 0.97rem;
+  }
+
+  > .callout-body-container > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Stripe and title take the same token per type, from the text-safe ramp.
+//
+// Two things are load-bearing about that. The selector is
+// `div.callout.callout-style-default` rather than a bare `div.callout-tip`
+// because Quarto states its own stripe colour at `div.callout-note.callout` —
+// 0-2-1 against the 0-1-1 a bare type class gives — so none of these colours
+// ever reached a callout and the Bootswatch base painted them instead. cosmo
+// and darkly disagree, which put note at #2780e3 in light and #375a7f in dark,
+// and tip at #3fb618 and #00bc8c: not in this palette, and a stripe that
+// changes hue with the scheme is the same base leak the breadcrumb boxes had.
+//
+// And the colour is the text-safe `$cs-tx-*`, not the decorative ramp these
+// rules used to name, for the reason theme-dark.scss gives for having that ramp
+// at all: viridis's dark end does not survive a dark ground. Against the
+// callout's own surface the decorative values come to 1.09 (plum) and 1.91
+// (indigo) in dark and 1.53 (citron) in light — the stripe is the one mark that
+// says which kind of box this is, and at those numbers it says nothing. The
+// text-safe ramp holds every type at 4.9 or better in both schemes, and pairs
+// each stripe with the title above it.
+div.callout.callout-style-default {
+  // "Key Takeaways" closes every major section; jade makes it the resting point.
+  &.callout-tip {
+    border-left-color: $cs-tx-jade;
+
+    .callout-title,
+    .callout-title-container {
+      color: $cs-tx-jade;
+    }
+  }
+
+  // "Deep Dive" boxes go past the lecture; indigo reads as an aside.
+  &.callout-note {
+    border-left-color: $cs-tx-indigo;
+
+    .callout-title,
+    .callout-title-container {
+      color: $cs-tx-indigo;
+    }
+  }
+
+  &.callout-important {
+    border-left-color: $cs-tx-plum;
+
+    .callout-title,
+    .callout-title-container {
+      color: $cs-tx-plum;
+    }
+  }
+
+  &.callout-warning,
+  &.callout-caution {
+    border-left-color: $cs-tx-citron;
+
+    .callout-title,
+    .callout-title-container {
+      color: $cs-tx-citron;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Prose furniture
+// ---------------------------------------------------------------------------
+
+blockquote {
+  border-left: 2px solid $cs-rule-strong;
+  color: $cs-ink-muted;
+  font-size: 1rem;
+  padding-left: 1.1rem;
+  margin: 1.8rem 0;
+}
+
+code:not(.sourceCode) {
+  font-family: $cs-font-mono;
+  background: $cs-accent-wash;
+  color: $cs-accent-hover;
+  padding: 0.1em 0.34em;
+  border-radius: 4px;
+}
+
+// Code blocks. The book had none until lecture 4, so everything below is
+// exercising Quarto's defaults for the first time rather than adjusting them.
+div.sourceCode {
+  border: 1px solid $cs-rule;
+  border-radius: 6px;
+  background: $cs-surface;
+  position: relative;
+  margin: 1.7rem 0;
+
+  pre.sourceCode {
+    // Right padding leaves the copy button its corner without letting it sit
+    // on top of a long line.
+    padding: 1rem 3.1rem 1rem 1.15rem;
+    margin: 0;
+    overflow-x: auto;
+    background: none;
+    border: 0;
+  }
+
+  code {
+    font-family: $cs-font-mono;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    background: none;
+    padding: 0;
+  }
+}
+
+// Quarto emits Pandoc's token classes and colours them from its own highlight
+// theme, which is tuned for neither of these palettes. These rules outrank it
+// on specificity and spend the same contrast-checked tokens the prose uses.
+pre.sourceCode code {
+  span.co {
+    color: $cs-ink-faint;
+    font-style: italic;
+  } // comments
+  span.kw,
+  span.cf,
+  span.im {
+    color: $cs-tx-plum;
+  } // keywords
+  span.st,
+  span.ch,
+  span.vs {
+    color: $cs-tx-jade;
+  } // strings
+  span.dv,
+  span.fl,
+  span.bn,
+  span.dt {
+    color: $cs-tx-citron;
+  } // literals
+  span.fu,
+  span.bu {
+    color: $cs-tx-teal;
+  } // calls
+  span.op {
+    color: $cs-ink-muted;
+  }
+  span.va,
+  span.at {
+    color: inherit;
+  }
+}
+
+// The copy button is Quarto's; it is invisible until hover by default, which
+// reads as an empty corner. Kept faintly present, solid on hover and focus.
+.code-copy-button {
+  top: 0.42rem;
+  right: 0.42rem;
+  // Quarto ships margin-right: 1.25em on this button, which would drag it a
+  // full character-width out of the corner that `right` just put it in.
+  margin: 0;
+  color: $cs-ink-faint;
+  opacity: 0.65;
+  border-radius: 5px;
+  transition:
+    opacity 0.12s ease,
+    color 0.12s ease,
+    background-color 0.12s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    color: $cs-accent-hover;
+    background-color: $cs-accent-wash;
+  }
+
+  &.code-copy-button-checked {
+    opacity: 1;
+    color: $cs-accent;
+  }
+}
+
+.katex-display {
+  margin: 1.6rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+}
+
+// KaTeX pins an equation's number absolutely at the right edge of the display
+// line, which holds only while the line is comfortably wider than the formula.
+// It draws the number on top of the maths otherwise, and that is not a phone
+// problem: measured across the book it happens to five equations at 992px and
+// six at 768px, and to a cross-reference hover preview at any width, since the
+// popup shrink-wraps to the formula and leaves the number nowhere to go.
+// Setting the number in flow ends the whole class of bug — it is laid out after
+// the formula and scrolls with it, so no column can be too narrow for it. The
+// cost is that the number no longer hangs at the right margin.
+//
+// KaTeX pins it from `.katex-display > .katex > .katex-html > .katex-tag`, and
+// its stylesheet is loaded after this theme's, so an equally specific selector
+// would lose on order alone. The `.math.display` wrapper pandoc puts around every
+// display equation carries the extra weight. `.tag` is the class name KaTeX used
+// before 0.17; it costs nothing to keep a version bump from silently undoing this.
+.math.display .katex-display > .katex > .katex-html > .katex-tag,
+.math.display .katex-display > .katex > .katex-html > .tag {
+  position: static;
+  display: inline-block;
+  margin-left: 2.5rem;
+}
+
+// Page margins around a display equation are far too much inside a popup.
+.tippy-box .katex-display {
+  margin: 0.4rem 0;
+}
+
+// Wide tables must scroll themselves, never the page. Quarto nests tables
+// inside the section it emits per heading, so this cannot be a child selector.
+.table-responsive,
+main.content table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+table {
+  font-family: $cs-font-display;
+  font-size: 0.92rem;
+
+  thead th {
+    font-family: $cs-font-mono;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: $cs-ink-muted;
+    border-bottom: 1px solid $cs-rule-strong !important;
+  }
+
+  caption {
+    font-family: $cs-font-body;
+    font-size: 0.85rem;
+    color: $cs-ink-faint;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Page navigation and footer
+// ---------------------------------------------------------------------------
+
+.page-navigation {
+  border-top: 1px solid $cs-rule;
+  padding-top: 1.4rem;
+  margin-top: 3.5rem;
+
+  .nav-page a {
+    font-family: $cs-font-display;
+    color: $cs-ink-muted;
+
+    &:hover {
+      color: $cs-accent;
+    }
+  }
+}
+
+.nav-footer {
+  font-family: $cs-font-mono;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  border-top: 1px solid $cs-rule;
+  color: $cs-ink-faint;
+}
+
+// ---------------------------------------------------------------------------
+// The lecture recording: the line under each chapter title, and the timestamp
+// pills filters/timecodes.lua makes out of `[12:34]{.t}`
+// ---------------------------------------------------------------------------
+
+.cs-watch p {
+  font-family: $cs-font-display;
+  font-size: 0.88rem;
+  color: $cs-ink-muted;
+  margin: 0 0 2rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid $cs-rule;
+}
+
+// A timestamp is a jump into the video, not a citation, so it is set apart
+// from running links: monospaced, on a wash, with a play mark. It never
+// wraps, because a timestamp broken across two lines stops reading as one.
+a.cs-t {
+  font-family: $cs-font-mono;
+  font-size: 0.78em;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  color: $cs-accent;
+  background: $cs-accent-wash;
+  border-radius: 4px;
+  padding: 0.08em 0.45em 0.1em;
+
+  &::before {
+    content: "\25B6\FE0E";
+    font-size: 0.72em;
+    margin-right: 0.35em;
+    vertical-align: 0.08em;
+  }
+
+  &:hover {
+    color: $cs-accent-hover;
+    text-decoration: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Landing page: hero
+// ---------------------------------------------------------------------------
+
+// The reading measure is wrong for the landing page, and its default title
+// block would repeat what the hero already says.
+main.content:has(.cs-hero) {
+  max-width: min(72rem, 100%);
+
+  > #title-block-header {
+    display: none;
+  }
+
+  // index.qmd's title is a level-1 heading rather than a `title:` key, so
+  // that it can carry {.unnumbered} and lecture 1 stays chapter 1. Pandoc
+  // wraps the whole page in that heading's section; the heading itself is
+  // hidden because the hero carries the visible title.
+  > section.level1 > h1.unnumbered:first-child {
+    display: none;
+  }
+
+  // The extra width is for the hero and the card grid only. Prose keeps the
+  // same measure as the lecture pages, or the callout would run 70 characters
+  // past comfortable. `:where` keeps the level-1 wrapper out of the
+  // specificity, so the `max-width: none` below still outranks this.
+  > :where(section.level1) > *:not(section),
+  > :where(section.level1) > section > * {
+    max-width: 44rem;
+  }
+
+  .cs-hero,
+  .cs-cards {
+    max-width: none;
+  }
+}
+
+.cs-hero {
+  position: relative;
+  overflow: hidden;
+  background: $cs-hero-bg;
+  color: $cs-hero-ink;
+  border: 1px solid $cs-hero-border;
+  border-radius: 14px;
+  padding: 3.4rem 2.6rem 3.1rem;
+  margin: 0 0 3.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 2.8rem;
+  align-items: center;
+  isolation: isolate;
+}
+
+.cs-hero__eyebrow {
+  font-family: $cs-font-mono;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: $cs-hero-accent;
+  margin-bottom: 1.1rem;
+}
+
+.cs-hero__title {
+  font-family: $cs-font-display;
+  font-size: clamp(1.9rem, 4.4vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.1rem;
+  color: $cs-hero-ink;
+}
+
+.cs-hero__title em {
+  font-style: normal;
+  background: linear-gradient(to right, $cs-hero-accent, $cs-hero-accent-2, $cs-hero-accent-3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cs-hero__lede {
+  font-family: $cs-font-body;
+  font-size: 1.03rem;
+  line-height: 1.6;
+  color: $cs-hero-ink-muted;
+  max-width: 30rem;
+  margin: 0 0 1.8rem;
+}
+
+.cs-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.cs-btn {
+  font-family: $cs-font-mono;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.68rem 1.15rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition:
+    transform 0.12s ease,
+    background-color 0.12s ease,
+    border-color 0.12s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+}
+
+.cs-btn--primary {
+  background: $cs-hero-accent;
+  color: $cs-btn-primary-ink;
+
+  &:hover {
+    background: $cs-hero-accent-2;
+    color: $cs-btn-primary-ink-hover;
+  }
+}
+
+.cs-btn--ghost {
+  border-color: $cs-hero-ghost-border;
+  color: $cs-hero-ink;
+
+  &:hover {
+    border-color: $cs-hero-accent;
+    color: $cs-hero-accent;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The signature: batch gradient descent zig-zagging down a quadratic bowl, the
+// picture lecture 2 is built around. figures/make_readme_hero.py computes the
+// geometry and writes it into index.qmd, including the path length the draw
+// animation needs (--cs-descent-len). This is the only place on the site where
+// anything moves.
+// ---------------------------------------------------------------------------
+
+.cs-descent {
+  margin: 0;
+}
+
+.cs-descent__field {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 560 / 320;
+  border-radius: 8px;
+  overflow: hidden;
+  background: $cs-hero-field-bg;
+  border: 1px solid $cs-hero-field-border;
+}
+
+.cs-descent__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+// The contour bands carry their viridis fills inline; dimmed here so the path
+// on top of them is the brightest thing in the panel.
+.cs-descent__bowl {
+  opacity: 0.82;
+}
+
+// The path draws itself one update at a time, holds at the minimum, then fades
+// and starts again.
+.cs-descent__path {
+  fill: none;
+  stroke: $cs-hero-field-ink;
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: var(--cs-descent-len);
+  stroke-dashoffset: var(--cs-descent-len);
+  animation: cs-descent-draw 7.5s infinite;
+}
+
+// Each iterate appears when the line reaches it; --i is its position along
+// the path as a fraction, written by the generator.
+.cs-descent__step {
+  fill: $cs-hero-field-ink;
+  opacity: 0;
+  animation: cs-descent-step 7.5s infinite;
+  animation-delay: calc(var(--i) * 4.5s);
+}
+
+.cs-descent__label {
+  margin-top: 0.7rem;
+  font-family: $cs-font-mono;
+  font-size: 0.63rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: $cs-hero-label;
+  border: 0;
+  padding: 0;
+}
+
+@keyframes cs-descent-draw {
+  0% {
+    stroke-dashoffset: var(--cs-descent-len);
+    opacity: 1;
+  }
+
+  60%,
+  86% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+// The delay shifts each dot's start; the keyframes are in the 7.5s cycle's
+// own time, so a dot that appears late is held for correspondingly less.
+@keyframes cs-descent-step {
+  0% {
+    opacity: 0;
+  }
+
+  2%,
+  25% {
+    opacity: 1;
+  }
+
+  35%,
+  100% {
+    opacity: 0;
+  }
+}
+
+// No motion: the finished descent, every iterate visible.
+@media (prefers-reduced-motion: reduce) {
+  .cs-descent__path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .cs-descent__step {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Landing page: lecture cards
+// ---------------------------------------------------------------------------
+
+.cs-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0 2.5rem;
+}
+
+.cs-card {
+  position: relative;
+  border: 1px solid $cs-rule;
+  border-radius: 10px;
+  background: $cs-paper;
+  padding: 1.15rem 1.25rem 1.2rem;
+  transition:
+    border-color 0.14s ease,
+    transform 0.14s ease,
+    box-shadow 0.14s ease;
+
+  // The status stripe is the card's one piece of colour, and it carries real
+  // information: how far along this lecture is.
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.1rem;
+    bottom: 1.1rem;
+    width: 2px;
+    border-radius: 0 2px 2px 0;
+    background: $cs-rule-strong;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: 0.5rem;
+  }
+
+  .cs-card__index {
+    font-family: $cs-font-mono;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $cs-ink-faint;
+  }
+
+  .cs-card__title {
+    font-family: $cs-font-display;
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+
+  .cs-card__title a {
+    color: $cs-ink;
+    text-decoration: none;
+
+    &:hover {
+      color: $cs-accent;
+    }
+  }
+
+  .cs-card__blurb {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: $cs-ink-muted;
+  }
+
+  .cs-card__status {
+    font-family: $cs-font-mono;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+.cs-card--done {
+  &::before {
+    background: $cs-jade;
+  }
+
+  .cs-card__status {
+    color: $cs-tx-jade;
+  }
+
+  &:hover {
+    border-color: $cs-jade;
+    transform: translateY(-2px);
+    box-shadow: $cs-shadow;
+  }
+}
+
+.cs-card--wip {
+  &::before {
+    background: $cs-citron;
+  }
+
+  .cs-card__status {
+    color: $cs-tx-citron;
+  }
+}
+
+.cs-card--planned {
+  background: transparent;
+  border-style: dashed;
+
+  .cs-card__title,
+  .cs-card__blurb {
+    color: $cs-ink-faint;
+  }
+
+  .cs-card__status {
+    color: $cs-ink-faint;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Landing page: the roadmap as a typed sequence. Numbering is used here and
+// nowhere else on the site, because here the order genuinely is the content.
+// ---------------------------------------------------------------------------
+
+// Pandoc renders `::: {.cs-roadmap}` as a div wrapping an <ol>, so the class
+// lands on the wrapper and the list markers belong to the child. Suppressing
+// them has to happen on the ol itself — left on the div it does nothing, and
+// the browser's own "1." sits next to the counter's "01".
+.cs-roadmap {
+  counter-reset: cs-stage;
+  margin: 1.5rem 0 2.5rem;
+  border-left: 1px solid $cs-rule;
+
+  ol,
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    counter-increment: cs-stage;
+    position: relative;
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    font-size: 0.97rem;
+
+    &::before {
+      content: counter(cs-stage, decimal-leading-zero);
+      position: absolute;
+      left: -0.95rem;
+      top: 0.62rem;
+      font-family: $cs-font-mono;
+      font-size: 0.62rem;
+      font-weight: 500;
+      line-height: 1.9rem;
+      width: 1.9rem;
+      height: 1.9rem;
+      text-align: center;
+      border-radius: 50%;
+      background: $cs-surface;
+      border: 1px solid $cs-rule;
+      color: $cs-ink-muted;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------------------
+
+@media (max-width: 991px) {
+  .cs-hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 2.4rem 1.6rem 2.2rem;
+    gap: 1.9rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .cs-hero {
+    border-radius: 0;
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+
+  .cs-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  // Once the pair wraps, two buttons sized to their own labels read as a
+  // mistake rather than a stack. Give them a shared edge.
+  .cs-hero__actions .cs-btn {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+}
+
+// Past roughly 1426px the columns stop growing, but Quarto's page grid feeds
+// every surplus pixel into the single track between `page-end` and
+// `screen-end`, so the whole layout stays pinned to the left edge: measured
+// 494px of dead space on the right at 1920, 1134px at 2560, 2014px at 3440.
+// Both sidebars are grid items rather than fixed, so capping the container and
+// centring it moves the sidebar, the prose and the TOC together. The navbar is
+// `position: fixed` and full-bleed; its inner container gets the same cap so
+// the brand stays over the sidebar.
+@media (min-width: 1500px) {
+  #quarto-content.page-columns,
+  .navbar > .navbar-container {
+    max-width: 1426px;
+    margin-inline: auto;
+  }
+}
+
+// Below the collapse breakpoint Quarto swaps the search field for a 40px
+// button, but #quarto-search keeps reserving the 15rem the textbox needed.
+// That reservation does not fit beside the brand, so the navbar wraps to a
+// second row and the fixed header takes 196px at 360 and 176px at 390 — a
+// quarter of the viewport, held for the whole scroll.
+@media (max-width: 991.98px) {
+  .navbar .navbar-container {
+    flex-wrap: nowrap;
+    column-gap: 0.3rem;
+  }
+
+  .navbar #quarto-search.type-textbox {
+    width: auto;
+    min-width: 0;
+    flex: 0 0 auto;
+    margin-left: 0.35rem;
+  }
+
+  .navbar .navbar-brand-container {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .navbar .navbar-brand {
+    min-width: 0;
+  }
+
+  .navbar .quarto-navbar-tools {
+    flex: 0 0 auto;
+  }
+}
+
+// Tablet portrait keeps the margin TOC but gives it 150px, so every heading
+// wraps over two or three lines. The body column can spare 50px and still hold
+// a 55-character measure, which is what the notes are written for.
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #quarto-content.page-columns {
+    grid-template-columns:
+      [screen-start] 1.5rem
+      [screen-start-inset page-start page-start-inset body-start-outset body-start body-content-start] minmax(0, 1fr)
+      [body-content-end] 1.5rem
+      [body-end body-end-outset page-end-inset] 12rem
+      [page-end screen-end-inset] 1.5rem
+      [screen-end];
+  }
+}
+
+// The breadcrumb trail and its `ol` are both flex items left at the default
+// `min-width: auto`, so neither can shrink below its content: on a phone the
+// trail wraps to a second line, and once it is held to one it runs off the
+// right edge instead of ellipsing. Only the last crumb is allowed to clip —
+// the part name ahead of it is the one piece of context the h1 underneath does
+// not already repeat.
+@media (max-width: 767.98px) {
+  .quarto-page-breadcrumbs,
+  .quarto-page-breadcrumbs .breadcrumb {
+    min-width: 0;
+  }
+
+  .quarto-page-breadcrumbs .breadcrumb {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .quarto-page-breadcrumbs .breadcrumb-item {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .quarto-page-breadcrumbs .breadcrumb-item:last-child {
+    flex: 0 1 auto;
+    overflow: hidden;
+
+    > a {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 24px;
+    }
+  }
+
+  // Five controls on one row leave the title 135px; trimming the gutters and
+  // the display size buys back enough of it to read.
+  .navbar .navbar-brand {
+    font-size: 0.95rem;
+  }
+
+  .navbar > .navbar-container,
+  .quarto-secondary-nav > .container-fluid {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+}
+
+// The 26px grid gutters leave a 309px column at 360px, which is 35 characters
+// a line against the 65 this measure is set for. Half the gutter back is 39.
+@media (max-width: 375px) {
+  #quarto-document-content {
+    margin-inline: -0.75rem;
+  }
+}
+
+// Touch targets, keyed on the pointer rather than the width: an iPad in
+// landscape is 1024px wide and still a finger. The navbar controls measure
+// 26x24, 34x34 and 40x34, and the breadcrumb links 17px tall — all under the
+// 24px floor of WCAG 2.5.8.
+@media (pointer: coarse) {
+  .navbar .navbar-toggler,
+  .navbar .quarto-navigation-tool,
+  .navbar .aa-DetachedSearchButton,
+  .navbar .nav-link {
+    min-width: 40px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quarto-page-breadcrumbs .breadcrumb-item > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+  }
+}
+
+// 10.4px is below the size at which these read on a phone.
+.toc-actions,
+.nav-footer-center,
+.nav-footer .toc-actions a {
+  font-size: 0.8rem;
+}
+
+// At 320px the previous/next pair pushes the page 5px wider than the viewport.
+.page-navigation .nav-page {
+  min-width: 0;
+  max-width: 100%;
+
+  a {
+    overflow-wrap: anywhere;
+  }
+}
+
+// Keyboard focus must stay visible everywhere, including on the hero.
+:focus-visible {
+  outline: 2px solid $cs-accent;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.cs-hero :focus-visible {
+  outline-color: $cs-hero-accent-2;
+}

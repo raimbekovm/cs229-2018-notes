@@ -1,0 +1,93 @@
+/*-- scss:defaults --*/
+
+// Light mode. Type, geometry and every structural rule live in
+// theme-common.scss; this file supplies only the colour tokens it reads.
+
+// --- Reading surface -------------------------------------------------------
+// A cool near-white rather than a cream: viridis is a cool ramp, and cream
+// would fight the teal it leans on.
+$cs-paper: #ffffff;
+$cs-surface: #f4f7f8;
+$cs-ink: #14181d;
+$cs-ink-muted: #525c67;
+// Text, so 4.5:1 — see the note in theme-dark.scss. This one was the worse of
+// the pair: sharing the control border's value put it at 3.28 on $cs-paper and
+// 3.05 on $cs-surface. Measured now: 4.94 on $cs-paper, 4.59 on $cs-surface.
+$cs-ink-faint: #68717d;
+$cs-rule: #e2e7ea;
+$cs-rule-strong: #c7ced5;
+// The outline of an interactive control — the search field, the scheme pill.
+// WCAG 1.4.11 wants 3:1 against the adjacent surface for anything that has to
+// read as a component boundary, and $cs-rule-strong only manages 1.48 on the
+// paper. Measured: 3.05 on $cs-surface, 3.28 on $cs-paper.
+$cs-control-border: #868f99;
+
+// --- Accent ---------------------------------------------------------------
+$cs-accent: #16707f;
+$cs-accent-hover: #0e5460;
+$cs-accent-wash: rgba(22, 112, 127, 0.08);
+
+// --- The ramp: true viridis, decoration only ------------------------------
+$cs-plum: #440154;
+$cs-indigo: #414487;
+$cs-teal: #2a788e;
+$cs-jade: #22a884;
+$cs-lime: #7ad151;
+$cs-citron: #e3ca1f;
+
+// --- Text-safe ramp: all >= 4.5:1 on #ffffff ------------------------------
+$cs-tx-teal: #16707f;
+$cs-tx-indigo: #3a3f7e;
+$cs-tx-jade: #0d7a5c;
+$cs-tx-plum: #4c1160;
+$cs-tx-citron: #7d6410;
+
+// --- Hero panel: lights with the mode --------------------------------------
+// The panel used to stay dark in both modes so the hero could keep the bright
+// end of viridis, which is unreadable on white — lime #7ad151 comes to 1.9:1.
+// Lighting it means the type has to move to the text-safe ramp above, so the
+// gradient runs the other way along the colormap: plum into teal into jade,
+// all of them AA on this ground.
+$cs-hero-bg: #f1f4f8;
+$cs-hero-ink: #12151c;
+$cs-hero-ink-muted: #4d5763;
+$cs-hero-accent: $cs-tx-jade;
+$cs-hero-accent-2: $cs-tx-teal;
+$cs-hero-accent-3: $cs-tx-plum;
+$cs-hero-border: rgba(18, 21, 28, 0.12);
+$cs-hero-ghost-border: rgba(18, 21, 28, 0.28);
+$cs-hero-label: rgba(18, 21, 28, 0.6);
+// The accents are dark on this ground, so the button ink inverts with them.
+$cs-btn-primary-ink: #ffffff;
+$cs-btn-primary-ink-hover: #ffffff;
+// The conv figure keeps its dark plate: the activation map is viridis itself
+// and the kernel is a white stroke, neither of which survives a light ground.
+$cs-hero-field-bg: #12151c;
+$cs-hero-field-border: rgba(18, 21, 28, 0.16);
+$cs-hero-field-ink: #f2f5f8;
+
+$cs-figure-filter: none;
+$cs-figure-plate: #ffffff;
+$cs-shadow:
+  0 1px 2px rgba(16, 20, 28, 0.05),
+  0 10px 28px -14px rgba(16, 20, 28, 0.22);
+
+// --- Bootstrap ------------------------------------------------------------
+// Quarto paints the selected search result with $primary and white text, so it
+// has to be a colour that works as a fill, not the light-on-dark accent. This
+// is viridis teal at 5.74:1 against white; the same value in both modes, since
+// the surface it fills is the same either way.
+$primary: #16707f;
+// Left unset, Quarto derives the navbar from $primary, decides the bar is dark
+// and picks a near-white foreground — which, against the light bar this theme
+// actually draws, put the PDF link and the scheme pill at 1.07:1.
+$navbar-bg: $cs-paper;
+$navbar-fg: $cs-ink;
+$body-bg: $cs-paper;
+$body-color: $cs-ink;
+$link-color: $cs-accent;
+$link-hover-color: $cs-accent-hover;
+$border-color: $cs-rule;
+$table-border-color: $cs-rule;
+$toc-color: $cs-ink-muted;
+$code-color: $cs-accent-hover;

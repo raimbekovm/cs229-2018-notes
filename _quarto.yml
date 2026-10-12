@@ -1,0 +1,201 @@
+project:
+  type: book
+  output-dir: _site
+  preview:
+    port: 4321
+    browser: false
+  # Quarto writes site_libs/ itself, so the weight it ships there can only be
+  # trimmed afterwards. These run after every render of any format, including
+  # `--to pdf` and a single-chapter incremental one, and Quarto does not rewrite
+  # site_libs/ on those — so each is written to re-derive its answer from what
+  # is on disk rather than to assume a fresh site, and running any of them twice
+  # produces the same output as running it once.
+  post-render:
+    - quarto run tools/prerender_math.ts
+    - python3 tools/icon_subset.py
+    - python3 tools/unblock_head.py
+  resources:
+    # Nothing links to the social card, so Quarto would not copy it otherwise.
+    - figures/social-card.png
+    # The vendored KaTeX. Only these two lines are served: `katex.min.js` sits
+    # in the same directory but is a build-time input, so it is deliberately
+    # not listed and never reaches a reader.
+    - katex/katex.min.css
+    - katex/fonts/*.woff2
+    # Quarto copies fonts/fonts.css because it is listed under format.html.css,
+    # but not the .woff2 files that stylesheet points at.
+    - fonts/*.woff2
+
+book:
+  title: "CS229 2018 Lecture Notes"
+  subtitle: "Machine Learning — Stanford, Autumn 2018, with Andrew Ng"
+  author: "Murat Raimbekov"
+  description: >
+    Lecture notes written from the Stanford CS229 Machine Learning videos
+    (Andrew Ng, Autumn 2018): the derivations worked at the board, the
+    intuition given out loud, and a timestamp into the recording for every
+    section.
+  # Stated rather than derived from the title, because the navbar link below
+  # and README both hard-code it.
+  output-file: "CS229-2018-Lecture-Notes"
+  site-url: https://raimbekovm.github.io/cs229-2018-notes/
+  repo-url: https://github.com/raimbekovm/cs229-2018-notes
+  repo-branch: main
+  repo-actions: [edit, issue]
+  search:
+    # Two deliberate changes from the default. `textbox` swaps the lone
+    # magnifier for a field a reader can see is a field. `navbar` is what makes
+    # it exist on a phone at all: with the search in the sidebar it is simply
+    # absent below the collapse breakpoint — measured at 0x0, both as an overlay
+    # and as a textbox — whereas from the navbar Quarto falls back to a detached
+    # full-screen search.
+    location: navbar
+    type: textbox
+    copy-button: false
+  sidebar:
+    style: docked
+    collapse-level: 1
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    right:
+      - text: PDF
+        href: https://raimbekovm.github.io/cs229-2018-notes/CS229-2018-Lecture-Notes.pdf
+        aria-label: Download the notes as a PDF
+  # A chapter is listed here when it is written, under the part it belongs to;
+  # Quarto has no notion of a planned chapter. The parts, in course order:
+  #
+  #   Supervised Learning            01-07   regression, classification, GLMs,
+  #                                          generative models, SVMs, kernels
+  #   Generalization                 08, 08b model selection, learning theory
+  #   Trees and Neural Networks      09-11
+  #   Applying Machine Learning      12      debugging and error analysis
+  #   Unsupervised Learning          13-15   EM, factor analysis, PCA, ICA
+  #   Reinforcement Learning         16-20   MDPs to LQR and RL debugging
+  #
+  # 08b is the learning-theory discussion section, which sits between lectures
+  # 8 and 9 in the playlist. It is an unnumbered chapter (`# Learning Theory
+  # {.unnumbered}` in place of a `title:` key, as index.qmd does) so that
+  # chapter N stays lecture N everywhere — in the sidebar, the PDF and every
+  # cross-reference.
+  chapters:
+    - index.qmd
+
+format:
+  html:
+    theme:
+      # theme-common.scss holds type, geometry and every structural rule; the
+      # mode files supply only the colour tokens it reads. Dark is listed first
+      # because Quarto treats the first entry as the default scheme, and these
+      # notes are read at a screen for long stretches.
+      dark: [darkly, theme-common.scss, theme-dark.scss]
+      light: [cosmo, theme-common.scss, theme.scss]
+    # Self-hosted type; see fonts/README.md.
+    css: fonts/fonts.css
+    # Paints the browser chrome around the page on Android and iOS Safari, which
+    # otherwise frames a dark site in white. A single value rather than a
+    # prefers-color-scheme pair on purpose: dark is the default scheme here for
+    # every reader, including those whose OS is set to light.
+    include-in-header:
+      text: |
+        <meta name="theme-color" content="#12151c">
+        <meta name="color-scheme" content="dark light">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    toc: true
+    toc-depth: 3
+    toc-expand: 1
+    number-sections: true
+    code-copy: true
+    link-external-newwindow: true
+    fig-align: center
+    fig-cap-location: bottom
+    # Pinned rather than left to Quarto's default, which is the `katex@latest`
+    # tag: the CDN then serves whatever is current, so a KaTeX release could
+    # change how the maths on these pages renders without a commit here.
+    # 0.18.1 is what `latest` resolved to when this was pinned.
+    #
+    # The trailing slash is load-bearing: pandoc concatenates this with
+    # `katex.min.js` verbatim, so without it the URL comes out as
+    # `.../distkatex.min.js` and the maths silently stops rendering.
+    #
+    # No reader ever fetches either URL. `tools/prerender_math.ts` typesets the
+    # formulas during the build and repoints the stylesheet at the copy of
+    # KaTeX 0.18.1 committed under katex/ — which is byte for byte what this
+    # CDN serves. The setting stays because it is what puts the TeX in the page
+    # in the form KaTeX wants, and because it is the fallback: if the
+    # prerender step is ever skipped the page still renders its maths, just the
+    # slow way. `plain` was tried and is not that fallback — pandoc rewrites
+    # the formulas into approximate Unicode and the TeX is gone.
+    html-math-method:
+      method: katex
+      url: https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/
+    anchor-sections: true
+    smooth-scroll: true
+    # Absolute URLs: the site is served from a subpath, so a root-relative
+    # image path would resolve against raimbekovm.github.io instead.
+    open-graph:
+      image: https://raimbekovm.github.io/cs229-2018-notes/figures/social-card.png
+      locale: en_US
+    twitter-card:
+      image: https://raimbekovm.github.io/cs229-2018-notes/figures/social-card.png
+      card-style: summary_large_image
+
+  pdf:
+    documentclass: scrbook
+    papersize: a4
+    geometry:
+      - margin=1in
+    toc: true
+    number-sections: true
+    colorlinks: true
+    fig-cap-location: bottom
+    keep-tex: false
+
+# Inputs for filters/seo-metadata.lua, which needs them per page.
+seo:
+  site-url: https://raimbekovm.github.io/cs229-2018-notes/
+  author-url: https://github.com/raimbekovm
+  license-url: https://opensource.org/licenses/MIT
+  keywords:
+    - machine learning
+    - CS229
+    - Andrew Ng
+    - supervised learning
+    - support vector machines
+    - expectation-maximization
+    - reinforcement learning
+    - lecture notes
+
+filters:
+  # Turns `[12:34]{.t}` into a link to that moment of the chapter's lecture
+  # video, and puts the video itself under the chapter title. The video is
+  # looked up from the chapter's `lecture:` key in tools/playlist.tsv. Runs
+  # before seo-metadata.lua, which reads the video it resolves.
+  - at: pre-quarto
+    path: filters/timecodes.lua
+  - at: pre-quarto
+    path: filters/seo-metadata.lua
+  # Must run after Quarto has built its figure containers: given the image's
+  # style attribute earlier, Quarto hoists it onto the enclosing float div,
+  # which then constrains the caption as well as the image.
+  - at: post-quarto
+    path: filters/lazy-images.lua
+  # AVIF is what the browser gets; LaTeX cannot read it and would abort the PDF
+  # build, so the latex writer is pointed at the JPEG sibling instead.
+  - at: post-quarto
+    path: filters/pdf-images.lua
+
+crossref:
+  fig-title: Figure
+  eq-prefix: Equation
+
+# Quarto ships both of these blank or generic, which is most of why the search
+# field and the scheme switch read as unexplained chrome.
+language:
+  search-text-placeholder: "Search the notes…"
+  search-no-results-text: "Nothing matches that"
+  toggle-dark-mode: "Switch between the dark and light theme"
+
+# Every page inherits these
+lightbox: true

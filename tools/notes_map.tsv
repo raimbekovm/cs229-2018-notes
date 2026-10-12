@@ -1,0 +1,21 @@
+01	-	Introduction has no class notes
+02	notes/cs229-notes1.pdf	Part I: linear regression, LMS, normal equations, probabilistic interpretation
+03	notes/cs229-notes1.pdf	Part I: locally weighted regression; Part II: logistic regression, Newton's method
+04	notes/cs229-notes1.pdf	Part II: perceptron; Part III: exponential family, GLMs, softmax
+05	notes/cs229-notes2.pdf	Generative learning: GDA, naive Bayes
+06	notes/cs229-notes2.pdf notes/cs229-notes3.pdf	Laplace smoothing, event models; SVMs: margins, optimal margin classifier
+07	notes/cs229-notes3.pdf extra-notes/representer-function.pdf	SVMs: Lagrange duality, kernels, soft margin, SMO
+08	notes/cs229-notes4.pdf notes/cs229-notes5.pdf	Bias/variance; regularization, model selection, cross-validation
+08b	notes/cs229-notes4.pdf extra-notes/hoeffding.pdf	Learning theory: union bound, Hoeffding, uniform convergence, VC dimension
+09	notes/cs229-notes-dt.pdf notes/cs229-notes-ensemble.pdf	Decision trees; bagging, random forests, boosting
+10	notes/cs229-notes-deep_learning.pdf	Neural networks: model, vectorisation
+11	notes/cs229-notes-backprop.pdf notes/cs229-notes-deep_learning.pdf	Backpropagation; training neural networks
+12	section/error-analysis.pdf https://cs229.stanford.edu/materials/ML-advice.pdf	Error analysis, ablative analysis; advice for applying ML
+13	notes/cs229-notes7a.pdf notes/cs229-notes7b.pdf notes/cs229-notes8.pdf	k-means; mixture of Gaussians; the EM algorithm
+14	notes/cs229-notes8.pdf notes/cs229-notes9.pdf	EM, Jensen's inequality, ELBO; factor analysis
+15	notes/cs229-notes10.pdf notes/cs229-notes11.pdf	PCA; ICA
+16	notes/cs229-notes11.pdf notes/cs229-notes12.pdf	ICA; MDPs, Bellman equations
+17	notes/cs229-notes12.pdf	Value iteration, policy iteration, learning a model
+18	notes/cs229-notes12.pdf	Continuous-state MDPs, discretisation, fitted value iteration
+19	notes/cs229-notes13.pdf	LQR, DDP, LQG
+20	notes/cs229-notes12.pdf https://cs229.stanford.edu/materials/ML-advice.pdf	Debugging RL algorithms; advice for applying ML
