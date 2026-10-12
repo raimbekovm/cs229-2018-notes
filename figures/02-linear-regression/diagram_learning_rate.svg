@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 710 270" width="710" height="270"
+     role="img" aria-labelledby="figLearningRateTitle figLearningRateDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figLearningRateTitle">The learning rate</title>
+  <desc id="figLearningRateDesc">Three copies of the parabola J of theta equals theta squared. With a small learning rate the iterates creep down one side; with a moderate one they reach the bottom in a few steps; with one above the stability limit each step overshoots to the other side, higher than before.</desc>
+  <line x1="40.0" y1="230.0" x2="230.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.6"/>
+  <polyline points="43.17,45.35 44.75,51.67 46.33,57.87 47.92,63.96 49.50,69.94 51.08,75.82 52.67,81.58 54.25,87.23 55.83,92.78 57.42,98.21 59.00,103.54 60.58,108.75 62.17,113.86 63.75,118.85 65.33,123.74 66.92,128.51 68.50,133.18 70.08,137.73 71.67,142.18 73.25,146.51 74.83,150.74 76.42,154.86 78.00,158.86 79.58,162.76 81.17,166.55 82.75,170.23 84.33,173.79 85.92,177.25 87.50,180.60 89.08,183.84 90.67,186.97 92.25,189.99 93.83,192.90 95.42,195.69 97.00,198.38 98.58,200.96 100.17,203.43 101.75,205.79 103.33,208.04 104.92,210.19 106.50,212.22 108.08,214.14 109.67,215.95 111.25,217.65 112.83,219.24 114.42,220.72 116.00,222.10 117.58,223.36 119.17,224.51 120.75,225.55 122.33,226.49 123.92,227.31 125.50,228.02 127.08,228.63 128.67,229.12 130.25,229.51 131.83,229.78 133.42,229.95 135.00,230.00 136.58,229.95 138.17,229.78 139.75,229.51 141.33,229.12 142.92,228.63 144.50,228.02 146.08,227.31 147.67,226.49 149.25,225.55 150.83,224.51 152.42,223.36 154.00,222.10 155.58,220.72 157.17,219.24 158.75,217.65 160.33,215.95 161.92,214.14 163.50,212.22 165.08,210.19 166.67,208.04 168.25,205.79 169.83,203.43 171.42,200.96 173.00,198.38 174.58,195.69 176.17,192.90 177.75,189.99 179.33,186.97 180.92,183.84 182.50,180.60 184.08,177.25 185.67,173.79 187.25,170.23 188.83,166.55 190.42,162.76 192.00,158.86 193.58,154.86 195.17,150.74 196.75,146.51 198.33,142.18 199.92,137.73 201.50,133.18 203.08,128.51 204.67,123.74 206.25,118.85 207.83,113.86 209.42,108.75 211.00,103.54 212.58,98.21 214.17,92.78 215.75,87.23 217.33,81.58 218.92,75.82 220.50,69.94 222.08,63.96 223.67,57.87 225.25,51.67 226.83,45.35" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.6" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="200.8" y1="135.3" x2="195.9" y2="148.6" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="194.2,153.3 193.8,147.8 198.0,149.4" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="194.2" y1="153.3" x2="190.2" y2="163.2" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="188.3,167.9 188.1,162.4 192.2,164.1" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="188.3" y1="167.9" x2="185.0" y2="175.1" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="182.9,179.7 183.0,174.2 187.1,176.0" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="182.9" y1="179.7" x2="180.4" y2="184.8" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="178.2,189.2 178.4,183.8 182.4,185.8" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="178.2" y1="189.2" x2="176.3" y2="192.6" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="173.8,197.0 174.3,191.5 178.2,193.7" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="173.8" y1="197.0" x2="172.6" y2="199.0" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="170.0,203.3 170.7,197.8 174.5,200.2" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="170.0" y1="203.3" x2="169.3" y2="204.2" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="166.5,208.3 167.4,202.9 171.1,205.5" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="200.8" cy="135.3" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="194.2" cy="153.3" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="188.3" cy="167.9" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="182.9" cy="179.7" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="178.2" cy="189.2" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="173.8" cy="197.0" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="170.0" cy="203.3" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="166.5" cy="208.3" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="135.0" y="22.0" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">α = 0.05: slow</text>
+  <text x="135.0" y="254.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">θ</text>
+  <line x1="270.0" y1="230.0" x2="460.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.6"/>
+  <polyline points="273.17,45.35 274.75,51.67 276.33,57.87 277.92,63.96 279.50,69.94 281.08,75.82 282.67,81.58 284.25,87.23 285.83,92.78 287.42,98.21 289.00,103.54 290.58,108.75 292.17,113.86 293.75,118.85 295.33,123.74 296.92,128.51 298.50,133.18 300.08,137.73 301.67,142.18 303.25,146.51 304.83,150.74 306.42,154.86 308.00,158.86 309.58,162.76 311.17,166.55 312.75,170.23 314.33,173.79 315.92,177.25 317.50,180.60 319.08,183.84 320.67,186.97 322.25,189.99 323.83,192.90 325.42,195.69 327.00,198.38 328.58,200.96 330.17,203.43 331.75,205.79 333.33,208.04 334.92,210.19 336.50,212.22 338.08,214.14 339.67,215.95 341.25,217.65 342.83,219.24 344.42,220.72 346.00,222.10 347.58,223.36 349.17,224.51 350.75,225.55 352.33,226.49 353.92,227.31 355.50,228.02 357.08,228.63 358.67,229.12 360.25,229.51 361.83,229.78 363.42,229.95 365.00,230.00 366.58,229.95 368.17,229.78 369.75,229.51 371.33,229.12 372.92,228.63 374.50,228.02 376.08,227.31 377.67,226.49 379.25,225.55 380.83,224.51 382.42,223.36 384.00,222.10 385.58,220.72 387.17,219.24 388.75,217.65 390.33,215.95 391.92,214.14 393.50,212.22 395.08,210.19 396.67,208.04 398.25,205.79 399.83,203.43 401.42,200.96 403.00,198.38 404.58,195.69 406.17,192.90 407.75,189.99 409.33,186.97 410.92,183.84 412.50,180.60 414.08,177.25 415.67,173.79 417.25,170.23 418.83,166.55 420.42,162.76 422.00,158.86 423.58,154.86 425.17,150.74 426.75,146.51 428.33,142.18 429.92,137.73 431.50,133.18 433.08,128.51 434.67,123.74 436.25,118.85 437.83,113.86 439.42,108.75 441.00,103.54 442.58,98.21 444.17,92.78 445.75,87.23 447.33,81.58 448.92,75.82 450.50,69.94 452.08,63.96 453.67,57.87 455.25,51.67 456.83,45.35" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.6" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="430.8" y1="135.3" x2="387.1" y2="217.1" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="384.7,221.5 385.1,216.0 389.1,218.1" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="384.7" y1="221.5" x2="375.3" y2="226.8" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="370.9,229.2 374.2,224.8 376.4,228.7" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="370.9" y1="229.2" x2="371.7" y2="229.1" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="366.8,229.9 371.3,226.9 372.1,231.3" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="366.8" y1="229.9" x2="370.5" y2="229.7" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="365.5,230.0 370.4,227.5 370.6,232.0" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="365.5" y1="230.0" x2="370.2" y2="229.9" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="365.2,230.0 370.1,227.7 370.2,232.2" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="365.2" y1="230.0" x2="370.0" y2="230.0" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="365.0,230.0 370.0,227.7 370.1,232.2" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="365.0" y1="230.0" x2="370.0" y2="230.0" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="365.0,230.0 370.0,227.7 370.0,232.2" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="430.8" cy="135.3" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="384.7" cy="221.5" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="370.9" cy="229.2" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="366.8" cy="229.9" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="365.5" cy="230.0" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="365.2" cy="230.0" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="365.0" cy="230.0" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="365.0" cy="230.0" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="365.0" y="22.0" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">α = 0.35: fast</text>
+  <text x="365.0" y="254.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">θ</text>
+  <line x1="500.0" y1="230.0" x2="690.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.6"/>
+  <polyline points="503.17,45.35 504.75,51.67 506.33,57.87 507.92,63.96 509.50,69.94 511.08,75.82 512.67,81.58 514.25,87.23 515.83,92.78 517.42,98.21 519.00,103.54 520.58,108.75 522.17,113.86 523.75,118.85 525.33,123.74 526.92,128.51 528.50,133.18 530.08,137.73 531.67,142.18 533.25,146.51 534.83,150.74 536.42,154.86 538.00,158.86 539.58,162.76 541.17,166.55 542.75,170.23 544.33,173.79 545.92,177.25 547.50,180.60 549.08,183.84 550.67,186.97 552.25,189.99 553.83,192.90 555.42,195.69 557.00,198.38 558.58,200.96 560.17,203.43 561.75,205.79 563.33,208.04 564.92,210.19 566.50,212.22 568.08,214.14 569.67,215.95 571.25,217.65 572.83,219.24 574.42,220.72 576.00,222.10 577.58,223.36 579.17,224.51 580.75,225.55 582.33,226.49 583.92,227.31 585.50,228.02 587.08,228.63 588.67,229.12 590.25,229.51 591.83,229.78 593.42,229.95 595.00,230.00 596.58,229.95 598.17,229.78 599.75,229.51 601.33,229.12 602.92,228.63 604.50,228.02 606.08,227.31 607.67,226.49 609.25,225.55 610.83,224.51 612.42,223.36 614.00,222.10 615.58,220.72 617.17,219.24 618.75,217.65 620.33,215.95 621.92,214.14 623.50,212.22 625.08,210.19 626.67,208.04 628.25,205.79 629.83,203.43 631.42,200.96 633.00,198.38 634.58,195.69 636.17,192.90 637.75,189.99 639.33,186.97 640.92,183.84 642.50,180.60 644.08,177.25 645.67,173.79 647.25,170.23 648.83,166.55 650.42,162.76 652.00,158.86 653.58,154.86 655.17,150.74 656.75,146.51 658.33,142.18 659.92,137.73 661.50,133.18 663.08,128.51 664.67,123.74 666.25,118.85 667.83,113.86 669.42,108.75 671.00,103.54 672.58,98.21 674.17,92.78 675.75,87.23 677.33,81.58 678.92,75.82 680.50,69.94 682.08,63.96 683.67,57.87 685.25,51.67 686.83,45.35" fill="none" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.6" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="654.2" y1="153.3" x2="534.8" y2="137.8" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="529.9,137.2 535.1,135.6 534.6,140.1" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="529.9" y1="137.2" x2="661.7" y2="118.4" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="666.6,117.7 662.0,120.6 661.4,116.2" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="666.6" y1="117.7" x2="521.2" y2="94.9" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="516.2,94.1 521.5,92.6 520.8,97.1" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="516.2" y1="94.1" x2="676.7" y2="66.4" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.9"/>
+  <polygon points="681.7,65.6 677.1,68.6 676.4,64.2" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="654.2" cy="153.3" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="529.9" cy="137.2" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="666.6" cy="117.7" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="516.2" cy="94.1" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="681.7" cy="65.6" r="2.8" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="595.0" y="22.0" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">α = 1.05: diverges</text>
+  <text x="595.0" y="254.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">θ</text>
+</svg>
