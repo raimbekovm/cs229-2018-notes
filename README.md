@@ -28,7 +28,7 @@
 | #   | Lecture | What it covers | Status |
 | :-- | :------ | :------------- | :----- |
 | 1 | [Introduction](https://raimbekovm.github.io/cs229-2018-notes/lectures/01-introduction.html) | What machine learning is, supervised and unsupervised learning, reinforcement learning, and the course map | Complete |
-| 2 | Linear Regression and Gradient Descent | Hypotheses and cost functions, batch and stochastic gradient descent, the normal equations | Planned |
+| 2 | [Linear Regression and Gradient Descent](https://raimbekovm.github.io/cs229-2018-notes/lectures/02-linear-regression.html) | Hypotheses and cost functions, batch and stochastic gradient descent, the normal equations | Complete |
 | 3 | Locally Weighted and Logistic Regression | Least squares as maximum likelihood, locally weighted regression, logistic regression, Newton's method | Planned |
 | 4 | Perceptron and Generalized Linear Models | The perceptron, the exponential family, constructing GLMs, softmax regression | Planned |
 | 5 | GDA and Naive Bayes | Generative versus discriminative learning, Gaussian discriminant analysis, naive Bayes | Planned |

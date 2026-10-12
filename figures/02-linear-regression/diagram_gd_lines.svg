@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 690 350" width="690" height="350"
+     role="img" aria-labelledby="figGdLinesTitle figGdLinesDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figGdLinesTitle">Gradient descent seen in the data</title>
+  <desc id="figGdLinesDesc">Scatter of house size against price. A horizontal line at zero is the hypothesis at initialisation; the lines after one, two and three steps of gradient descent rotate up towards the data, and the converged line runs through it.</desc>
+  <line x1="80.0" y1="300.0" x2="610.0" y2="300.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="300.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="300.0" x2="80.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="80.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="186.0" y1="300.0" x2="186.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="186.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="292.0" y1="300.0" x2="292.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="292.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">2</text>
+  <line x1="398.0" y1="300.0" x2="398.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="398.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">3</text>
+  <line x1="504.0" y1="300.0" x2="504.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="504.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">4</text>
+  <line x1="610.0" y1="300.0" x2="610.0" y2="304.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="610.0" y="317.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">5</text>
+  <line x1="76.0" y1="300.0" x2="80.0" y2="300.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="304.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="76.0" y1="232.5" x2="80.0" y2="232.5" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="236.5" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">200</text>
+  <line x1="76.0" y1="165.0" x2="80.0" y2="165.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="169.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">400</text>
+  <line x1="76.0" y1="97.5" x2="80.0" y2="97.5" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="101.5" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">600</text>
+  <line x1="76.0" y1="30.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="34.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">800</text>
+  <text x="345.0" y="336.0" font-size="12" fill="currentColor" text-anchor="middle">size of house (1000 ft²)</text>
+  <text x="40.0" y="165.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 165.0)">price ($1000s)</text>
+  <circle cx="540.0" cy="73.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="203.0" cy="225.3" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="493.4" cy="101.3" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="289.4" cy="213.8" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="404.6" cy="156.2" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="231.4" cy="226.4" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="336.7" cy="189.3" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="555.0" cy="54.1" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="537.4" cy="99.4" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="273.9" cy="198.4" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="184.0" cy="211.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="293.3" cy="181.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="317.1" cy="156.8" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="387.0" cy="158.8" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="261.5" cy="182.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="223.0" cy="212.2" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="367.5" cy="125.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="240.5" cy="207.5" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="515.9" cy="80.6" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="520.9" cy="116.1" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="465.3" cy="106.7" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="549.7" cy="91.6" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="542.3" cy="61.5" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="446.8" cy="92.5" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="348.6" cy="182.1" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="528.0" cy="88.2" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="363.9" cy="145.9" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="511.6" cy="106.2" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="518.2" cy="111.6" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="526.2" cy="79.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="450.2" cy="130.5" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="295.7" cy="182.4" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="440.7" cy="101.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="273.9" cy="157.9" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="522.8" cy="103.4" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="443.4" cy="76.9" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="365.2" cy="180.6" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="397.6" cy="143.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="290.7" cy="179.9" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="531.6" cy="61.1" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="411.2" cy="103.5" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="451.0" cy="101.4" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="521.3" cy="75.9" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="192.8" cy="199.0" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="422.7" cy="131.1" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="508.9" cy="79.1" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="211.2" cy="255.8" r="3.2" fill="currentColor" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="101.2" y1="300.0" x2="588.8" y2="300.0" stroke="#440154" stroke-width="1.8" stroke-opacity="0.8" stroke-dasharray="6 4"/>
+  <text x="594.8" y="294.0" font-size="11" fill="#440154" text-anchor="start">step 0</text>
+  <line x1="101.2" y1="285.4" x2="588.8" y2="151.2" stroke="#440154" stroke-width="1.8" stroke-opacity="0.8" stroke-dasharray="6 4"/>
+  <text x="594.8" y="155.2" font-size="11" fill="#440154" text-anchor="start">step 1</text>
+  <line x1="101.2" y1="279.5" x2="588.8" y2="91.7" stroke="#3b528b" stroke-width="1.8" stroke-opacity="0.8" stroke-dasharray="6 4"/>
+  <text x="594.8" y="95.7" font-size="11" fill="#3b528b" text-anchor="start">step 2</text>
+  <line x1="101.2" y1="277.2" x2="588.8" y2="67.9" stroke="#3b528b" stroke-width="1.8" stroke-opacity="0.8" stroke-dasharray="6 4"/>
+  <text x="594.8" y="71.9" font-size="11" fill="#3b528b" text-anchor="start">step 3</text>
+  <line x1="101.2" y1="264.5" x2="588.8" y2="57.1" stroke="#21918c" stroke-width="2.2" stroke-opacity="1.0"/>
+  <text x="594.8" y="49.1" font-size="11" fill="#21918c" text-anchor="start">converged</text>
+</svg>

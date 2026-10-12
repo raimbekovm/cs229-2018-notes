@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 285" width="680" height="285"
+     role="img" aria-labelledby="figLocalMinimaTitle figLocalMinimaDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figLocalMinimaTitle">Where gradient descent ends depends on where it starts</title>
+  <desc id="figLocalMinimaDesc">A curve with two valleys. Gradient descent started just left of the central hump runs down into the deeper valley on the left; started just right of it, it runs into the shallower valley on the right and stops there.</desc>
+  <line x1="60.0" y1="250.0" x2="620.0" y2="250.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.6"/>
+  <polyline points="62.80,33.81 65.60,47.50 68.40,60.60 71.20,73.12 74.00,85.07 76.80,96.47 79.60,107.34 82.40,117.67 85.20,127.50 88.00,136.82 90.80,145.66 93.60,154.03 96.40,161.93 99.20,169.38 102.00,176.40 104.80,182.99 107.60,189.17 110.40,194.95 113.20,200.33 116.00,205.34 118.80,209.98 121.60,214.27 124.40,218.21 127.20,221.82 130.00,225.11 132.80,228.08 135.60,230.75 138.40,233.13 141.20,235.23 144.00,237.06 146.80,238.63 149.60,239.95 152.40,241.02 155.20,241.87 158.00,242.49 160.80,242.89 163.60,243.10 166.40,243.10 169.20,242.93 172.00,242.57 174.80,242.04 177.60,241.36 180.40,240.52 183.20,239.53 186.00,238.41 188.80,237.16 191.60,235.79 194.40,234.31 197.20,232.72 200.00,231.03 202.80,229.25 205.60,227.39 208.40,225.45 211.20,223.43 214.00,221.36 216.80,219.22 219.60,217.03 222.40,214.80 225.20,212.53 228.00,210.22 230.80,207.88 233.60,205.53 236.40,203.15 239.20,200.77 242.00,198.37 244.80,195.98 247.60,193.59 250.40,191.20 253.20,188.83 256.00,186.48 258.80,184.14 261.60,181.83 264.40,179.56 267.20,177.31 270.00,175.10 272.80,172.94 275.60,170.81 278.40,168.74 281.20,166.71 284.00,164.74 286.80,162.83 289.60,160.97 292.40,159.18 295.20,157.45 298.00,155.78 300.80,154.19 303.60,152.67 306.40,151.22 309.20,149.84 312.00,148.54 314.80,147.32 317.60,146.18 320.40,145.12 323.20,144.14 326.00,143.24 328.80,142.42 331.60,141.69 334.40,141.04 337.20,140.48 340.00,140.00 342.80,139.61 345.60,139.30 348.40,139.07 351.20,138.93 354.00,138.87 356.80,138.90 359.60,139.01 362.40,139.20 365.20,139.47 368.00,139.82 370.80,140.24 373.60,140.75 376.40,141.32 379.20,141.97 382.00,142.69 384.80,143.48 387.60,144.34 390.40,145.26 393.20,146.24 396.00,147.29 398.80,148.39 401.60,149.54 404.40,150.74 407.20,151.99 410.00,153.29 412.80,154.62 415.60,155.99 418.40,157.40 421.20,158.83 424.00,160.30 426.80,161.78 429.60,163.28 432.40,164.79 435.20,166.31 438.00,167.83 440.80,169.35 443.60,170.86 446.40,172.37 449.20,173.85 452.00,175.31 454.80,176.75 457.60,178.15 460.40,179.51 463.20,180.82 466.00,182.09 468.80,183.29 471.60,184.43 474.40,185.50 477.20,186.49 480.00,187.40 482.80,188.22 485.60,188.93 488.40,189.54 491.20,190.04 494.00,190.42 496.80,190.66 499.60,190.78 502.40,190.74 505.20,190.56 508.00,190.21 510.80,189.69 513.60,189.00 516.40,188.12 519.20,187.04 522.00,185.76 524.80,184.27 527.60,182.55 530.40,180.61 533.20,178.42 536.00,175.98 538.80,173.27 541.60,170.30 544.40,167.05 547.20,163.50 550.00,159.66 552.80,155.50 555.60,151.02 558.40,146.20 561.20,141.04 564.00,135.53 566.80,129.65 569.60,123.39 572.40,116.74 575.20,109.69 578.00,102.22 580.80,94.33 583.60,86.01 586.40,77.23 589.20,67.99 592.00,58.28 594.80,48.09 597.60,37.39" fill="none" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.65" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="311.2" y1="148.9" x2="305.5" y2="151.8" stroke="#3b528b" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="301.0,154.1 304.4,149.8 306.5,153.8" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="301.0" y1="154.1" x2="293.0" y2="159.0" stroke="#3b528b" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="288.7,161.6 291.8,157.0 294.1,160.9" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="288.7" y1="161.6" x2="278.1" y2="169.1" stroke="#3b528b" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="274.1,172.0 276.8,167.2 279.4,170.9" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="274.1" y1="172.0" x2="261.1" y2="182.3" stroke="#3b528b" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="257.2,185.5 259.7,180.6 262.5,184.1" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="257.2" y1="185.5" x2="242.5" y2="197.9" stroke="#3b528b" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="238.7,201.2 241.1,196.2 244.0,199.7" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="238.7" y1="201.2" x2="223.6" y2="213.7" stroke="#3b528b" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="219.8,216.9 222.2,212.0 225.0,215.4" fill="#3b528b" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="311.2" cy="148.9" r="4.0" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="165.1" cy="243.1" r="4.0" fill="#3b528b" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="377.1" y1="141.5" x2="377.2" y2="141.5" stroke="#21918c" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="382.1,142.7 376.7,143.7 377.8,139.3" fill="#21918c" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="382.1" y1="142.7" x2="383.3" y2="143.1" stroke="#21918c" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="388.1,144.5 382.6,145.2 383.9,140.9" fill="#21918c" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="388.1" y1="144.5" x2="390.5" y2="145.3" stroke="#21918c" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="395.2,147.0 389.7,147.5 391.2,143.2" fill="#21918c" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="395.2" y1="147.0" x2="398.9" y2="148.5" stroke="#21918c" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="403.6,150.4 398.1,150.6 399.8,146.4" fill="#21918c" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="403.6" y1="150.4" x2="408.6" y2="152.7" stroke="#21918c" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="413.2,154.8 407.7,154.8 409.6,150.7" fill="#21918c" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="413.2" y1="154.8" x2="419.5" y2="158.0" stroke="#21918c" stroke-width="1.4" stroke-opacity="0.9"/>
+  <polygon points="424.0,160.3 418.5,160.0 420.5,156.0" fill="#21918c" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="377.1" cy="141.5" r="4.0" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="500.4" cy="190.8" r="4.0" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="311.2" y="136.9" font-size="11" fill="currentColor" text-anchor="end">two nearby starts</text>
+  <text x="165.1" y="265.1" font-size="11" fill="#3b528b" text-anchor="middle">global minimum</text>
+  <text x="500.4" y="212.8" font-size="11" fill="#21918c" text-anchor="middle">local minimum</text>
+  <text x="340.0" y="272.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">θ</text>
+</svg>

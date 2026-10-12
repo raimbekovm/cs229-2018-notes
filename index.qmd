@@ -99,14 +99,14 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 2]{.cs-card__index}
 
-[Linear Regression and Gradient Descent]{.cs-card__title}
+[[Linear Regression and Gradient Descent](lectures/02-linear-regression.qmd)]{.cs-card__title}
 
 [Fitting a hypothesis by least squares: batch and stochastic gradient descent, and the normal equations that skip iteration altogether.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -308,7 +308,7 @@ them by theme.
 | # | Topic | Status |
 |:--|:------|:-------|
 | 1 | Introduction | Complete |
-| 2 | Linear Regression and Gradient Descent | Planned |
+| 2 | Linear Regression and Gradient Descent | Complete |
 | 3 | Locally Weighted and Logistic Regression | Planned |
 | 4 | Perceptron and Generalized Linear Models | Planned |
 | 5 | GDA and Naive Bayes | Planned |
