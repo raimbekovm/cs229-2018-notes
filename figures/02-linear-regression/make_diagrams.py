@@ -30,7 +30,9 @@ from _svg import (
     PURPLE,
     TEAL,
     arrow,
+    axes,
     circle,
+    curve,
     line,
     mapper,
     polyline,
@@ -183,42 +185,6 @@ def ellipse(center, h, level, n=120):
 
 
 # ---------------------------------------------------------------- drawing helpers
-
-
-def axes(to_px, xdom, ydom, xticks, yticks, xlabel, ylabel, fmt="{:g}"):
-    """Axis lines, ticks and labels for a mapped box."""
-    x0, y0 = to_px(xdom[0], ydom[0])
-    x1, _ = to_px(xdom[1], ydom[0])
-    _, y1 = to_px(xdom[0], ydom[1])
-    s = line(x0, y0, x1, y0, op=0.7) + line(x0, y0, x0, y1, op=0.7)
-    for t in xticks:
-        px, _ = to_px(t, ydom[0])
-        s += line(px, y0, px, y0 + 4, op=0.7) + text(px, y0 + 17, fmt.format(t), size=11, op=0.8)
-    for t in yticks:
-        _, py = to_px(xdom[0], t)
-        s += line(x0 - 4, py, x0, py, op=0.7) + text(x0 - 8, py + 4, fmt.format(t), size=11, anchor="end", op=0.8)
-    s += text((x0 + x1) / 2, y0 + 36, xlabel, size=12)
-    s += f'  <text x="{x0 - 40:.1f}" y="{(y0 + y1) / 2:.1f}" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 {x0 - 40:.1f} {(y0 + y1) / 2:.1f})">{ylabel}</text>\n'
-    return s
-
-
-def clip_box(pts, to_px, xdom, ydom):
-    """Split a curve into the runs that lie inside the plotted domain, in pixels."""
-    runs, cur = [], []
-    for x, y in pts:
-        if xdom[0] <= x <= xdom[1] and ydom[0] <= y <= ydom[1]:
-            cur.append(to_px(x, y))
-        elif cur:
-            runs.append(cur)
-            cur = []
-    if cur:
-        runs.append(cur)
-    return runs
-
-
-def curve(pts, to_px, xdom, ydom, **kw):
-    """A polyline for each in-domain run of a curve, so nothing crosses the axes."""
-    return "".join(polyline(r, **kw) for r in clip_box(pts, to_px, xdom, ydom) if len(r) > 1)
 
 
 # ---------------------------------------------------------------- figures
