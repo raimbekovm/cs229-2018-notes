@@ -62,3 +62,13 @@ invented one as a verified credit.
 | `04-perceptron-glm/diagram_parametrisations.svg` | own work | Drawn by `make_diagrams.py`: the model, natural and canonical parameters and the maps between them. |
 | `04-perceptron-glm/diagram_softmax_pipeline.svg` | own work | Drawn by `make_diagrams.py`: logits, exponentials, softmax probabilities and a one-hot label for one example. |
 | `04-perceptron-glm/diagram_softmax_shift.svg` | own work | Drawn by `make_diagrams.py`: a softmax regression fitted to synthetic clusters, before and after a common shift of every parameter vector. |
+
+## Lecture 5 — GDA and Naive Bayes
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `05-gda-naive-bayes/diagram_gaussians.svg` | own work | Drawn by `make_diagrams.py`: contours of six bivariate Gaussians at fixed density heights. Recomputes the surface plots shown in lecture. |
+| `05-gda-naive-bayes/diagram_gda_fit.svg` | own work | Drawn by `make_diagrams.py`: GDA with shared and separate covariances fitted to synthetic classes, with logistic regression's boundary on the same data. |
+| `05-gda-naive-bayes/diagram_posterior_1d.svg` | own work | Drawn by `make_diagrams.py`: the GDA posterior along one feature at two priors. Redraws the board sketch of the sigmoid built point by point. |
+| `05-gda-naive-bayes/diagram_learning_curves.svg` | own work | Drawn by `make_diagrams.py`: simulated test error of GDA and logistic regression against training-set size, on Gaussian and Poisson data. |
+| `05-gda-naive-bayes/diagram_nb_graph.svg` | own work | Drawn by `make_diagrams.py`: the naive Bayes graphical model. Redraws the board sketch. |

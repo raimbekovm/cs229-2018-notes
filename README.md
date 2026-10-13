@@ -31,7 +31,7 @@
 | 2 | [Linear Regression and Gradient Descent](https://raimbekovm.github.io/cs229-2018-notes/lectures/02-linear-regression.html) | Hypotheses and cost functions, batch and stochastic gradient descent, the normal equations | Complete |
 | 3 | [Locally Weighted and Logistic Regression](https://raimbekovm.github.io/cs229-2018-notes/lectures/03-locally-weighted-logistic.html) | Least squares as maximum likelihood, locally weighted regression, logistic regression, Newton's method | Complete |
 | 4 | [Perceptron and Generalized Linear Models](https://raimbekovm.github.io/cs229-2018-notes/lectures/04-perceptron-glm.html) | The perceptron, the exponential family, constructing GLMs, softmax regression | Complete |
-| 5 | GDA and Naive Bayes | Generative versus discriminative learning, Gaussian discriminant analysis, naive Bayes | Planned |
+| 5 | [GDA and Naive Bayes](https://raimbekovm.github.io/cs229-2018-notes/lectures/05-gda-naive-bayes.html) | Generative versus discriminative learning, Gaussian discriminant analysis, naive Bayes | Complete |
 | 6 | Support Vector Machines | Laplace smoothing, event models for text, functional and geometric margins, the optimal margin classifier | Planned |
 | 7 | Kernels | Lagrange duality, the kernel trick, Mercer's theorem, the soft-margin SVM | Planned |
 | 8 | Data Splits, Models and Cross-Validation | Bias and variance, regularization, train/dev/test splits, cross-validation, feature selection | Planned |

@@ -129,14 +129,14 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 5]{.cs-card__index}
 
-[GDA and Naive Bayes]{.cs-card__title}
+[[GDA and Naive Bayes](lectures/05-gda-naive-bayes.qmd)]{.cs-card__title}
 
 [Modelling how each class generates its inputs instead of the boundary between them: Gaussian discriminant analysis and naive Bayes.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -311,7 +311,7 @@ them by theme.
 | 2 | Linear Regression and Gradient Descent | Complete |
 | 3 | Locally Weighted and Logistic Regression | Complete |
 | 4 | Perceptron and Generalized Linear Models | Complete |
-| 5 | GDA and Naive Bayes | Planned |
+| 5 | GDA and Naive Bayes | Complete |
 | 6 | Support Vector Machines | Planned |
 | 7 | Kernels | Planned |
 | 8 | Data Splits, Models and Cross-Validation | Planned |
