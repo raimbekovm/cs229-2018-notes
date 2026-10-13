@@ -179,14 +179,14 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 9]{.cs-card__index}
 
-[Decision Trees and Ensemble Methods]{.cs-card__title}
+[[Decision Trees and Ensemble Methods](lectures/09-decision-trees-ensembles.qmd)]{.cs-card__title}
 
 [Greedy recursive splits, the losses that choose them, and the bagging, random forests and boosting that make trees competitive.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -316,7 +316,7 @@ them by theme.
 | 7 | Kernels | Complete |
 | 8 | Data Splits, Models and Cross-Validation | Complete |
 | — | Learning Theory | Complete |
-| 9 | Decision Trees and Ensemble Methods | Planned |
+| 9 | Decision Trees and Ensemble Methods | Complete |
 | 10 | Introduction to Neural Networks | Planned |
 | 11 | Backprop and Improving Neural Networks | Planned |
 | 12 | Debugging ML Models and Error Analysis | Planned |

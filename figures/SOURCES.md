@@ -109,3 +109,14 @@ invented one as a verified credit.
 | `08b-learning-theory/diagram_hoeffding.svg` | own work | Drawn by `make_diagrams.py`: exact binomial tail probabilities against Hoeffding's bound. |
 | `08b-learning-theory/diagram_uniform.svg` | own work | Drawn by `make_diagrams.py`: true and empirical error of ten threshold classifiers on synthetic noisy data. Recomputes the board sketch of the error curves. |
 | `08b-learning-theory/diagram_shatter.svg` | own work | Drawn by `make_diagrams.py`: labellings of three and four points with separating lines found by exhaustive search. |
+
+## Lecture 9 — Decision Trees and Ensemble Methods
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `09-decision-trees-ensembles/diagram_ski.svg` | own work | Drawn by `make_diagrams.py`: a decision tree grown by the script's own CART implementation on synthetic month/latitude data. Recomputes the lecture's ski example. |
+| `09-decision-trees-ensembles/diagram_impurity.svg` | own work | Drawn by `make_diagrams.py`: misclassification, cross-entropy and Gini impurities with the lecture's 900/100 split. Redraws the board sketch of the concave loss and its chord. |
+| `09-decision-trees-ensembles/diagram_staircase.svg` | own work | Drawn by `make_diagrams.py`: trees of several depths fitted to synthetic data with a diagonal boundary. Redraws the board sketch of a staircase approximation. |
+| `09-decision-trees-ensembles/diagram_correlation.svg` | own work | Drawn by `make_diagrams.py`: the variance of an average of correlated variables, in closed form and by simulation. |
+| `09-decision-trees-ensembles/diagram_forest.svg` | own work | Drawn by `make_diagrams.py`: test error of bagged regression trees and a random forest on synthetic data as trees are added. |
+| `09-decision-trees-ensembles/diagram_adaboost.svg` | own work | Drawn by `make_diagrams.py`: AdaBoost with decision stumps on synthetic data with a diagonal boundary. Redraws the board sketch of reweighted mistakes. |
