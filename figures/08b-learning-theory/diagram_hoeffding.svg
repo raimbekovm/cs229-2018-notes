@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" width="680" height="300"
+     role="img" aria-labelledby="figHoeffdingTitle figHoeffdingDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figHoeffdingTitle">Hoeffding's inequality against the exact tail</title>
+  <desc id="figHoeffdingDesc">The probability that the mean of m Bernoulli draws misses its parameter by more than 0.1, computed exactly from the binomial distribution for φ = 0.5 and φ = 0.15, lies below Hoeffding's bound at every m. The bound has the right exponential rate and is loosest when φ is far from one half.</desc>
+  <line x1="80.0" y1="250.0" x2="640.0" y2="250.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="250.0" x2="80.0" y2="40.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="250.0" x2="80.0" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="80.0" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="173.3" y1="250.0" x2="173.3" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="173.3" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">100</text>
+  <line x1="266.7" y1="250.0" x2="266.7" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="266.7" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">200</text>
+  <line x1="360.0" y1="250.0" x2="360.0" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="360.0" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">300</text>
+  <line x1="453.3" y1="250.0" x2="453.3" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="453.3" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">400</text>
+  <line x1="546.7" y1="250.0" x2="546.7" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="546.7" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">500</text>
+  <line x1="640.0" y1="250.0" x2="640.0" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="640.0" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">600</text>
+  <text x="360.0" y="286.0" font-size="12" fill="currentColor" text-anchor="middle">number of examples m</text>
+  <text x="40.0" y="145.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 145.0)">probability (log scale)</text>
+  <line x1="76.0" y1="250.0" x2="80.0" y2="250.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="254.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁻⁶</text>
+  <line x1="76.0" y1="217.7" x2="80.0" y2="217.7" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="221.7" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁻⁵</text>
+  <line x1="76.0" y1="185.4" x2="80.0" y2="185.4" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="189.4" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁻⁴</text>
+  <line x1="76.0" y1="153.1" x2="80.0" y2="153.1" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="157.1" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁻³</text>
+  <line x1="76.0" y1="120.8" x2="80.0" y2="120.8" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="124.8" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁻²</text>
+  <line x1="76.0" y1="88.5" x2="80.0" y2="88.5" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="92.5" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁻¹</text>
+  <line x1="76.0" y1="56.2" x2="80.0" y2="56.2" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="60.2" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10⁰</text>
+  <polyline points="89.33,56.15 98.67,56.15 108.00,56.15 117.33,57.65 126.67,60.46 136.00,63.27 145.33,66.07 154.67,68.88 164.00,71.68 173.33,74.49 182.67,77.30 192.00,80.10 201.33,82.91 210.67,85.72 220.00,88.52 229.33,91.33 238.67,94.13 248.00,96.94 257.33,99.75 266.67,102.55 276.00,105.36 285.33,108.16 294.67,110.97 304.00,113.78 313.33,116.58 322.67,119.39 332.00,122.20 341.33,125.00 350.67,127.81 360.00,130.61 369.33,133.42 378.67,136.23 388.00,139.03 397.33,141.84 406.67,144.65 416.00,147.45 425.33,150.26 434.67,153.06 444.00,155.87 453.33,158.68 462.67,161.48 472.00,164.29 481.33,167.10 490.67,169.90 500.00,172.71 509.33,175.51 518.67,178.32 528.00,181.13 537.33,183.93 546.67,186.74 556.00,189.54 565.33,192.35 574.67,195.16 584.00,197.96 593.33,200.77 602.67,203.58 612.00,206.38 621.33,209.19 630.67,211.99 640.00,214.80" fill="none" stroke="#440154" stroke-width="2.2" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="89.33,71.14 98.67,74.88 108.00,78.70 117.33,82.42 126.67,86.03 136.00,89.56 145.33,93.02 154.67,96.43 164.00,99.79 173.33,103.11 182.67,106.40 192.00,109.65 201.33,112.88 210.67,116.09 220.00,119.28 229.33,122.45 238.67,125.60 248.00,128.73 257.33,131.86 266.67,134.97 276.00,138.07 285.33,141.16 294.67,144.24 304.00,147.31 313.33,150.37 322.67,153.42 332.00,156.47 341.33,159.51 350.67,162.54 360.00,165.57 369.33,168.59 378.67,171.60 388.00,174.61 397.33,177.62 406.67,180.62 416.00,183.62 425.33,186.61 434.67,189.60 444.00,192.58 453.33,195.56 462.67,198.54 472.00,201.52 481.33,204.49 490.67,207.46 500.00,210.42 509.33,213.39 518.67,216.35 528.00,219.30 537.33,222.26 546.67,225.21 556.00,228.16 565.33,231.11 574.67,234.06 584.00,237.00 593.33,239.94 602.67,242.88 612.00,245.82 621.33,248.76" fill="none" stroke="#21918c" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="89.33,69.85 98.67,87.64 108.00,86.16 117.33,100.62 126.67,99.90 136.00,112.93 145.33,112.52 154.67,124.66 164.00,124.44 173.33,135.94 182.67,135.86 192.00,146.90 201.33,146.91 210.67,157.60 220.00,157.68 229.33,168.11 238.67,168.24 248.00,178.48 257.33,178.64 266.67,188.73 276.00,188.91 285.33,198.89 294.67,199.09 304.00,208.97 313.33,209.19 322.67,219.00 332.00,219.23 341.33,228.99 350.67,229.22 360.00,238.93 369.33,239.18 378.67,248.85 388.00,249.09" fill="none" stroke="#3b528b" stroke-width="2.0" stroke-opacity="1.0" stroke-dasharray="6 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="313.3" y="104.6" font-size="12" fill="#440154" text-anchor="start">Hoeffding: 2 exp(−2γ²m)</text>
+  <text x="250.0" y="172.4" font-size="12" fill="#21918c" text-anchor="start">exact, φ = 0.5</text>
+  <text x="150.0" y="177.7" font-size="12" fill="#3b528b" text-anchor="start">exact, φ = 0.15</text>
+  <text x="360.0" y="22.0" font-size="13" fill="currentColor" text-anchor="middle" font-weight="600">P(|φ̂ − φ| > 0.1) for the mean of m coin flips</text>
+</svg>

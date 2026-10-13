@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320"
+     role="img" aria-labelledby="figDecompositionTitle figDecompositionDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figDecompositionTitle">Two decompositions of the expected error</title>
+  <desc id="figDecompositionDesc">Left: the hypothesis class drawn as a region; the best predictor g lies outside it, the best line h* is the closest point inside, and lines fitted to finite training sets scatter around a point near h*. Right: for lines fitted to eight points from a parabola, the expected test error split into Bayes error, approximation and estimation error, and into noise, squared bias and variance; the totals agree.</desc>
+  <ellipse cx="170" cy="190" rx="130" ry="95" fill="#21918c" fill-opacity="0.12" stroke="#21918c" stroke-width="1.4"/>
+  <text x="88.0" y="132.0" font-size="12" fill="#21918c" text-anchor="start">H: all straight lines</text>
+  <circle cx="340.0" cy="110.0" r="5.0" fill="#440154" fill-opacity="1.0" stroke="#440154" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="350.0" y="114.0" font-size="12" fill="currentColor" text-anchor="start">g = E[y | x]</text>
+  <circle cx="270.0" cy="129.0" r="5.0" fill="#3b528b" fill-opacity="1.0" stroke="#3b528b" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="264.0" y="119.0" font-size="12" fill="currentColor" text-anchor="end">h*</text>
+  <line x1="270.0" y1="129.0" x2="340.0" y2="110.0" stroke="#440154" stroke-width="1.2" stroke-opacity="1.0" stroke-dasharray="4 3"/>
+  <text x="318.0" y="150.0" font-size="11" fill="#440154" text-anchor="start">approximation</text>
+  <circle cx="249.1" cy="195.1" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="247.5" cy="203.8" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="219.6" cy="189.7" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="244.8" cy="149.4" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="237.6" cy="216.7" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="224.0" cy="211.4" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="246.1" cy="193.8" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="250.5" cy="176.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="245.7" cy="151.6" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="245.4" cy="215.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="210.8" cy="168.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="255.8" cy="158.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="269.6" cy="202.5" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="211.8" cy="157.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="245.4" cy="208.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="258.8" cy="197.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="261.7" cy="156.5" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="218.6" cy="210.7" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="187.7" cy="168.1" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="256.8" cy="154.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="199.8" cy="197.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="195.3" cy="196.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="223.3" cy="198.4" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="272.9" cy="193.2" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="222.5" cy="178.2" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="204.5" cy="179.7" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="211.3" cy="205.8" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="246.5" cy="219.8" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="239.3" cy="207.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="223.5" cy="213.8" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="229.4" cy="161.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="203.9" cy="176.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="267.8" cy="205.4" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="231.6" cy="193.3" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="197.7" cy="162.0" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="218.3" cy="200.2" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="209.9" cy="188.1" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="226.7" cy="176.6" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="274.9" cy="173.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="271.0" cy="175.9" r="2.0" fill="#3b528b" fill-opacity="0.5" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="170.0" y="258.0" font-size="11" fill="#3b528b" text-anchor="middle">ĥ from 40 training sets</text>
+  <line x1="270.0" y1="129.0" x2="230.0" y2="184.0" stroke="#3b528b" stroke-width="1.2" stroke-opacity="1.0" stroke-dasharray="4 3"/>
+  <text x="150.0" y="175.0" font-size="11" fill="#3b528b" text-anchor="middle">estimation</text>
+  <rect x="440.0" y="213.7" width="50.0" height="76.3" fill="#c9cdd6" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="498.0" y="255.9" font-size="11" fill="currentColor" text-anchor="start">Bayes error σ² 0.0900</text>
+  <rect x="440.0" y="138.4" width="50.0" height="75.3" fill="#440154" fill-opacity="0.85" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="498.0" y="180.1" font-size="11" fill="currentColor" text-anchor="start">approximation 0.0889</text>
+  <rect x="440.0" y="70.0" width="50.0" height="68.4" fill="#3b528b" fill-opacity="0.85" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="498.0" y="108.2" font-size="11" fill="currentColor" text-anchor="start">estimation 0.0808</text>
+  <rect x="650.0" y="213.7" width="50.0" height="76.3" fill="#c9cdd6" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="708.0" y="255.9" font-size="11" fill="currentColor" text-anchor="start">noise σ² 0.0900</text>
+  <rect x="650.0" y="136.6" width="50.0" height="77.1" fill="#440154" fill-opacity="0.85" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="708.0" y="179.2" font-size="11" fill="currentColor" text-anchor="start">bias² 0.0910</text>
+  <rect x="650.0" y="70.0" width="50.0" height="66.6" fill="#3b528b" fill-opacity="0.85" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="708.0" y="107.3" font-size="11" fill="currentColor" text-anchor="start">variance 0.0786</text>
+  <text x="465.0" y="310.0" font-size="12" fill="currentColor" text-anchor="middle" fill-opacity="0.85">by class</text>
+  <text x="675.0" y="310.0" font-size="12" fill="currentColor" text-anchor="middle" fill-opacity="0.85">by estimator</text>
+  <text x="600.0" y="40.0" font-size="13" fill="currentColor" text-anchor="middle" font-weight="600">expected test error 0.2597, split two ways</text>
+</svg>

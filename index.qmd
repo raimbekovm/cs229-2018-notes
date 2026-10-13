@@ -159,24 +159,24 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 8]{.cs-card__index}
 
-[Data Splits, Models and Cross-Validation]{.cs-card__title}
+[[Data Splits, Models and Cross-Validation](lectures/08-cross-validation.qmd)]{.cs-card__title}
 
 [Bias and variance, regularisation, and how to choose a model with data you did not train on.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Discussion section]{.cs-card__index}
 
-[Learning Theory]{.cs-card__title}
+[[Learning Theory](lectures/08b-learning-theory.qmd)]{.cs-card__title}
 
 [Why training error says anything about test error: the union bound, Hoeffding's inequality, uniform convergence and the VC dimension.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -314,8 +314,8 @@ them by theme.
 | 5 | GDA and Naive Bayes | Complete |
 | 6 | Support Vector Machines | Complete |
 | 7 | Kernels | Complete |
-| 8 | Data Splits, Models and Cross-Validation | Planned |
-| — | Learning Theory | Planned |
+| 8 | Data Splits, Models and Cross-Validation | Complete |
+| — | Learning Theory | Complete |
 | 9 | Decision Trees and Ensemble Methods | Planned |
 | 10 | Introduction to Neural Networks | Planned |
 | 11 | Backprop and Improving Neural Networks | Planned |

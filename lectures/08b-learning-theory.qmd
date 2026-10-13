@@ -1,0 +1,402 @@
+---
+description: "Why low training error says anything about test error: the learning algorithm as an estimator with a sampling distribution, bias and variance as its first two moments, the split of test error into Bayes, approximation and estimation error, empirical risk minimisation, Hoeffding's inequality and the union bound, uniform convergence and sample complexity for a finite hypothesis class, the guarantee ε(ĥ) ≤ ε(h*) + 2γ, and the VC dimension that extends it to infinite classes."
+---
+
+# Learning Theory {.unnumbered}
+
+::: {.lecture-video lecture="8b"}
+:::
+
+*Based on the Friday discussion section of [CS229](https://cs229.stanford.edu/),
+Stanford University, Autumn 2018, taught by a member of the course staff.*
+
+Lecture 8 told you to choose models on held-out data because training error is
+optimistic. This section asks how optimistic, and answers with a theorem: if an
+algorithm picks the hypothesis with the lowest training error from a class of $k$
+hypotheses, then with probability at least $1 - \delta$ its true error is within
+
+$$
+2\sqrt{\frac{1}{2m}\log\frac{2k}{\delta}}
+$$
+
+of the best the class can do. Two facts are hiding in that expression. The number of
+examples needed grows only with the *logarithm* of the size of the class, and, once
+the class is infinite, the logarithm is replaced by a measure of the class's
+expressiveness called the VC dimension. Getting there takes two elementary tools — the
+union bound and Hoeffding's inequality — and a change of viewpoint about what a
+learning algorithm is.
+
+Ng explained in lecture 8 that this material used to be part of the main lectures
+and moved to a Friday section because it matters less to making algorithms work than
+it once did. The section promises to state results rather than prove them, and the
+proofs are in cs229-notes4. What this chapter adds is the section's own pictures, its
+answers to questions, and a computation behind every claim: the bounds are checked
+against exact probabilities and simulations, which also shows how loose they are.
+
+## The learning algorithm as an estimator {#sec-lt-framing}
+
+[1:15]{.t} Everything rests on two assumptions. There is a fixed data distribution
+$\mathcal D$ over pairs $(x, y)$, from which both the training set and every future
+test example are drawn; and the examples are drawn independently. Without the first,
+training data say nothing about test data, and the theory has nothing to work with.
+Lecture 8's aside about training on phone recordings to deploy on a smart speaker is
+exactly a case where it fails.
+
+[3:15]{.t} A learning algorithm is then a box. In goes a training set
+$S = \{(x^{(i)}, y^{(i)})\}_{i=1}^m$ of $m$ samples from $\mathcal D$; out comes a
+hypothesis $\hat h$, or equivalently, for a parametric class such as logistic
+regression in $n$ dimensions, a parameter vector $\hat\theta$. [4:43]{.t} The point
+the section makes first is that $S$ is random, the box is a deterministic function, and
+so its output is random too. Run the box on a different sample from $\mathcal D$ and you
+get a different $\hat\theta$. In statistics the box is called an *estimator*, and the
+distribution of $\hat\theta$ over repeated draws of $S$ is its **sampling
+distribution**.
+
+[6:22]{.t} Against this randomness stands a fixed target, a true parameter $\theta^*$
+(or true hypothesis $h^*$) that we would like the box to output. It is unknown, but it
+is not random: there is no distribution over it. That is the frequentist stance of
+lecture 8, and the notation follows it — hats for things estimated from data, stars
+for the true values we never see. Asked whether $\theta$ must be a vector, the section
+answers that it can be anything we estimate, a scalar, a matrix, or a function with no
+parameters at all.
+
+## Bias and variance as moments of the sampling distribution {#sec-lt-moments}
+
+[10:26]{.t} Lecture 8 pictured bias and variance in the *data* view: curves through
+points, underfitting and overfitting. The section redraws them in the *parameter*
+view, which makes them precise. Take a model with two parameters, so that each
+$\hat\theta$ is a dot in the plane. Draw a training set of size $m$, run the
+algorithm, plot the dot; draw another training set of the same size, plot another dot;
+repeat. The cloud of dots is a sample from the sampling distribution. [13:51]{.t}
+**Bias** asks whether the cloud is centred on $\theta^*$: it is
+$\mathbb E[\hat\theta] - \theta^*$, a statement about the first moment. **Variance**
+asks how spread out the cloud is, the second moment. They are, in the section's words,
+"just properties of the first and second moments of your sampling distribution".
+
+@fig-lt-sampling draws the clouds for two real estimators on one regression problem,
+$y = \theta^{*\top} x + \varepsilon$ with $\theta^* = (1, 0.5)$ and two features
+correlated at $0.9$ — the situation of square footage and number of bedrooms. Least
+squares is unbiased, and at $m = 10$ its cloud is centred on $\theta^*$ but enormous
+(total variance $1.47$), stretched along the direction in which correlated features
+cannot be told apart: raising $\theta_1$ while lowering $\theta_2$ barely changes the
+fit. Ridge regression with $\lambda = 10$ on the same training sets is pulled towards
+the origin, a bias of length $0.52$, and its variance is thirty times smaller,
+$0.045$. That is lecture 8's claim that regularisation trades a little bias for a lot
+of variance, seen directly.
+
+![Sampling distributions of θ̂ for least squares (teal) and ridge with λ = 10 (indigo), 300 training sets per panel, on a two-feature regression with correlated features. The cross marks θ*, the ring the mean of θ̂. More data shrinks both clouds, and shrinks ridge's offset from θ* too.](../figures/08b-learning-theory/diagram_sampling.svg){#fig-lt-sampling}
+
+[15:58]{.t} With ten times the data, every cloud tightens: least squares' variance
+falls from $1.47$ to $0.110$, roughly the factor of ten one expects from variance
+proportional to $1/m$. As $m \to \infty$ the variance goes to zero, and an estimator
+whose output converges to $\theta^*$ is called **consistent**. [17:56]{.t} An estimator
+with $\mathbb E[\hat\theta] = \theta^*$ at *every* $m$ is called **unbiased**.
+
+[17:14]{.t} The rate at which variance falls with $m$ the section calls *statistical
+efficiency*, a measure of how well an algorithm squeezes information from data, and it
+offers as examples one algorithm whose variance falls like $1/m^2$ and another like
+$e^{-m}$. Those rates are not available to an unbiased estimator of a parameter in a
+regular model: the Cramér–Rao bound puts a floor of order $1/m$ under its variance.
+(Irregular models are different — the right endpoint of a uniform distribution can be
+estimated with variance of order $1/m^2$ — but the models in this course are regular.)
+What efficiency usually measures is the *constant* in front of $1/m$. The mean and the
+median of a Gaussian sample are both unbiased estimates of its centre, both with
+variance proportional to $1/m$; but the median's is larger by a factor of $\pi/2$. The
+generator measures $m \cdot \operatorname{Var}$ at $1.01$ for the mean and $1.575$ for
+the median at $m = 101$, against $\pi/2 = 1.571$. Using the median wastes about a
+third of the data.
+
+[20:08]{.t} Informally, the section says, a high-bias algorithm is one that "no
+matter how much data or evidence you provide", stays away from $\theta^*$. That runs
+two ideas together, and the bottom row of @fig-lt-sampling separates them. Bias is
+defined at a fixed $m$, as a student's question prompts the section to confirm at
+[21:35]{.t}; staying away forever is *inconsistency*. Ridge with a fixed $\lambda$ is
+biased at every $m$ and yet consistent, because the penalty stays the same size while
+the data term grows in proportion to $m$: its bias is $0.52$ at $m = 10$, $0.18$ at
+$100$, $0.030$ at $1{,}000$ and $0.002$ at $10{,}000$. [58:09]{.t} The same point
+answers a later question that the section leaves open, whether adding regularisation
+destroys the consistency of maximum likelihood. With a fixed penalty, it does not.
+
+[20:58]{.t} Bias and variance are separate properties; any combination of the two can
+occur. [22:18]{.t} High variance has two standard remedies. More data shrinks the cloud
+directly. Regularisation shrinks it by restricting where $\hat\theta$ can go, usually
+at the price of moving its centre — which is the trade @fig-lt-sampling shows.
+
+## Approximation error and estimation error {#sec-lt-decomposition}
+
+[25:02]{.t} The second picture is drawn in the space of all hypotheses. Somewhere in it
+is $g$, the best possible hypothesis, with the lowest expected error under
+$\mathcal D$ of any function whatsoever. [25:52]{.t} Our algorithm searches only a
+class $\mathcal H$ — all logistic regression models, say, or all SVMs — drawn as a
+region that need not contain $g$. [26:27]{.t} Inside the region is $h^*$, the best
+hypothesis *in the class*. And what training on finite data actually produces is
+$\hat h$, a different point of $\mathcal H$ for every training set.
+
+[27:51]{.t} For classification the error of a hypothesis is its probability of a
+mistake, and the training error is its frequency of mistakes on $S$:
+
+$$
+\varepsilon(h) = P_{(x,y)\sim\mathcal D}\bigl(h(x) \neq y\bigr),
+\qquad
+\hat\varepsilon_S(h) = \frac1m \sum_{i=1}^m 1\bigl\{h(x^{(i)}) \neq y^{(i)}\bigr\}.
+$$ {#eq-lt-errors}
+
+The first is called the **generalisation error** or risk; the second the
+**empirical risk**. [30:30]{.t} $\varepsilon(g)$ is the **Bayes error**, also called
+irreducible error: if the same $x$ can come with different labels, no function gets
+all of them right. Then the error of what we learn splits into three:
+
+$$
+\varepsilon(\hat h)
+= \underbrace{\varepsilon(g)}_{\text{Bayes error}}
++ \underbrace{\varepsilon(h^*) - \varepsilon(g)}_{\text{approximation error}}
++ \underbrace{\varepsilon(\hat h) - \varepsilon(h^*)}_{\text{estimation error}} .
+$$ {#eq-lt-decomposition}
+
+[31:35]{.t} The identity is a telescoping sum, but each term names a different cause.
+Approximation error is the price of restricting ourselves to $\mathcal H$, a property of
+the class alone. [32:20]{.t} Estimation error is the price of having only $m$
+examples, plus any quirks of the algorithm, and it shrinks as $m$ grows.
+
+[34:49]{.t} The section then says this decomposition and the bias–variance
+decomposition are related but not the same: estimation error itself splits into a
+variance part and a bias part, and "bias" in the usual sense is approximation error
+plus that estimation bias. For 0–1 loss this is a picture rather than an equation —
+there is no clean additive bias–variance identity for classification error — but for
+squared error it is exact, and worth seeing. Let $g(x) = \mathbb E[y \mid x]$, let
+$\bar h = \mathbb E_S[\hat h]$ be the average learned hypothesis, and measure error by
+$\varepsilon(h) = \mathbb E(y - h(x))^2$. Then
+
+$$
+\mathbb E_S\,\varepsilon(\hat h)
+= \underbrace{\sigma^2}_{\text{noise}}
++ \underbrace{\mathbb E_x\bigl(\bar h(x) - g(x)\bigr)^2}_{\text{bias}^2}
++ \underbrace{\mathbb E_{S,x}\bigl(\hat h(x) - \bar h(x)\bigr)^2}_{\text{variance}} ,
+$$ {#eq-lt-bias-variance}
+
+and when $\mathcal H$ is a linear space, such as all straight lines, $g - h^*$ is
+orthogonal to it, so Pythagoras splits the bias:
+$\text{bias}^2 = \text{approximation error} + \mathbb E_x(\bar h - h^*)^2$, and the
+estimation error is the variance plus that same small term.
+
+@fig-lt-decomposition does this for straight lines fitted to eight points from a
+parabola, $g(x) = 4(x - \frac12)^2$, with noise $\sigma = 0.3$. The best line is flat,
+$h^* = \frac13$, and the approximation error is $0.0889$. The expected test error of the
+fitted line is $0.2597$, which splits as $0.0900 + 0.0889 + 0.0808$ one way and
+$0.0900 + 0.0910 + 0.0786$ the other. The difference between the two middle terms,
+$0.0021$, is the estimation bias: the average fitted line, $0.290 - 0.006x$, is not
+$h^*$, because least squares on a misspecified model is biased at small $m$. The
+generator asserts that both totals agree and that the Pythagorean identity holds.
+
+![Left: the hypothesis-space picture. The class H is a region; the best predictor g lies outside it; h* is the point of H closest to g; fitted hypotheses ĥ scatter inside H. Right: the expected test error of straight lines fitted to eight noisy points from a parabola, split into Bayes, approximation and estimation error, and into noise, squared bias and variance. The bars are to scale and their totals agree.](../figures/08b-learning-theory/diagram_decomposition.svg){#fig-lt-decomposition}
+
+[36:34]{.t} The picture also says how to fight each kind of error. To reduce bias,
+make $\mathcal H$ bigger, so that it reaches closer to $g$; but a bigger class gives
+$\hat h$ more room to wander, so variance tends to rise. [39:27]{.t} To reduce variance,
+make $\mathcal H$ smaller — regularisation does this, by penalising hypotheses with large
+$\theta$ — and unless the shrinking happens to move towards $g$, bias rises.
+[41:05]{.t} A student asks why not shrink the class towards $h^*$; because we do not
+know where $h^*$ is, and if we did there would be nothing to learn.
+
+## Empirical risk minimisation and two tools {#sec-lt-erm}
+
+[44:56]{.t} Nothing so far depended on what happens inside the box. To prove something,
+the section now fixes the algorithm: **empirical risk minimisation** returns the
+hypothesis with the lowest training error,
+
+$$
+\hat h = \arg\min_{h \in \mathcal H} \hat\varepsilon_S(h).
+$$ {#eq-lt-erm}
+
+[47:36]{.t} This is "what we've been doing so far in the course", with one honest
+caveat that the section mentions: logistic regression minimises the logistic loss, not
+the 0–1 training error of @eq-lt-errors, and SVMs minimise the hinge loss. Those losses
+are convex stand-ins for the count of mistakes, which is intractable to minimise
+directly. The theorems below are about the count of mistakes; they extend to the
+stand-ins with more work, which this section does not do.
+
+[49:25]{.t} Two questions organise the rest. How close is the training error of a
+hypothesis to its true error? And how close is the true error of the hypothesis ERM
+picks to that of the best in the class? [50:47]{.t} The first tool is the **union
+bound**: for any events $A_1, \dots, A_k$, independent or not,
+
+$$
+P(A_1 \cup \dots \cup A_k) \le P(A_1) + \dots + P(A_k).
+$$
+
+"If this looks trivial, it is trivial," the section says. [52:00]{.t} The second is
+**Hoeffding's inequality**, stated for the case needed here. Let $Z_1, \dots, Z_m$ be
+independent Bernoulli($\phi$) variables and $\hat\phi = \frac1m\sum_i Z_i$ their mean.
+Then for any $\gamma > 0$,
+
+$$
+P\bigl(|\hat\phi - \phi| > \gamma\bigr) \le 2\exp(-2\gamma^2 m).
+$$ {#eq-lt-hoeffding}
+
+The probability that an average of coin flips misses its expectation by more than a
+margin $\gamma$ falls exponentially in the number of flips. The general version holds
+for any bounded independent variables, and the bound on the range is essential.
+
+The bound is easy to check, because the exact probability is a binomial tail.
+@fig-lt-hoeffding compares them for $\gamma = 0.1$. At $m = 100$ the exact
+probabilities are $0.035$ for a fair coin and $0.0034$ for $\phi = 0.15$, against a
+bound of $0.27$. The bound holds at every $m$ and $\phi$ the generator tries, with the
+exact tail never more than $0.23$ of it. It has the right exponential rate, and it is
+loosest for coins far from fair, whose averages vary less — a looseness that matters
+here, because error rates of good classifiers are far from one half.
+
+![The probability that the mean of m coin flips misses φ by more than 0.1: computed exactly for φ = 0.5 and φ = 0.15, and bounded by Hoeffding's inequality. The bound is valid everywhere and loose by an order of magnitude or more. The φ = 0.15 curve leaves the plot below 10⁻⁶.](../figures/08b-learning-theory/diagram_hoeffding.svg){#fig-lt-hoeffding}
+
+## Uniform convergence for a finite class {#sec-lt-uniform}
+
+[59:54]{.t} The section's central picture puts every hypothesis in $\mathcal H$ on a
+horizontal axis and plots two curves above it: the true error $\varepsilon(h)$, a fixed
+curve, and the training error $\hat\varepsilon_S(h)$, a random curve that changes with
+every training set. @fig-lt-uniform computes it for a class small enough that the true
+error of every member is a closed form. Inputs are uniform on $[0,1]$, the label is
+$1\{x \ge 0.4\}$ flipped with probability $0.15$, and $\mathcal H$ contains ten
+threshold classifiers $h_t(x) = 1\{x \ge t\}$ with $t = 0.05, 0.15, \dots, 0.95$. The
+Bayes error is $0.15$. The class has no threshold at $0.4$, so its best members,
+$t = 0.35$ and $t = 0.45$, have error $0.185$, an approximation error of $0.035$.
+
+![True error ε(h) (solid) and training error on three samples of sixty examples (dashed) for each of ten threshold classifiers. The training-error curves scatter around the true curve. ERM on the first sample picks the hypothesis circled, whose training error is well below its true error: choosing the minimum selects a hypothesis whose training error happened to come out low.](../figures/08b-learning-theory/diagram_uniform.svg){#fig-lt-uniform}
+
+[1:05:19]{.t} For one hypothesis $h$ fixed *in advance*, the training error is an
+average of $m$ independent Bernoulli variables $1\{h(x^{(i)}) \ne y^{(i)}\}$ whose
+mean is $\varepsilon(h)$, so Hoeffding applies directly:
+
+$$
+P\bigl(|\hat\varepsilon_S(h) - \varepsilon(h)| > \gamma\bigr) \le 2\exp(-2\gamma^2 m).
+$$
+
+On average over training sets the dashed curve passes through the solid one at every
+$h$, and with more data it hugs it more tightly. [1:08:16]{.t} But this is useless as
+it stands, and the section is precise about why: ERM does not fix $h$ in advance. It
+looks at the training set and picks the hypothesis whose dashed curve is lowest, so
+$\hat h$ depends on $S$ and its training error is no longer an unbiased average. It is
+the minimum of noisy scores, which lecture 8 showed is optimistic. The circled point
+in @fig-lt-uniform is exactly that.
+
+[1:09:32]{.t} The fix is to demand that the whole dashed curve be close to the solid
+one at once — **uniform convergence**. If no hypothesis deviates by more than $\gamma$,
+then neither does the one ERM picks, however it was chosen. [1:11:54]{.t} For a class
+of $k$ hypotheses the union bound gives this cheaply: the event that *some* $h$
+deviates is the union of $k$ events, each of probability at most $2\exp(-2\gamma^2 m)$,
+so
+
+$$
+P\bigl(\exists\, h \in \mathcal H : |\hat\varepsilon_S(h) - \varepsilon(h)| > \gamma\bigr)
+\le 2k\exp(-2\gamma^2 m).
+$$ {#eq-lt-uniform}
+
+Equivalently, with probability at least $1 - \delta$, where $\delta = 2k
+\exp(-2\gamma^2 m)$, every hypothesis has training error within $\gamma$ of its true
+error.
+
+The union bound is pessimistic, since it treats the $k$ events as if they could not
+overlap, and nested thresholds overlap heavily. With $m = 200$ and $\gamma = 0.1$ the
+generator finds that some hypothesis among the ten deviates in $1.6\,\%$ of training
+sets. The bound for a single hypothesis is already $3.7\,\%$, and the union bound is
+$37\,\%$. The guarantees in learning theory are worst-case statements over every
+distribution, and they read best as statements about how quantities *scale*.
+
+[1:16:04]{.t} Three quantities are tied together — $m$, $\gamma$ and $\delta$ — and
+fixing any two gives the third. Fixing $\gamma$ and $\delta$ and solving for $m$ gives
+the **sample complexity**: with probability at least $1 - \delta$, every training error
+is within $\gamma$ of the true error, provided
+
+$$
+m \ge \frac{1}{2\gamma^2}\log\frac{2k}{\delta}.
+$$ {#eq-lt-sample-complexity}
+
+The striking feature is the logarithm. For $\gamma = \delta = 0.05$, ten hypotheses
+need $1{,}199$ examples, a thousand need $2{,}120$, and a million need only $3{,}501$.
+
+## How good is the hypothesis ERM picks? {#sec-lt-guarantee}
+
+[1:17:58]{.t} The second question compares $\hat h$ with the best in class. On the
+event that uniform convergence holds, a three-step chain does it, each step either
+uniform convergence or the definition of ERM:
+
+$$
+\varepsilon(\hat h)
+\le \hat\varepsilon(\hat h) + \gamma
+\le \hat\varepsilon(h^*) + \gamma
+\le \varepsilon(h^*) + 2\gamma .
+$$
+
+The first step drops from the solid curve to the dashed one at $\hat h$. The second
+uses the fact that $\hat h$ has the lowest training error of any hypothesis, $h^*$
+included. The third climbs from the dashed curve back to the solid one at $h^*$.
+[1:22:29]{.t} Substituting $\gamma$ from @eq-lt-uniform gives the theorem: with
+probability at least $1 - \delta$,
+
+$$
+\varepsilon(\hat h) \le \Bigl(\min_{h \in \mathcal H} \varepsilon(h)\Bigr)
++ 2\sqrt{\frac{1}{2m}\log\frac{2k}{\delta}} .
+$$ {#eq-lt-guarantee}
+
+This is bias and variance once more, in theorem form. The first term is the best the
+class can do, which can only fall as $\mathcal H$ grows; the second, which grows with
+$k$, is the price of searching a larger class with the same data. cs229-notes4 makes
+the same reading. On the threshold class the guarantee holds in every one of 3,000
+runs at each $m$ the generator tries, but it is very loose: at $m = 200$, $2\gamma$ is
+$0.245$, while ERM picks a best-in-class threshold in every run.
+
+## Infinite classes and the VC dimension {#sec-lt-vc}
+
+[1:23:40]{.t} Most classes of interest, linear classifiers among them, are infinite,
+and @eq-lt-guarantee with $k = \infty$ says nothing. The section ran out of time here
+and only stated the result; cs229-notes4, section 4, gives more, and two pieces of it
+are worth having.
+
+The first is a crude argument that gets the right answer. A class with $d$ real
+parameters, stored as 64-bit floating-point numbers, has at most $k = 2^{64d}$
+members, and $\log k = 64 d \log 2$ is *linear* in $d$. So the sample complexity of
+ERM over a $d$-parameter class grows linearly in $d$. With $\gamma = \delta = 0.05$
+the bound gives about $9{,}600$ examples for $d = 1$ and $89{,}000$ for $d = 10$, which
+is far too many in absolute terms and right in how it scales.
+
+The second is the principled version. A class $\mathcal H$ **shatters** a set of
+points if, for every one of the $2^n$ ways of labelling them, some $h \in \mathcal H$
+gets every label right. The **Vapnik–Chervonenkis dimension** $\mathrm{VC}(\mathcal
+H)$ is the size of the largest set $\mathcal H$ can shatter. For lines in the plane it
+is 3, and @fig-lt-shatter shows why: three points in general position can be split by
+a line under all eight labellings, while no four points can. Any four points in general
+position either form a convex quadrilateral, where the labelling that alternates around
+it defeats every line, or a triangle with a point inside, where labelling the inner
+point against the outer three does. The generator checks every labelling of each set
+by exhaustive search over line directions. The definition needs only *one* shattered
+set of size 3: three collinear points cannot be shattered, since no line puts the
+middle point on the other side from its two neighbours, and the VC dimension is still 3.
+
+![Shattering with lines. Left: three points in general position under all eight labellings, each separated by a line (the all-same labellings need none). Right: the two shapes four points in general position can take, each with a labelling no line separates. The VC dimension of lines in the plane is therefore 3.](../figures/08b-learning-theory/diagram_shatter.svg){#fig-lt-shatter}
+
+[1:24:52]{.t} Vapnik's theorem then replaces $\log k$ with the VC dimension $d$: with
+probability at least $1 - \delta$,
+
+$$
+\varepsilon(\hat h) \le \varepsilon(h^*) + O\Bigl(\sqrt{\frac{d}{m}\log\frac{m}{d} + \frac1m\log\frac1\delta}\Bigr),
+$$
+
+and the section's take-away is that the number of examples needed is of the order
+of the VC dimension. For most classes with a reasonable parametrisation the VC
+dimension is roughly the number of parameters — linear classifiers in $n$ dimensions
+have $n + 1$ — which is the formal version of Ng's rule of thumb in lecture 8 that
+unregularised models want at least as many examples as parameters.
+
+The VC dimension also answers the question from lecture 8 about why an SVM in an
+infinite-dimensional feature space does not overfit. The VC dimension of all linear
+separators in that space is infinite. But Ng's answer was that the relevant class is
+the separators with a *large margin*, and for data inside a ball of radius $R$ the VC
+dimension of separators with margin at least $\gamma$ is bounded in terms of
+$R^2/\gamma^2$, however many dimensions the feature space has.
+That is the sense in which minimising $\lVert w \rVert^2$ is regularisation.
+
+::: {.callout-note title="In the official notes"}
+cs229-notes4, sections 2 and 3, prove the finite-class results stated here, including
+the sample-complexity corollary; section 4 gives the 64-bit argument, the definition
+of shattering and Vapnik's theorem. Hoeffding's inequality is proved in the
+supplementary notes on Hoeffding's inequality, via Chernoff bounds and moment
+generating functions.
+:::
