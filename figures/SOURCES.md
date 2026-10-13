@@ -72,3 +72,20 @@ invented one as a verified credit.
 | `05-gda-naive-bayes/diagram_posterior_1d.svg` | own work | Drawn by `make_diagrams.py`: the GDA posterior along one feature at two priors. Redraws the board sketch of the sigmoid built point by point. |
 | `05-gda-naive-bayes/diagram_learning_curves.svg` | own work | Drawn by `make_diagrams.py`: simulated test error of GDA and logistic regression against training-set size, on Gaussian and Poisson data. |
 | `05-gda-naive-bayes/diagram_nb_graph.svg` | own work | Drawn by `make_diagrams.py`: the naive Bayes graphical model. Redraws the board sketch. |
+
+## Lecture 6 — Support Vector Machines
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `06-support-vector-machines/diagram_event_models.svg` | own work | Drawn by `make_diagrams.py`: the lecture's example e-mail under the multivariate Bernoulli and multinomial event models. |
+| `06-support-vector-machines/diagram_quad_boundary.svg` | own work | Drawn by `make_diagrams.py`: logistic regression fitted to synthetic data with raw and with quadratic features. Redraws the board sketch of a curved boundary. |
+| `06-support-vector-machines/diagram_margins.svg` | own work | Drawn by `make_diagrams.py`: the geometric margin of one example for the hyperplane w = (2, 1), b = −2. Redraws the board sketch. |
+| `06-support-vector-machines/diagram_optimal_margin.svg` | own work | Drawn by `make_diagrams.py`: the maximum-margin separator of a synthetic separable set beside a line that barely separates it. Redraws the board sketch of the green and red lines. |
+
+## Lecture 7 — Kernels
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `07-kernels/diagram_lift.svg` | own work | Drawn by `make_diagrams.py`: a one-dimensional set lifted by φ(x) = (x, x²) and separated by an SVM. Recomputes, one dimension lower, the idea of the third-party video shown in lecture; nothing is traced from it. |
+| `07-kernels/diagram_rbf_boundary.svg` | own work | Drawn by `make_diagrams.py`: a Gaussian-kernel SVM, solved by the script's own SMO, on synthetic rings. |
+| `07-kernels/diagram_soft_margin.svg` | own work | Drawn by `make_diagrams.py`: hard- and soft-margin SVMs on lecture 6's synthetic data with one outlier added. Redraws the board sketch of the swinging boundary. |
