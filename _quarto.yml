@@ -93,6 +93,9 @@ book:
       chapters:
         - lectures/08-cross-validation.qmd
         - lectures/08b-learning-theory.qmd
+    - part: "Trees and Neural Networks"
+      chapters:
+        - lectures/09-decision-trees-ensembles.qmd
 
 format:
   html:

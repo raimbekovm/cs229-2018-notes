@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 302" width="780" height="302"
+     role="img" aria-labelledby="figStaircaseTitle figStaircaseDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figStaircaseTitle">A tree approximating a diagonal boundary</title>
+  <desc id="figStaircaseDesc">Points above the dashed diagonal are positive. Trees of depth 1 and 3, and one grown until every leaf is pure, trained on 400 points, shade the region they call positive; the boundary is a staircase that needs ever more leaves to follow a line a linear classifier represents exactly.</desc>
+  <rect x="60.0" y="139.1" width="180.0" height="96.9" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="60.0" y="46.0" width="180.0" height="93.1" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="60.0" y1="236.0" x2="240.0" y2="236.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="60.0" y1="236.0" x2="60.0" y2="46.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="60.0" y1="236.0" x2="60.0" y2="240.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="60.0" y="253.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="240.0" y1="236.0" x2="240.0" y2="240.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="240.0" y="253.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="56.0" y1="236.0" x2="60.0" y2="236.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="240.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="56.0" y1="46.0" x2="60.0" y2="46.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="50.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">1</text>
+  <text x="150.0" y="272.0" font-size="12" fill="currentColor" text-anchor="middle">x₁</text>
+  <text x="20.0" y="141.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 20.0 141.0)">x₂</text>
+  <polyline points="60.00,236.00 61.80,234.10 63.60,232.20 65.40,230.30 67.20,228.40 69.00,226.50 70.80,224.60 72.60,222.70 74.40,220.80 76.20,218.90 78.00,217.00 79.80,215.10 81.60,213.20 83.40,211.30 85.20,209.40 87.00,207.50 88.80,205.60 90.60,203.70 92.40,201.80 94.20,199.90 96.00,198.00 97.80,196.10 99.60,194.20 101.40,192.30 103.20,190.40 105.00,188.50 106.80,186.60 108.60,184.70 110.40,182.80 112.20,180.90 114.00,179.00 115.80,177.10 117.60,175.20 119.40,173.30 121.20,171.40 123.00,169.50 124.80,167.60 126.60,165.70 128.40,163.80 130.20,161.90 132.00,160.00 133.80,158.10 135.60,156.20 137.40,154.30 139.20,152.40 141.00,150.50 142.80,148.60 144.60,146.70 146.40,144.80 148.20,142.90 150.00,141.00 151.80,139.10 153.60,137.20 155.40,135.30 157.20,133.40 159.00,131.50 160.80,129.60 162.60,127.70 164.40,125.80 166.20,123.90 168.00,122.00 169.80,120.10 171.60,118.20 173.40,116.30 175.20,114.40 177.00,112.50 178.80,110.60 180.60,108.70 182.40,106.80 184.20,104.90 186.00,103.00 187.80,101.10 189.60,99.20 191.40,97.30 193.20,95.40 195.00,93.50 196.80,91.60 198.60,89.70 200.40,87.80 202.20,85.90 204.00,84.00 205.80,82.10 207.60,80.20 209.40,78.30 211.20,76.40 213.00,74.50 214.80,72.60 216.60,70.70 218.40,68.80 220.20,66.90 222.00,65.00 223.80,63.10 225.60,61.20 227.40,59.30 229.20,57.40 231.00,55.50 232.80,53.60 234.60,51.70 236.40,49.80 238.20,47.90 240.00,46.00" fill="none" stroke="#440154" stroke-width="1.6" stroke-opacity="1.0" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="150.0" y="26.0" font-size="13" fill="currentColor" text-anchor="middle" font-weight="600">depth 1: 2 leaves</text>
+  <text x="150.0" y="290.0" font-size="12" fill="currentColor" text-anchor="middle">test accuracy 75.8 %</text>
+  <rect x="315.0" y="179.3" width="75.9" height="56.7" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="315.0" y="139.1" width="75.9" height="40.2" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="390.9" y="139.1" width="104.1" height="96.9" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="315.0" y="46.0" width="107.3" height="93.1" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="422.3" y="46.0" width="17.7" height="93.1" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="440.0" y="97.0" width="55.0" height="42.2" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="440.0" y="46.0" width="55.0" height="51.0" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="315.0" y1="236.0" x2="495.0" y2="236.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="315.0" y1="236.0" x2="315.0" y2="46.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="315.0" y1="236.0" x2="315.0" y2="240.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="315.0" y="253.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="495.0" y1="236.0" x2="495.0" y2="240.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="495.0" y="253.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="311.0" y1="236.0" x2="315.0" y2="236.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="307.0" y="240.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="311.0" y1="46.0" x2="315.0" y2="46.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="307.0" y="50.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">1</text>
+  <text x="405.0" y="272.0" font-size="12" fill="currentColor" text-anchor="middle">x₁</text>
+  <text x="275.0" y="141.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 275.0 141.0)">x₂</text>
+  <polyline points="315.00,236.00 316.80,234.10 318.60,232.20 320.40,230.30 322.20,228.40 324.00,226.50 325.80,224.60 327.60,222.70 329.40,220.80 331.20,218.90 333.00,217.00 334.80,215.10 336.60,213.20 338.40,211.30 340.20,209.40 342.00,207.50 343.80,205.60 345.60,203.70 347.40,201.80 349.20,199.90 351.00,198.00 352.80,196.10 354.60,194.20 356.40,192.30 358.20,190.40 360.00,188.50 361.80,186.60 363.60,184.70 365.40,182.80 367.20,180.90 369.00,179.00 370.80,177.10 372.60,175.20 374.40,173.30 376.20,171.40 378.00,169.50 379.80,167.60 381.60,165.70 383.40,163.80 385.20,161.90 387.00,160.00 388.80,158.10 390.60,156.20 392.40,154.30 394.20,152.40 396.00,150.50 397.80,148.60 399.60,146.70 401.40,144.80 403.20,142.90 405.00,141.00 406.80,139.10 408.60,137.20 410.40,135.30 412.20,133.40 414.00,131.50 415.80,129.60 417.60,127.70 419.40,125.80 421.20,123.90 423.00,122.00 424.80,120.10 426.60,118.20 428.40,116.30 430.20,114.40 432.00,112.50 433.80,110.60 435.60,108.70 437.40,106.80 439.20,104.90 441.00,103.00 442.80,101.10 444.60,99.20 446.40,97.30 448.20,95.40 450.00,93.50 451.80,91.60 453.60,89.70 455.40,87.80 457.20,85.90 459.00,84.00 460.80,82.10 462.60,80.20 464.40,78.30 466.20,76.40 468.00,74.50 469.80,72.60 471.60,70.70 473.40,68.80 475.20,66.90 477.00,65.00 478.80,63.10 480.60,61.20 482.40,59.30 484.20,57.40 486.00,55.50 487.80,53.60 489.60,51.70 491.40,49.80 493.20,47.90 495.00,46.00" fill="none" stroke="#440154" stroke-width="1.6" stroke-opacity="1.0" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="405.0" y="26.0" font-size="13" fill="currentColor" text-anchor="middle" font-weight="600">depth 3: 7 leaves</text>
+  <text x="405.0" y="290.0" font-size="12" fill="currentColor" text-anchor="middle">test accuracy 89.0 %</text>
+  <rect x="570.0" y="230.0" width="22.4" height="6.0" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="570.0" y="179.3" width="22.4" height="50.7" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="592.4" y="198.1" width="16.9" height="37.9" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="592.4" y="179.3" width="16.9" height="18.8" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="609.3" y="179.3" width="36.6" height="56.7" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="570.0" y="139.1" width="63.5" height="40.2" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="633.5" y="161.9" width="12.4" height="17.4" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="633.5" y="139.1" width="12.4" height="22.7" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="645.9" y="139.1" width="104.1" height="96.9" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="570.0" y="46.0" width="107.3" height="93.1" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="677.3" y="122.5" width="17.7" height="16.7" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="677.3" y="46.0" width="17.7" height="76.5" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="695.0" y="97.0" width="55.0" height="42.2" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="695.0" y="80.9" width="12.6" height="16.0" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="707.6" y="80.9" width="24.2" height="16.0" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="695.0" y="46.0" width="36.8" height="34.9" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="731.8" y="51.5" width="18.2" height="45.5" fill="#ffffff" fill-opacity="0.0" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <rect x="731.8" y="46.0" width="18.2" height="5.5" fill="#21918c" fill-opacity="0.25" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.35"/>
+  <line x1="570.0" y1="236.0" x2="750.0" y2="236.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="570.0" y1="236.0" x2="570.0" y2="46.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="570.0" y1="236.0" x2="570.0" y2="240.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="570.0" y="253.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="750.0" y1="236.0" x2="750.0" y2="240.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="750.0" y="253.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="566.0" y1="236.0" x2="570.0" y2="236.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="562.0" y="240.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="566.0" y1="46.0" x2="570.0" y2="46.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="562.0" y="50.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">1</text>
+  <text x="660.0" y="272.0" font-size="12" fill="currentColor" text-anchor="middle">x₁</text>
+  <text x="530.0" y="141.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 530.0 141.0)">x₂</text>
+  <polyline points="570.00,236.00 571.80,234.10 573.60,232.20 575.40,230.30 577.20,228.40 579.00,226.50 580.80,224.60 582.60,222.70 584.40,220.80 586.20,218.90 588.00,217.00 589.80,215.10 591.60,213.20 593.40,211.30 595.20,209.40 597.00,207.50 598.80,205.60 600.60,203.70 602.40,201.80 604.20,199.90 606.00,198.00 607.80,196.10 609.60,194.20 611.40,192.30 613.20,190.40 615.00,188.50 616.80,186.60 618.60,184.70 620.40,182.80 622.20,180.90 624.00,179.00 625.80,177.10 627.60,175.20 629.40,173.30 631.20,171.40 633.00,169.50 634.80,167.60 636.60,165.70 638.40,163.80 640.20,161.90 642.00,160.00 643.80,158.10 645.60,156.20 647.40,154.30 649.20,152.40 651.00,150.50 652.80,148.60 654.60,146.70 656.40,144.80 658.20,142.90 660.00,141.00 661.80,139.10 663.60,137.20 665.40,135.30 667.20,133.40 669.00,131.50 670.80,129.60 672.60,127.70 674.40,125.80 676.20,123.90 678.00,122.00 679.80,120.10 681.60,118.20 683.40,116.30 685.20,114.40 687.00,112.50 688.80,110.60 690.60,108.70 692.40,106.80 694.20,104.90 696.00,103.00 697.80,101.10 699.60,99.20 701.40,97.30 703.20,95.40 705.00,93.50 706.80,91.60 708.60,89.70 710.40,87.80 712.20,85.90 714.00,84.00 715.80,82.10 717.60,80.20 719.40,78.30 721.20,76.40 723.00,74.50 724.80,72.60 726.60,70.70 728.40,68.80 730.20,66.90 732.00,65.00 733.80,63.10 735.60,61.20 737.40,59.30 739.20,57.40 741.00,55.50 742.80,53.60 744.60,51.70 746.40,49.80 748.20,47.90 750.00,46.00" fill="none" stroke="#440154" stroke-width="1.6" stroke-opacity="1.0" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="660.0" y="26.0" font-size="13" fill="currentColor" text-anchor="middle" font-weight="600">depth 6: 18 leaves, pure</text>
+  <text x="660.0" y="290.0" font-size="12" fill="currentColor" text-anchor="middle">test accuracy 96.9 %</text>
+</svg>
