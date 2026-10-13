@@ -119,14 +119,14 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 4]{.cs-card__index}
 
-[Perceptron and Generalized Linear Models]{.cs-card__title}
+[[Perceptron and Generalized Linear Models](lectures/04-perceptron-glm.qmd)]{.cs-card__title}
 
 [The perceptron, the exponential family, and the recipe that turns a choice of distribution into a learning algorithm, softmax regression included.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -310,7 +310,7 @@ them by theme.
 | 1 | Introduction | Complete |
 | 2 | Linear Regression and Gradient Descent | Complete |
 | 3 | Locally Weighted and Logistic Regression | Complete |
-| 4 | Perceptron and Generalized Linear Models | Planned |
+| 4 | Perceptron and Generalized Linear Models | Complete |
 | 5 | GDA and Naive Bayes | Planned |
 | 6 | Support Vector Machines | Planned |
 | 7 | Kernels | Planned |

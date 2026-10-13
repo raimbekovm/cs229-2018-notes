@@ -51,3 +51,14 @@ invented one as a verified credit.
 | `03-locally-weighted-logistic/diagram_linear_vs_logistic.svg` | own work | Drawn by `make_diagrams.py`: least-squares and logistic fits to synthetic tumour labels, with and without one far example. Redraws Ng's board argument against linear regression for classification. |
 | `03-locally-weighted-logistic/diagram_links.svg` | own work | Drawn by `make_diagrams.py`: the logistic, normal and Cauchy CDFs and their logarithms. |
 | `03-locally-weighted-logistic/diagram_newton.svg` | own work | Drawn by `make_diagrams.py`: Newton's method run on the derivative of a one-parameter logistic log-likelihood. Redraws the tangent-line sketch from the board. |
+
+## Lecture 4 — Perceptron and Generalized Linear Models
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `04-perceptron-glm/diagram_perceptron_update.svg` | own work | Drawn by `make_diagrams.py`: one perceptron update on hand-placed points, with the old and new boundaries. Redraws the board sketch of θ rotating toward a misclassified example. |
+| `04-perceptron-glm/diagram_soft_hard.svg` | own work | Drawn by `make_diagrams.py`: the logistic function at three slopes against the step function. |
+| `04-perceptron-glm/diagram_glm_generative.svg` | own work | Drawn by `make_diagrams.py`: samples from a Gaussian and a Bernoulli GLM. Redraws the board sketches of the data-generating process. |
+| `04-perceptron-glm/diagram_parametrisations.svg` | own work | Drawn by `make_diagrams.py`: the model, natural and canonical parameters and the maps between them. |
+| `04-perceptron-glm/diagram_softmax_pipeline.svg` | own work | Drawn by `make_diagrams.py`: logits, exponentials, softmax probabilities and a one-hot label for one example. |
+| `04-perceptron-glm/diagram_softmax_shift.svg` | own work | Drawn by `make_diagrams.py`: a softmax regression fitted to synthetic clusters, before and after a common shift of every parameter vector. |
