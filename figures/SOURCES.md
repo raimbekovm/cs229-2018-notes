@@ -89,3 +89,23 @@ invented one as a verified credit.
 | `07-kernels/diagram_lift.svg` | own work | Drawn by `make_diagrams.py`: a one-dimensional set lifted by φ(x) = (x, x²) and separated by an SVM. Recomputes, one dimension lower, the idea of the third-party video shown in lecture; nothing is traced from it. |
 | `07-kernels/diagram_rbf_boundary.svg` | own work | Drawn by `make_diagrams.py`: a Gaussian-kernel SVM, solved by the script's own SMO, on synthetic rings. |
 | `07-kernels/diagram_soft_margin.svg` | own work | Drawn by `make_diagrams.py`: hard- and soft-margin SVMs on lecture 6's synthetic data with one outlier added. Redraws the board sketch of the swinging boundary. |
+
+## Lecture 8 — Data Splits, Models and Cross-Validation
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `08-cross-validation/diagram_three_fits.svg` | own work | Drawn by `make_diagrams.py`: polynomials of degree 1, 2 and 5 fitted to six synthetic houses. Redraws the board sketch of underfitting and overfitting. |
+| `08-cross-validation/diagram_variance.svg` | own work | Drawn by `make_diagrams.py`: degree-1 and degree-5 fits to twelve independent synthetic datasets, computing the lecture's "a friend collects different data" thought experiment. |
+| `08-cross-validation/diagram_lambda.svg` | own work | Drawn by `make_diagrams.py`: ridge-regularised degree-5 fits with λ = 0, a leave-one-out choice of λ, and λ = 10¹⁰⁰. |
+| `08-cross-validation/diagram_error_curves.svg` | own work | Drawn by `make_diagrams.py`: training and expected test error against degree and against λ, averaged over synthetic datasets. Redraws the board sketch of error against model complexity. |
+| `08-cross-validation/diagram_kfold.svg` | own work | Drawn by `make_diagrams.py`: schematic of five-fold cross-validation on 100 examples, as described in lecture. |
+
+## Discussion section — Learning Theory
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `08b-learning-theory/diagram_sampling.svg` | own work | Drawn by `make_diagrams.py`: sampling distributions of least squares and ridge estimates on a synthetic two-feature regression. Recomputes the board's four-target sketch of bias and variance with real estimators. |
+| `08b-learning-theory/diagram_decomposition.svg` | own work | Drawn by `make_diagrams.py`: schematic of g, h* and ĥ in hypothesis space beside both error decompositions computed for straight lines fitted to a parabola. |
+| `08b-learning-theory/diagram_hoeffding.svg` | own work | Drawn by `make_diagrams.py`: exact binomial tail probabilities against Hoeffding's bound. |
+| `08b-learning-theory/diagram_uniform.svg` | own work | Drawn by `make_diagrams.py`: true and empirical error of ten threshold classifiers on synthetic noisy data. Recomputes the board sketch of the error curves. |
+| `08b-learning-theory/diagram_shatter.svg` | own work | Drawn by `make_diagrams.py`: labellings of three and four points with separating lines found by exhaustive search. |

@@ -89,6 +89,10 @@ book:
         - lectures/05-gda-naive-bayes.qmd
         - lectures/06-support-vector-machines.qmd
         - lectures/07-kernels.qmd
+    - part: "Generalization"
+      chapters:
+        - lectures/08-cross-validation.qmd
+        - lectures/08b-learning-theory.qmd
 
 format:
   html:
