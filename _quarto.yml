@@ -96,6 +96,8 @@ book:
     - part: "Trees and Neural Networks"
       chapters:
         - lectures/09-decision-trees-ensembles.qmd
+        - lectures/10-neural-networks.qmd
+        - lectures/11-backprop.qmd
 
 format:
   html:

@@ -189,24 +189,24 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 10]{.cs-card__index}
 
-[Introduction to Neural Networks]{.cs-card__title}
+[[Introduction to Neural Networks](lectures/10-neural-networks.qmd)]{.cs-card__title}
 
 [Logistic regression as a single neuron, and what stacking them into layers buys.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 11]{.cs-card__index}
 
-[Backprop and Improving Neural Networks]{.cs-card__title}
+[[Backprop and Improving Neural Networks](lectures/11-backprop.qmd)]{.cs-card__title}
 
 [Backpropagation worked out by hand, then initialisation, normalisation and the optimisers that make training work in practice.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -317,8 +317,8 @@ them by theme.
 | 8 | Data Splits, Models and Cross-Validation | Complete |
 | — | Learning Theory | Complete |
 | 9 | Decision Trees and Ensemble Methods | Complete |
-| 10 | Introduction to Neural Networks | Planned |
-| 11 | Backprop and Improving Neural Networks | Planned |
+| 10 | Introduction to Neural Networks | Complete |
+| 11 | Backprop and Improving Neural Networks | Complete |
 | 12 | Debugging ML Models and Error Analysis | Planned |
 | 13 | Expectation-Maximization Algorithms | Planned |
 | 14 | EM Algorithm and Factor Analysis | Planned |
