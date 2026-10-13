@@ -86,6 +86,7 @@ book:
         - lectures/02-linear-regression.qmd
         - lectures/03-locally-weighted-logistic.qmd
         - lectures/04-perceptron-glm.qmd
+        - lectures/05-gda-naive-bayes.qmd
 
 format:
   html:
