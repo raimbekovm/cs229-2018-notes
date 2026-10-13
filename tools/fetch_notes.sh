@@ -19,7 +19,7 @@ OUT="$REPO/cs229-notes"
 
 key=""
 if [ -n "${1:-}" ]; then
-  case "$1" in *[!0-9]*) key="$1" ;; *) key="$(printf '%02d' "$((10#$1))")" ;; esac
+  case "$1" in *[!0-9]*) key="$(printf '%s' "$1" | sed -E 's/^([0-9])([a-z])$/0\1\2/')" ;; *) key="$(printf '%02d' "$((10#$1))")" ;; esac
   grep -q "^$key	" "$MAP" || { echo "lecture $key is not in $MAP" >&2; exit 1; }
 fi
 
