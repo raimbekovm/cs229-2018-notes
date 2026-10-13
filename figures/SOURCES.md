@@ -120,3 +120,22 @@ invented one as a verified credit.
 | `09-decision-trees-ensembles/diagram_correlation.svg` | own work | Drawn by `make_diagrams.py`: the variance of an average of correlated variables, in closed form and by simulation. |
 | `09-decision-trees-ensembles/diagram_forest.svg` | own work | Drawn by `make_diagrams.py`: test error of bagged regression trees and a random forest on synthetic data as trees are added. |
 | `09-decision-trees-ensembles/diagram_adaboost.svg` | own work | Drawn by `make_diagrams.py`: AdaBoost with decision stumps on synthetic data with a diagonal boundary. Redraws the board sketch of reweighted mistakes. |
+
+## Lecture 10 — Introduction to Neural Networks
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `10-neural-networks/diagram_neuron.svg` | own work | Drawn by `make_diagrams.py`: a flattened image feeding one sigmoid neuron. Redraws the board sketch of logistic regression as a neuron. |
+| `10-neural-networks/diagram_softmax.svg` | own work | Drawn by `make_diagrams.py`: one set of logits through three sigmoids and through a softmax, computed. |
+| `10-neural-networks/diagram_house.svg` | own work | Drawn by `make_diagrams.py`: the house-price network wired by hand and fully connected. Redraws the board sketch. |
+| `10-neural-networks/diagram_shapes.svg` | own work | Drawn by `make_diagrams.py`: the 3-2-1 network with the shape of every parameter. Redraws the board sketch. |
+
+## Lecture 11 — Backprop and Improving Neural Networks
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `11-backprop/diagram_backprop.svg` | own work | Drawn by `make_diagrams.py`: the forward and backward passes of the 3-2-1 network, with the backpropagation recurrence the script checks against finite differences. |
+| `11-backprop/diagram_activations.svg` | own work | Drawn by `make_diagrams.py`: sigmoid, tanh and ReLU and their derivatives, computed. |
+| `11-backprop/diagram_normalise.svg` | own work | Drawn by `make_diagrams.py`: gradient descent on a synthetic least-squares problem with raw and standardised inputs. Recomputes the board sketch of elongated and round contours. |
+| `11-backprop/diagram_init.svg` | own work | Drawn by `make_diagrams.py`: activation sizes through a randomly initialised 30-layer ReLU network under three weight variances. |
+| `11-backprop/diagram_momentum.svg` | own work | Drawn by `make_diagrams.py`: gradient descent and momentum on a 100:1 quadratic. Recomputes the board sketch of momentum damping a zig-zag. |

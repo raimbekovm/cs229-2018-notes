@@ -37,8 +37,8 @@
 | 8 | [Data Splits, Models and Cross-Validation](https://raimbekovm.github.io/cs229-2018-notes/lectures/08-cross-validation.html) | Bias and variance, regularization, train/dev/test splits, cross-validation, feature selection | Complete |
 | — | [Learning Theory](https://raimbekovm.github.io/cs229-2018-notes/lectures/08b-learning-theory.html) | Empirical risk minimization, the union bound and Hoeffding's inequality, uniform convergence, VC dimension | Complete |
 | 9 | [Decision Trees and Ensemble Methods](https://raimbekovm.github.io/cs229-2018-notes/lectures/09-decision-trees-ensembles.html) | Greedy splitting, misclassification and cross-entropy loss, bagging, random forests, boosting | Complete |
-| 10 | Introduction to Neural Networks | Logistic regression as a neuron, layers and vectorization, forward propagation | Planned |
-| 11 | Backprop and Improving Neural Networks | Backpropagation, activation functions, initialization, normalization, optimizers | Planned |
+| 10 | [Introduction to Neural Networks](https://raimbekovm.github.io/cs229-2018-notes/lectures/10-neural-networks.html) | Logistic regression as a neuron, layers and vectorization, forward propagation | Complete |
+| 11 | [Backprop and Improving Neural Networks](https://raimbekovm.github.io/cs229-2018-notes/lectures/11-backprop.html) | Backpropagation, activation functions, initialization, normalization, optimizers | Complete |
 | 12 | Debugging ML Models and Error Analysis | Bias versus variance diagnostics, optimization versus objective, error analysis, ablative analysis | Planned |
 | 13 | Expectation-Maximization Algorithms | k-means, mixtures of Gaussians, the EM algorithm | Planned |
 | 14 | EM Algorithm and Factor Analysis | Jensen's inequality and the evidence lower bound, EM as coordinate ascent, factor analysis | Planned |
