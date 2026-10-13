@@ -87,6 +87,8 @@ book:
         - lectures/03-locally-weighted-logistic.qmd
         - lectures/04-perceptron-glm.qmd
         - lectures/05-gda-naive-bayes.qmd
+        - lectures/06-support-vector-machines.qmd
+        - lectures/07-kernels.qmd
 
 format:
   html:

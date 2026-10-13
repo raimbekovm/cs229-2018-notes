@@ -1,0 +1,395 @@
+---
+title: "Support Vector Machines"
+subtitle: "Lecture 6"
+description: "Laplace smoothing and why it is the Bayesian answer to a zero count, the multinomial event model that lets naive Bayes count repeated words, the case for building something quick and dirty first, and the start of support vector machines: functional and geometric margins and the optimisation problem whose solution is the maximum-margin separator."
+---
+
+::: {.lecture-video lecture="6"}
+:::
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+Naive Bayes, as lecture 5 left it, breaks the first time a word turns up that the
+training set never contained: every class gets probability zero and the posterior is
+$0/0$. The fix is to add one to every count, and that rule, Laplace smoothing, is
+what a Bayesian with a uniform prior would compute anyway. With smoothing in place
+the lecture builds a second naive Bayes for text, the multinomial event model, which
+counts how often each word occurs instead of only whether it does, and then steps back
+to argue that an algorithm this cheap is the right first thing to build. The second
+half starts the support vector machine. Before kernels, an SVM is a linear classifier
+chosen for one property: of all the lines that separate the training data, it takes
+the one that stays furthest from every example. Most of the work is in defining
+"furthest" so that it cannot be gamed.
+
+## Laplace smoothing {#sec-laplace}
+
+[4:42]{.t} Ng's example of the zero problem is a word that is new to your inbox but
+not to the world. Suppose "NIPS", the machine learning conference, is word 6017 of a
+10,000-word vocabulary, and nobody has yet e-mailed you about it. The maximum
+likelihood estimates from lecture 5 are fractions of e-mails containing the word, so
+both $\phi_{6017 \mid y=1}$ and $\phi_{6017 \mid y=0}$ come out as $0$. [8:03]{.t}
+Months later your project team writes about submitting to NIPS. The product
+$\prod_j p(x_j \mid y)$ now contains a factor of zero for both classes, and the
+classifier's posterior is $0 / (0 + 0)$. The division by zero is the visible symptom;
+the underlying error, Ng says, is statistical — estimating the probability of
+something as zero because you have not seen it yet.
+
+[9:58]{.t} He sets spam aside to make the point with a smaller example. One season,
+Stanford's football team played four out-of-state games — Wake Forest, Oregon State,
+Arizona and, Ng adds for the room, Caltech — and lost all four. You followed them to
+every one. What is the chance they win the next? Maximum likelihood counts wins over
+games played, $0/4 = 0$: absolute certainty of a loss, which is unkind and also
+unreasonable. [11:59]{.t} Laplace smoothing pretends you saw one more of each outcome
+than you did — one extra win and one extra loss — so the estimate becomes
+$(0 + 1)/(4 + 2) = 1/6$.
+
+[12:58]{.t} The rule is not arbitrary. Laplace derived it for the probability that
+the sun rises tomorrow: having seen it rise every day so far, you should be very
+confident but not certain. Ng compresses the justification into one sentence, which
+is worth unpacking. If the unknown win probability $p$ is given a uniform prior on
+$[0, 1]$ and you observe $s$ wins in $n$ games, the posterior is proportional to
+$p^s (1 - p)^{n - s}$, and its mean is
+
+$$
+\mathbb{E}[p \mid \text{data}]
+= \frac{\int_0^1 p \cdot p^s (1-p)^{n-s}\, dp}{\int_0^1 p^s (1-p)^{n-s}\, dp}
+= \frac{s + 1}{n + 2} .
+$$ {#eq-rule-of-succession}
+
+That is exactly the add-one estimate. It is also the posterior predictive probability
+that the *next* game is a win, which is the quantity a classifier needs, so "Bayesian
+optimal" in the lecture means this: the posterior mean, the best guess under squared
+error. The generator integrates the posterior numerically for $0$ wins in $4$ and
+recovers $1/6$ to six decimal places, then repeats the check for other counts.
+
+[14:22]{.t} For a variable with $k$ possible values the rule adds one to each count
+and $k$ to the denominator,
+
+$$
+\hat p(x = j) = \frac{\sum_{i=1}^m 1\{x^{(i)} = j\} + 1}{m + k} ,
+$$ {#eq-laplace}
+
+which still sums to one over the $k$ values and never returns exactly $0$ or $1$.
+[15:14]{.t} For the binary word features of naive Bayes, $k = 2$:
+
+$$
+\phi_{j \mid y=1} = \frac{\sum_{i=1}^m 1\{x^{(i)}_j = 1,\; y^{(i)} = 1\} + 1}{\sum_{i=1}^m 1\{y^{(i)} = 1\} + 2} ,
+$$
+
+and the same for $y = 0$. A word never seen in training now gets a small positive
+probability in both classes, the zero factor disappears, and the NIPS e-mail is
+classified on the strength of its other words. Ng's assessment of the resulting
+filter is measured — "not a great spam classifier but it's not terrible either" —
+and its virtue is that training is counting and prediction is multiplying.
+
+## Discretising a continuous feature {#sec-discretising}
+
+[17:58]{.t} Naive Bayes extends past binary features with no change to its structure.
+Ng's example goes back to houses, now as a classification problem — will this house
+sell within 30 days? — with floor area as a feature. Cut the area into buckets (under
+400 square feet, 400 to 800, 800 to 1,200, over 1,200), let $x_j \in \{1, 2, 3, 4\}$
+record which bucket a house falls in, and model $p(x_j \mid y)$ as a multinomial over
+four values instead of a Bernoulli over two. The factorisation
+$p(x \mid y) = \prod_j p(x_j \mid y)$ is unchanged, the estimates are still counts,
+and Laplace smoothing adds $k = 4$ to each denominator. [19:29]{.t} His rule of thumb
+when discretising is ten buckets; it "often seems to work well enough", and the board
+had room for four.
+
+## The multinomial event model {#sec-event-models}
+
+[20:17]{.t} For text specifically there is a better variant, and Ng motivates it with
+what the binary representation throws away. Take the spam e-mail "drugs buy drugs
+now", with "buy", "drugs" and "now" at positions 800, 1600 and 6200 of the
+vocabulary. [21:40]{.t} Under the representation so far, $x$ is a 10,000-dimensional
+binary vector with three ones. The word "drugs" appears twice, and the vector records
+it once; the e-mail "drugs buy now" maps to exactly the same $x$
+(@fig-event-models). A word that a spammer repeats is arguably stronger evidence than
+one that appears once, and the binary model cannot see the difference.
+
+![The e-mail "drugs buy drugs now" under the two event models. Above, one binary entry
+per dictionary word; below, one dictionary index per word of the e-mail, so the
+repeated word is represented
+twice.](../figures/06-support-vector-machines/diagram_event_models.svg){#fig-event-models}
+
+[22:34]{.t} The alternative represents an e-mail of $n$ words as a vector of length
+$n$, whose $j$th entry $x_j \in \{1, \dots, 10{,}000\}$ is the dictionary index of
+the $j$th word: here $x = (1600, 800, 1600, 6200)$. The length now varies from e-mail
+to e-mail, $n_i$ for the $i$th training example, which also answers a property of
+text Ng points out — e-mails can be five words long or a thousand, and the binary
+representation forces both into one fixed-length vector.
+
+[23:57]{.t} The names are, in Ng's words, "very confusing, very horrible names", but
+they are the ones the field uses. The binary model is the *multivariate Bernoulli
+event model* — 10,000 coin tosses, one per word, each deciding whether that word
+appears. The new one is the *multinomial event model*. [24:49]{.t} Ng credits the
+naming to his friend Andrew McCallum, and the paper that compares the two, by
+[McCallum and Nigam](https://cdn.aaai.org/Workshops/1998/WS-98-05/WS98-05-007.pdf),
+says it set out to clear up exactly this confusion.
+
+[25:12]{.t} The generative story is that the sender first decides spam or not, with
+probability $\phi_y$, and then draws each word of the e-mail independently from one
+distribution over the vocabulary that depends on the class. So
+
+$$
+p(x, y) = p(y) \prod_{j=1}^{n} p(x_j \mid y) ,
+$$
+
+which looks identical to lecture 5's naive Bayes and means something different: the
+product now runs over the words *of the e-mail* rather than over the dictionary, and
+each factor is a multinomial over 10,000 outcomes rather than a coin toss. The
+parameters are $\phi_y$ and $\phi_{k \mid y=c} = p(x_j = k \mid y = c)$, the chance
+that a word in a class-$c$ e-mail is word $k$. [28:05]{.t} Ng puts a question to the
+room — "the chance of word blank being blank" — and the answer, *any* position being
+word $k$, exposes the hidden assumption: the distribution does not depend on $j$. The
+first word of a spam e-mail is "drugs" with the same probability as the third, which
+is why $j$ does not appear on the left-hand side.
+
+[29:41]{.t} The maximum likelihood estimates are again counts, now over word
+occurrences instead of e-mails, and with Laplace smoothing they are
+
+$$
+\phi_{k \mid y=0} =
+\frac{\sum_{i=1}^m \sum_{j=1}^{n_i} 1\{x^{(i)}_j = k,\; y^{(i)} = 0\} + 1}
+     {\sum_{i=1}^m 1\{y^{(i)} = 0\}\, n_i + 10{,}000} .
+$$ {#eq-multinomial-mle}
+
+In English: pool every word of every non-spam e-mail, and ask what fraction of them
+are word $k$. If the non-spam e-mails contain 100,000 words in all and "drugs" is 200
+of them, the unsmoothed estimate is $200/100{,}000$. [31:59]{.t} Ng asks the room what
+to add to the denominator for smoothing, and the answer is the number of values $x_j$
+can take: the vocabulary size, 10,000, not two.
+
+[33:44]{.t} A student asks what to do with a word that is not in the dictionary at
+all. Either drop it, or map every out-of-vocabulary word to one special token,
+conventionally `UNK`, which then gets a probability like any other word. The second
+keeps the information that the e-mail contained rare words, which can itself be
+evidence.
+
+The multinomial model is still a linear classifier, now in word *counts*. Taking the
+log of Bayes' rule, the log-odds of spam is
+
+$$
+\log \frac{p(y=1 \mid x)}{p(y=0 \mid x)}
+= \log \frac{\phi_y}{1 - \phi_y} + \sum_{k=1}^{10{,}000} c_k \log \frac{\phi_{k \mid y=1}}{\phi_{k \mid y=0}} ,
+$$
+
+where $c_k$ is the number of times word $k$ occurs in the e-mail. The generator
+confirms this against Bayes' rule on 200 random e-mails. A repeated word now adds its
+weight once per occurrence, which is precisely the information the Bernoulli model
+discarded. McCallum and Nigam's comparison on five corpora found the Bernoulli model
+competitive with small vocabularies and the multinomial model usually better with
+large ones, averaging a 27 percent reduction in error — "much better", as the lecture
+puts it, for the typical text problem.
+
+::: {.callout-note title="In the official notes"}
+cs229-notes2, section 2.1, gives Laplace smoothing for the binary naive Bayes model;
+section 2.2 writes out the multinomial event model's likelihood and both smoothed
+estimates.
+:::
+
+## Build something quick and dirty first {#sec-quick-and-dirty}
+
+[35:26]{.t} Naive Bayes is rarely the most accurate choice — logistic regression
+usually beats it — so the question is what it is for. Ng's answer is a piece of
+working advice that appears in no PDF. [36:55]{.t} If your goal is to make a learning
+algorithm work for an application, rather than to invent a new algorithm, start by
+implementing something simple and fast, train it, look at how it fails, and let the
+failures decide what to build next. [38:11]{.t} His analogy is software: nobody
+writes 10,000 lines of code and compiles them for the first time at the end; you
+write a module, test it, and build up. A complicated learning system designed in full
+before any of it runs is the same mistake.
+
+[39:07]{.t} The spam filter shows why. Ng started a conference on e-mail and anti-spam,
+and his example list of promising ideas is long. Spammers misspell deliberately —
+"m0rtgage", or the word broken up with slashes — so a filter keyed to words sees an
+unknown token where a person sees "mortgage"; one of his students published on mapping
+such spellings back to words. Spammers spoof headers to hide where mail came from.
+You could fetch the URLs in an e-mail and analyse the pages behind them. [40:59]{.t}
+Each of these is three to six months of work, and at the start you cannot know which
+one matters. So build the crude filter, then read the e-mails it gets wrong. If many
+of them are deliberate misspellings, you now have evidence that the misspelling
+problem is worth months; if few are, "don't bother" — and you have saved the months.
+This is error analysis, which the course returns to later.
+
+[42:06]{.t} That is the niche for naive Bayes and GDA. Neither will give the best
+accuracy; logistic regression, SVMs and neural networks almost always do better. But
+both are non-iterative — counting, or computing means and covariances — and short to
+write, so they are a fast way to get the first system running. Ng's advice for course
+projects follows: do not spend weeks designing; get a data set and apply something
+simple, logistic regression or naive Bayes rather than a neural network, and go from
+there.
+
+[44:26]{.t} A student points to a weakness of the word features themselves: "mother"
+and "father", or "one" and "two", are entirely unrelated indices to naive Bayes, which
+has no way to know that similar words should behave similarly. Ng agrees and names the
+fix from neural networks, *word embeddings*, which represent each word by a vector
+learned so that related words land close together. Because the embedding comes with
+that knowledge built in, a classifier built on it needs fewer labelled examples. The
+course leaves the topic to CS230 and CS224N.
+
+## Why support vector machines {#sec-why-svm}
+
+[46:22]{.t} The SVM enters with a picture: two classes in the plane whose boundary is
+clearly curved. Logistic regression and GDA, as they stand, draw straight lines.
+[47:06]{.t} You can get a curve out of logistic regression by inventing features —
+map $(x_1, x_2)$ to $\phi(x) = (x_1, x_2, x_1^2, x_2^2, x_1 x_2, x_1^3, \dots)$ and
+fit the same linear model to $\phi(x)$ — and with the quadratic terms the boundary
+can become an ellipse (@fig-quad-boundary). The generator fits both models to the
+same data: on the raw features logistic regression misclassifies a third of the
+training set, with the quadratic terms 12 percent.
+
+![Logistic regression on the same data with and without hand-picked features. With
+$x_1, x_2$ alone the boundary must be a straight line and it gives up; with the
+squares and the product added, the boundary is an ellipse around the inner
+class.](../figures/06-support-vector-machines/diagram_quad_boundary.svg){#fig-quad-boundary}
+
+[48:05]{.t} The trouble is choosing the features. An ellipse needs quadratic terms;
+Ng admits he would not know which features produce the irregular boundary he drew,
+and nobody wants to guess between $\sqrt{x_1}$ and $(x_1 x_2)^{2/3}$. The SVM's
+promise is to map $x$ into a much higher-dimensional feature space — [51:15]{.t}
+hundreds of thousands of dimensions, or infinitely many — and fit a linear classifier
+there, which is non-linear back in the original space, without anyone choosing the
+features by hand. That is the *kernel* idea of lecture 7.
+
+[48:48]{.t} Ng's other reason is practical. The SVM is "turnkey": mature software
+solves its optimisation problem reliably, without a learning rate to tune or a
+convergence to babysit. He is explicit that for many problems neural networks are now
+more effective, and equally explicit that practice uses a much wider set of tools than
+the press coverage of deep learning suggests.
+
+[49:57]{.t} The road map has three stages: the *optimal margin classifier* for data
+that a straight line can separate, which this lecture starts; kernels, which run it in
+huge feature spaces; and a modification for data that cannot be separated. The first
+stage needs two definitions of margin.
+
+## The functional margin {#sec-functional-margin}
+
+[54:50]{.t} Ng motivates the margin with logistic regression. The classifier predicts
+$1$ when $\theta^\top x \ge 0$, but a correct prediction can be confident or marginal.
+If $y^{(i)} = 1$ we would like $\theta^\top x^{(i)} \gg 0$, so that
+$g(\theta^\top x^{(i)})$ is close to $1$; if $y^{(i)} = 0$ we would like
+$\theta^\top x^{(i)} \ll 0$. A classifier for which both hold on every example is
+correct and confident.
+
+[1:00:02]{.t} The SVM changes notation to make the algebra cleaner. Labels are
+$y \in \{-1, +1\}$, the hypothesis outputs a hard $\pm 1$ instead of a probability,
+$g(z) = 1$ if $z \ge 0$ and $-1$ otherwise, and the intercept is pulled out of the
+parameter vector: $h_{w,b}(x) = g(w^\top x + b)$, with $b$ playing the role of
+$\theta_0$ and $w$ of $\theta_1, \dots, \theta_n$, and no $x_0 = 1$ convention.
+
+[1:03:36]{.t} The *functional margin* of the hyperplane $(w, b)$ with respect to the
+example $(x^{(i)}, y^{(i)})$ is
+
+$$
+\hat\gamma^{(i)} = y^{(i)} \left( w^\top x^{(i)} + b \right) .
+$$ {#eq-functional-margin}
+
+The label folds the two hopes into one: if $y^{(i)} = 1$ we want $w^\top x^{(i)} + b$
+large and positive, if $y^{(i)} = -1$ large and negative, and either way we want
+$\hat\gamma^{(i)}$ large. [1:06:30]{.t} Its sign alone already says something:
+$\hat\gamma^{(i)} > 0$ exactly when the example is classified correctly.
+[1:07:46]{.t} For the whole training set, the SVM takes the worst case,
+$\hat\gamma = \min_i \hat\gamma^{(i)}$ — how well the classifier does on the example
+it does worst on. That is a harsh notion, and it makes sense for now only because
+this lecture assumes the data are linearly separable.
+
+[1:09:01]{.t} The functional margin has a flaw Ng calls cheating. Multiply $w$ and
+$b$ by $2$, or $10$, and every $\hat\gamma^{(i)}$ multiplies by the same factor, yet
+the boundary $w^\top x + b = 0$ is the same line and every prediction is unchanged
+(the generator checks this for factors of $2$, $10$ and $1/17$, Ng's choices). So
+"make the functional margin large" is not a goal at all: any separating classifier
+achieves an arbitrarily large one. [1:10:00]{.t} The fix is to normalise — require
+$\lVert w \rVert = 1$, or equivalently divide $w$ and $b$ by $\lVert w \rVert$ — and
+the freedom to rescale $(w, b)$ without changing the classifier turns out to be
+useful later rather than only a nuisance.
+
+## The geometric margin {#sec-geometric-margin}
+
+[1:11:29]{.t} The geometric margin is the normalised version, and it has a picture.
+The line $w^\top x + b = 0$ splits the plane into the half where the classifier
+predicts $+1$ and the half where it predicts $-1$, and the vector $w$ is perpendicular
+to the line, pointing into the positive half. [1:12:33]{.t} For a correctly classified
+positive example $A$, the *geometric margin* $\gamma^{(i)}$ is its Euclidean distance
+to the line: the length of the segment from $A$ to the nearest point $B$ on the
+boundary (@fig-margins).
+
+![The geometric margin of one example. The boundary is $w^\top x + b = 0$ with
+$w = (2, 1)$ and $b = -2$; $w$ is perpendicular to it; the positive example $A$ sits
+at distance $\gamma^{(i)}$ from its foot $B$ on the
+line.](../figures/06-support-vector-machines/diagram_margins.svg){#fig-margins}
+
+[1:13:49]{.t} Ng states the formula and leaves the derivation to the notes; it is
+short enough to give. $B$ is $A$ moved back along the unit normal by the distance
+$\gamma^{(i)}$, so $B = x^{(i)} - \gamma^{(i)} w / \lVert w \rVert$, and $B$ lies on
+the line, so $w^\top B + b = 0$. Solving gives
+$\gamma^{(i)} = (w^\top x^{(i)} + b)/\lVert w \rVert$ for a positive example, and
+including the label makes it hold for negative ones too:
+
+$$
+\gamma^{(i)} = y^{(i)} \left( \frac{w^\top x^{(i)} + b}{\lVert w \rVert} \right)
+= \frac{\hat\gamma^{(i)}}{\lVert w \rVert} .
+$$ {#eq-geometric-margin}
+
+For the point $A = (2, 1.6)$ in @fig-margins, the functional margin is $3.6$ and the
+geometric margin $3.6 / \sqrt 5 \approx 1.61$; multiply $w$ and $b$ by ten and the
+functional margin becomes $36$ while the geometric margin stays at $1.61$. The
+geometric margin is the functional margin with the cheat removed. The generator
+checks @eq-geometric-margin against an explicit projection onto the hyperplane for
+500 random hyperplanes and points in three dimensions. [1:15:23]{.t} As before, the
+training set's geometric margin is the worst case, $\gamma = \min_i \gamma^{(i)}$.
+
+## The optimal margin classifier {#sec-optimal-margin}
+
+[58:15]{.t} Ng drew the motivating picture well before the definitions. Two lines
+both separate a training set perfectly; one passes close to a few of the examples, the
+other keeps a wide berth from both classes, and the second "looks much better". The
+geometric margin is what "looks better" means: the first line's worst example is
+barely on the right side, the second line's is far from it (@fig-optimal-margin).
+
+![Two lines that both separate the training set. The dotted one passes within $0.10$
+of the closest example; the solid one, the maximum-margin separator, keeps a
+geometric margin of $0.77$ from both classes. The dashed lines are where
+$w^\top x + b = \pm 1$, and the circled examples on them are the support
+vectors.](../figures/06-support-vector-machines/diagram_optimal_margin.svg){#fig-optimal-margin}
+
+[1:16:28]{.t} The *optimal margin classifier* chooses $w$ and $b$ to maximise the
+geometric margin of the training set. [1:17:59]{.t} Ng poses it as a problem in three
+unknowns, $\gamma$, $w$ and $b$:
+
+$$
+\max_{\gamma, w, b} \; \gamma
+\quad \text{subject to} \quad
+\frac{y^{(i)} (w^\top x^{(i)} + b)}{\lVert w \rVert} \ge \gamma ,
+\quad i = 1, \dots, m .
+$$ {#eq-max-margin}
+
+Every example must have geometric margin at least $\gamma$, and $\gamma$ is pushed
+as high as the constraints allow, so at the optimum $\gamma$ equals the worst
+example's margin and that worst margin is as large as it can be.
+
+[1:19:03]{.t} In this form the problem is not convex, so there is no guarantee that a
+local method finds the global optimum. [1:19:13]{.t} Ng states, and leaves the steps
+to lecture 7 and the notes, that a few rewrites turn it into an equivalent convex
+problem: minimise $\frac12 \lVert w \rVert^2$ subject to every functional margin
+being at least $1$. His one-line intuition is that the margin is the functional
+margin divided by $\lVert w \rVert$, so a smaller $w$ means a smaller division and a
+larger geometric margin. Off-the-shelf solvers handle the convex form, and for
+separable data its solution is the optimal margin classifier — "really a baby SVM",
+which kernels will grow up.
+
+The solution has a property the picture already shows. In @fig-optimal-margin only
+two examples touch the dashed lines; they are the *support vectors*, and the
+separator depends on them alone. The generator finds this separator in two
+independent ways. It searches over directions for the one that leaves the widest gap
+between the classes, and then checks the result against the optimality conditions of
+the convex problem: every functional margin is at least $1$, the two closest examples
+have functional margin exactly $1$, and $w$ can be written as a combination of those
+two examples with positive weights. That last fact — the solution is built from a
+few training examples — is where lecture 7 begins.
+
+::: {.callout-note title="In the official notes"}
+cs229-notes3, sections 1–4, defines the functional and geometric margins with the
+same notation and gives the full chain of rewrites from @eq-max-margin to the convex
+quadratic program.
+:::

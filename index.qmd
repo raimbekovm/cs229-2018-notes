@@ -139,24 +139,24 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 6]{.cs-card__index}
 
-[Support Vector Machines]{.cs-card__title}
+[[Support Vector Machines](lectures/06-support-vector-machines.qmd)]{.cs-card__title}
 
 [Laplace smoothing and the event models for text, then the geometric margin and the optimisation problem that maximises it.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 7]{.cs-card__index}
 
-[Kernels]{.cs-card__title}
+[[Kernels](lectures/07-kernels.qmd)]{.cs-card__title}
 
 [The dual of the margin problem, inner products in feature spaces you never compute, and the soft margin for data that will not separate.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -312,8 +312,8 @@ them by theme.
 | 3 | Locally Weighted and Logistic Regression | Complete |
 | 4 | Perceptron and Generalized Linear Models | Complete |
 | 5 | GDA and Naive Bayes | Complete |
-| 6 | Support Vector Machines | Planned |
-| 7 | Kernels | Planned |
+| 6 | Support Vector Machines | Complete |
+| 7 | Kernels | Complete |
 | 8 | Data Splits, Models and Cross-Validation | Planned |
 | — | Learning Theory | Planned |
 | 9 | Decision Trees and Ensemble Methods | Planned |
