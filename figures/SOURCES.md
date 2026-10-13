@@ -139,3 +139,21 @@ invented one as a verified credit.
 | `11-backprop/diagram_normalise.svg` | own work | Drawn by `make_diagrams.py`: gradient descent on a synthetic least-squares problem with raw and standardised inputs. Recomputes the board sketch of elongated and round contours. |
 | `11-backprop/diagram_init.svg` | own work | Drawn by `make_diagrams.py`: activation sizes through a randomly initialised 30-layer ReLU network under three weight variances. |
 | `11-backprop/diagram_momentum.svg` | own work | Drawn by `make_diagrams.py`: gradient descent and momentum on a 100:1 quadratic. Recomputes the board sketch of momentum damping a zig-zag. |
+
+## Lecture 12 — Debugging ML Models and Error Analysis
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `12-debugging-ml/diagram_learning_curves.svg` | own work | Drawn by `make_diagrams.py`: closed-form expected training and test error of least squares, checked against simulation. Recomputes the board sketch of high-variance and high-bias learning curves. |
+| `12-debugging-ml/diagram_diagnostic.svg` | own work | Drawn by `make_diagrams.py`: logistic regression's objective along gradient ascent on a synthetic spam problem, against a class-weighted linear SVM. |
+| `12-debugging-ml/diagram_helicopter.svg` | own work | Drawn by `make_diagrams.py`: the lecture's helicopter diagnostics as a decision flow. |
+| `12-debugging-ml/diagram_pipeline.svg` | own work | Drawn by `make_diagrams.py`: the lecture's face-recognition pipeline and the illustrative error-analysis accuracies it quotes. |
+
+## Lecture 13 — Expectation-Maximization Algorithms
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `13-em-algorithms/diagram_kmeans.svg` | own work | Drawn by `make_diagrams.py`: k-means run on synthetic data. Recomputes the lecture's animation. |
+| `13-em-algorithms/diagram_mixture.svg` | own work | Drawn by `make_diagrams.py`: a two-component Gaussian mixture and its E-step posterior, computed. |
+| `13-em-algorithms/diagram_jensen.svg` | own work | Drawn by `make_diagrams.py`: a convex function and a chord. Redraws the board sketch of Jensen's inequality. |
+| `13-em-algorithms/diagram_em_bound.svg` | own work | Drawn by `make_diagrams.py`: the log-likelihood of a one-parameter mixture and EM's lower bounds, computed. Recomputes the board sketch. |
