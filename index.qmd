@@ -209,24 +209,24 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 12]{.cs-card__index}
 
-[Debugging ML Models and Error Analysis]{.cs-card__title}
+[[Debugging ML Models and Error Analysis](lectures/12-debugging-ml.qmd)]{.cs-card__title}
 
 [Diagnosing a learning algorithm that does not work: bias versus variance, optimisation versus objective, and error and ablative analysis.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 13]{.cs-card__index}
 
-[Expectation-Maximization Algorithms]{.cs-card__title}
+[[Expectation-Maximization Algorithms](lectures/13-em-algorithms.qmd)]{.cs-card__title}
 
 [Clustering with k-means, mixtures of Gaussians, and the EM algorithm that fits a model with latent variables.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -319,8 +319,8 @@ them by theme.
 | 9 | Decision Trees and Ensemble Methods | Complete |
 | 10 | Introduction to Neural Networks | Complete |
 | 11 | Backprop and Improving Neural Networks | Complete |
-| 12 | Debugging ML Models and Error Analysis | Planned |
-| 13 | Expectation-Maximization Algorithms | Planned |
+| 12 | Debugging ML Models and Error Analysis | Complete |
+| 13 | Expectation-Maximization Algorithms | Complete |
 | 14 | EM Algorithm and Factor Analysis | Planned |
 | 15 | PCA and ICA | Planned |
 | 16 | Independent Component Analysis and RL | Planned |

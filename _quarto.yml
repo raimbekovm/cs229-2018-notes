@@ -98,6 +98,12 @@ book:
         - lectures/09-decision-trees-ensembles.qmd
         - lectures/10-neural-networks.qmd
         - lectures/11-backprop.qmd
+    - part: "Applying Machine Learning"
+      chapters:
+        - lectures/12-debugging-ml.qmd
+    - part: "Unsupervised Learning"
+      chapters:
+        - lectures/13-em-algorithms.qmd
 
 format:
   html:

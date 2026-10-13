@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 375" width="660" height="375"
+     role="img" aria-labelledby="figPipelineTitle figPipelineDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figPipelineTitle">Error analysis of a face-recognition pipeline</title>
+  <desc id="figPipelineDesc">Top, the pipeline: camera image, background removal, face detection, separate eye, nose and mouth segmentation, and logistic regression producing the label. Bottom, the overall accuracy of 85 per cent and the accuracy after replacing each component, cumulatively from the left, with ground truth: 85.1, 91, 95, 96, 97 and 100. Face detection and eye segmentation account for the largest gains.</desc>
+  <rect x="20.0" y="70.0" width="90.0" height="44.0" fill="#3b528b" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="65.0" y="89.0" font-size="12" fill="currentColor" text-anchor="middle">Camera</text>
+  <text x="65.0" y="105.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">image</text>
+  <rect x="130.0" y="70.0" width="100.0" height="44.0" fill="#440154" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="180.0" y="89.0" font-size="12" fill="currentColor" text-anchor="middle">Background</text>
+  <text x="180.0" y="105.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">removal</text>
+  <rect x="250.0" y="70.0" width="100.0" height="44.0" fill="#440154" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="300.0" y="89.0" font-size="12" fill="currentColor" text-anchor="middle">Face</text>
+  <text x="300.0" y="105.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">detection</text>
+  <rect x="370.0" y="20.0" width="90.0" height="40.0" fill="#440154" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="415.0" y="37.0" font-size="12" fill="currentColor" text-anchor="middle">Eyes</text>
+  <text x="415.0" y="53.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">segmentation</text>
+  <rect x="370.0" y="70.0" width="90.0" height="40.0" fill="#440154" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="415.0" y="87.0" font-size="12" fill="currentColor" text-anchor="middle">Nose</text>
+  <text x="415.0" y="103.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">segmentation</text>
+  <rect x="370.0" y="120.0" width="90.0" height="40.0" fill="#440154" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="415.0" y="137.0" font-size="12" fill="currentColor" text-anchor="middle">Mouth</text>
+  <text x="415.0" y="153.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">segmentation</text>
+  <rect x="480.0" y="70.0" width="100.0" height="44.0" fill="#440154" fill-opacity="0.22" stroke="currentColor" stroke-width="1.0" stroke-opacity="1.0" rx="6"/>
+  <text x="530.0" y="89.0" font-size="12" fill="currentColor" text-anchor="middle">Logistic</text>
+  <text x="530.0" y="105.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.75">regression</text>
+  <line x1="110.0" y1="92.0" x2="122.0" y2="92.0" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="128.0,92.0 122.0,94.7 122.0,89.3" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="230.0" y1="92.0" x2="242.0" y2="92.0" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="248.0,92.0 242.0,94.7 242.0,89.3" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="350.0" y1="92.0" x2="366.0" y2="45.7" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="368.0,40.0 368.6,46.6 363.5,44.8" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="460.0" y1="40.0" x2="476.0" y2="86.3" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="478.0,92.0 473.5,87.2 478.6,85.4" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="350.0" y1="92.0" x2="362.0" y2="90.7" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="368.0,90.0 362.3,93.3 361.7,88.0" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="460.0" y1="90.0" x2="472.0" y2="91.3" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="478.0,92.0 471.7,94.0 472.3,88.7" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="350.0" y1="92.0" x2="365.9" y2="134.4" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="368.0,140.0 363.4,135.3 368.4,133.4" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="460.0" y1="140.0" x2="475.9" y2="97.6" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="478.0,92.0 478.4,98.6 473.4,96.7" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="600.0" y="96.0" font-size="12" fill="currentColor" text-anchor="start">label</text>
+  <line x1="580.0" y1="92.0" x2="592.0" y2="92.0" stroke="currentColor" stroke-width="1.4" stroke-opacity="0.75"/>
+  <polygon points="598.0,92.0 592.0,94.7 592.0,89.3" fill="currentColor" fill-opacity="0.75" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="60.0" y1="330.0" x2="640.0" y2="330.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="60.0" y1="330.0" x2="60.0" y2="190.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="56.0" y1="330.0" x2="60.0" y2="330.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="334.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">80</text>
+  <line x1="56.0" y1="295.0" x2="60.0" y2="295.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="299.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">85</text>
+  <line x1="56.0" y1="260.0" x2="60.0" y2="260.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="264.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">90</text>
+  <line x1="56.0" y1="225.0" x2="60.0" y2="225.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="229.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">95</text>
+  <line x1="56.0" y1="190.0" x2="60.0" y2="190.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="52.0" y="194.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">100</text>
+  <text x="350.0" y="366.0" font-size="12" fill="currentColor" text-anchor="middle"></text>
+  <text x="20.0" y="260.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 20.0 260.0)">accuracy (%)</text>
+  <rect x="72.4" y="295.0" width="58.0" height="35.0" fill="#3b528b" fill-opacity="0.3" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="101.4" y="289.0" font-size="11" fill="currentColor" text-anchor="middle">85</text>
+  <text x="101.4" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Overall</text>
+  <rect x="155.3" y="294.3" width="58.0" height="35.7" fill="#3b528b" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="184.3" y="288.3" font-size="11" fill="currentColor" text-anchor="middle">85.1</text>
+  <text x="184.3" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Background</text>
+  <text x="184.3" y="360.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.9">+0.1</text>
+  <rect x="238.1" y="253.0" width="58.0" height="77.0" fill="#21918c" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="267.1" y="247.0" font-size="11" fill="currentColor" text-anchor="middle">91</text>
+  <text x="267.1" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Face</text>
+  <text x="267.1" y="360.0" font-size="10.5" fill="#21918c" text-anchor="middle" fill-opacity="0.9">+5.9</text>
+  <rect x="321.0" y="225.0" width="58.0" height="105.0" fill="#21918c" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="350.0" y="219.0" font-size="11" fill="currentColor" text-anchor="middle">95</text>
+  <text x="350.0" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Eyes</text>
+  <text x="350.0" y="360.0" font-size="10.5" fill="#21918c" text-anchor="middle" fill-opacity="0.9">+4.0</text>
+  <rect x="403.9" y="218.0" width="58.0" height="112.0" fill="#3b528b" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="432.9" y="212.0" font-size="11" fill="currentColor" text-anchor="middle">96</text>
+  <text x="432.9" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Nose</text>
+  <text x="432.9" y="360.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.9">+1.0</text>
+  <rect x="486.7" y="211.0" width="58.0" height="119.0" fill="#3b528b" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="515.7" y="205.0" font-size="11" fill="currentColor" text-anchor="middle">97</text>
+  <text x="515.7" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Mouth</text>
+  <text x="515.7" y="360.0" font-size="10.5" fill="currentColor" text-anchor="middle" fill-opacity="0.9">+1.0</text>
+  <rect x="569.6" y="190.0" width="58.0" height="140.0" fill="#21918c" fill-opacity="0.55" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="598.6" y="184.0" font-size="11" fill="currentColor" text-anchor="middle">100</text>
+  <text x="598.6" y="346.0" font-size="10.5" fill="currentColor" text-anchor="middle">Logistic</text>
+  <text x="598.6" y="360.0" font-size="10.5" fill="#21918c" text-anchor="middle" fill-opacity="0.9">+3.0</text>
+</svg>
