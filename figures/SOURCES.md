@@ -191,3 +191,18 @@ invented one as a verified credit.
 | `17-value-policy-iteration/diagram_values.svg` | own work | Drawn by `make_diagrams.py`: the value of an always-East policy and the optimal value function of the gridworld, computed. Recomputes the board values. |
 | `17-value-policy-iteration/diagram_vi_convergence.svg` | own work | Drawn by `make_diagrams.py`: value iteration's error per sweep on the gridworld, computed. |
 | `17-value-policy-iteration/diagram_exploration.svg` | own work | Drawn by `make_diagrams.py`: simulated model-based learners on a corridor MDP of our own, a one-dimensional version of the lecture's +1/+10 example. |
+
+## Lecture 18 — Continuous State MDPs and Model Simulation
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `18-continuous-mdps/diagram_staircase.svg` | own work | Drawn by `make_diagrams.py`: a one-dimensional MDP of our own solved on a fine grid, by a six-cell discretization and by fitted value iteration, computed; the k^n curve is arithmetic. Recomputes the lecture's staircase sketch. |
+| `18-continuous-mdps/diagram_divergence.svg` | own work | Drawn by `make_diagrams.py`: least-squares fitted value iteration on the two-state example of Tsitsiklis and Van Roy (1996), computed from the example's definition. |
+
+## Lecture 19 — Finite-Horizon MDPs and the Linear Quadratic Regulator
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `19-lqr/diagram_horizon.svg` | own work | Drawn by `make_diagrams.py`: finite-horizon dynamic programming on a corridor of our own, a version of the lecture's +1/+10 example. |
+| `19-lqr/diagram_pendulum.svg` | own work | Drawn by `make_diagrams.py`: a simple inverted pendulum, its linearization and an LQR controller, simulated. Recomputes the lecture's tangent-line sketch. |
+| `19-lqr/diagram_gains.svg` | own work | Drawn by `make_diagrams.py`: the Riccati recursion for a cart model of our own, computed. |
