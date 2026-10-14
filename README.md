@@ -47,9 +47,9 @@
 | 17 | [MDPs and Value/Policy Iteration](https://raimbekovm.github.io/cs229-2018-notes/lectures/17-value-policy-iteration.html) | Bellman equations, value iteration, policy iteration, learning a model of the MDP, exploration | Complete |
 | 18 | [Continuous State MDPs and Model Simulation](https://raimbekovm.github.io/cs229-2018-notes/lectures/18-continuous-mdps.html) | Discretization, learning a simulator, fitted value iteration | Complete |
 | 19 | [Finite-Horizon MDPs and the Linear Quadratic Regulator](https://raimbekovm.github.io/cs229-2018-notes/lectures/19-lqr.html) | State-action rewards, finite horizons, linearization, the linear quadratic regulator | Complete |
-| 20 | RL Debugging and Diagnostics | Diagnosing reinforcement learning systems, from the simulator to the reward | Planned |
+| 20 | [RL Debugging and Direct Policy Search](https://raimbekovm.github.io/cs229-2018-notes/lectures/20-policy-search.html) | Debugging an RL system, direct policy search, REINFORCE and its variance, partial observability | Complete |
 
-Chapters are published as they are written, in course order.
+Every lecture of the course, and the learning-theory discussion section, has a chapter.
 
 ---
 

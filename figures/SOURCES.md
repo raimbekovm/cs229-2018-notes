@@ -206,3 +206,10 @@ invented one as a verified credit.
 | `19-lqr/diagram_horizon.svg` | own work | Drawn by `make_diagrams.py`: finite-horizon dynamic programming on a corridor of our own, a version of the lecture's +1/+10 example. |
 | `19-lqr/diagram_pendulum.svg` | own work | Drawn by `make_diagrams.py`: a simple inverted pendulum, its linearization and an LQR controller, simulated. Recomputes the lecture's tangent-line sketch. |
 | `19-lqr/diagram_gains.svg` | own work | Drawn by `make_diagrams.py`: the Riccati recursion for a cart model of our own, computed. |
+
+## Lecture 20 — RL Debugging and Direct Policy Search
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `20-policy-search/diagram_policy.svg` | own work | Drawn by `make_diagrams.py`: the logistic policy with the lecture's parameter vectors, evaluated. |
+| `20-policy-search/diagram_learning.svg` | own work | Drawn by `make_diagrams.py`: REINFORCE with three gradient estimators on a balancing MDP of our own, simulated, with expected payoffs computed exactly by dynamic programming. |

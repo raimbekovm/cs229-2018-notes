@@ -81,9 +81,8 @@ linkable.
 
 ## Lectures {#lectures}
 
-The course runs to twenty lectures and one discussion section. Chapters are
-published as they are written, in course order; the [roadmap](#roadmap) groups
-them by theme.
+The course runs to twenty lectures and one discussion section, and every one has
+a chapter; the [roadmap](#roadmap) groups them by theme.
 
 ::: {.content-visible when-format="html"}
 
@@ -289,14 +288,14 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 20]{.cs-card__index}
 
-[RL Debugging and Diagnostics]{.cs-card__title}
+[[RL Debugging and Direct Policy Search](lectures/20-policy-search.qmd)]{.cs-card__title}
 
-[Diagnosing a reinforcement learning system that does not work, from the simulator to the reward.]{.cs-card__blurb}
+[The helicopter diagnostics in RL notation, stochastic policies, REINFORCE and its variance, partial observability.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::
@@ -327,7 +326,7 @@ them by theme.
 | 17 | MDPs and Value/Policy Iteration | Complete |
 | 18 | Continuous State MDPs and Model Simulation | Complete |
 | 19 | Finite-Horizon MDPs and the Linear Quadratic Regulator | Complete |
-| 20 | RL Debugging and Diagnostics | Planned |
+| 20 | RL Debugging and Direct Policy Search | Complete |
 
 : Lectures and their status.
 

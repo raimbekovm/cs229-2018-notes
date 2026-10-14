@@ -112,6 +112,7 @@ book:
         - lectures/17-value-policy-iteration.qmd
         - lectures/18-continuous-mdps.qmd
         - lectures/19-lqr.qmd
+        - lectures/20-policy-search.qmd
 
 format:
   html:
