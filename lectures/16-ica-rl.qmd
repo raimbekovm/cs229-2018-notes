@@ -1,0 +1,330 @@
+---
+title: "Independent Component Analysis and RL"
+subtitle: "Lecture 16"
+description: "Why ICA cannot unmix Gaussian sources, how a density changes under a linear map, the sigmoid-CDF source prior and the maximum-likelihood gradient rule for the unmixing matrix, where ICA is used and where it breaks; then reinforcement learning: the credit assignment problem, Markov decision processes on an 11-state gridworld, discounted payoff and the optimal policy."
+---
+
+::: {.lecture-video lecture="16"}
+:::
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+The lecture has two halves that share nothing but a date. The first finishes independent
+components analysis. Chapter 15 set up the cocktail-party model $x = As$ and showed that the
+sources can be recovered only up to order, sign and scale. This chapter adds the reason ICA
+needs non-Gaussian sources, writes down the likelihood of the unmixing matrix $W$, and
+derives the stochastic gradient rule that maximises it. The second half opens the last part
+of the course, reinforcement learning. It introduces the Markov decision process and the
+11-state gridworld that lectures 16 to 18 use as their running example, and states the
+goal: a policy that maximises the expected discounted sum of rewards.
+
+## Gaussian sources cannot be unmixed {#sec-ica-gaussian}
+
+[3:07]{.t} Chapter 15's picture of why ICA works used sources uniform on $[-1, 1]$. Their
+joint distribution fills a square, the mixing matrix shears it into a parallelogram, and the
+corners of the parallelogram give away the directions of the original axes. Ng now asks what
+happens if the sources are Gaussian instead. Two independent standard Gaussians have a
+joint density with circular contours. A mixing matrix stretches the circle into an ellipse,
+and an unmixing matrix that maps the ellipse back to a circle is easy to find. But it is not
+unique, because every rotation of a circle is the same circle. If $W$ turns the data back
+into independent unit Gaussians, so does $RW$ for any rotation $R$, and nothing in the data
+can choose between them.
+
+The official notes make this precise. If $s \sim \mathcal{N}(0, I)$ then $x = As$ is
+Gaussian with covariance $AA^\top$, and for any orthogonal $R$ the mixing matrix $AR$ gives
+$x' = ARs$ with covariance $ARR^\top A^\top = AA^\top$. The two models produce the same
+distribution of recordings. The generator checks the same fact from the other side: with a
+Gaussian source prior, the log-likelihood of the 1,500-example dataset used below is
+unchanged, to rounding error, when the true unmixing matrix is rotated by 10°, 30°, 45° or
+60°. Under the logistic prior introduced below it drops by 0.030 per example at 45°, so that
+likelihood does single out the right rotation.
+
+[6:44]{.t} Ng cites the theorem behind this informally: the Gaussian is the only
+distribution of independent components that is rotationally symmetric, and so ICA is
+possible exactly when the data are non-Gaussian. The careful version, due to
+[Comon](https://doi.org/10.1016/0165-1684%2894%2990029-9), is slightly weaker in its demand: the
+sources are identifiable up to order and scale as long as *at most one* of them is
+Gaussian. One Gaussian source has no other Gaussian to be confused with, and two or more can
+be rotated into one another.
+
+## The density of a linear transformation {#sec-ica-density}
+
+[12:08]{.t} To fit $W$ by maximum likelihood we need $p_x$, the density of the recordings,
+given $p_s$, the density of the sources, and the relation $s = Wx$. The tempting answer is
+$p_x(x) = p_s(Wx)$. Since $W$ is invertible, every $x$ corresponds to exactly one $s$, so it
+seems the probability of seeing $x$ is the probability of the matching $s$. Ng points out
+that this is correct for probability mass functions and wrong for densities.
+
+[14:31]{.t} His one-dimensional example shows why. Let $s$ be uniform on $[0, 1]$, so
+$p_s(s) = 1$ there, and let $x = 2s$, so $A = 2$ and $W = \tfrac12$. Then $x$ is uniform on
+$[0, 2]$, and a density spread over twice the width must be half as tall:
+$p_x(x) = \tfrac12$ on $[0, 2]$. The naive formula gives $p_s(x/2) = 1$ on $[0, 2]$, which
+integrates to 2 (@fig-cov, left). The missing factor is the determinant:
+
+$$
+p_x(x) = p_s(Wx)\,\lvert W \rvert ,
+$$ {#eq-ica-density}
+
+where $\lvert W\rvert$ is the absolute value of the determinant of $W$. In one dimension it
+is just $\lvert W\rvert = \tfrac12$, and the generator confirms numerically that the
+corrected density integrates to 1 and the naive one to 2. The intuition carries to $n$
+dimensions. $A$ maps the unit cube of source space to a parallelepiped of volume
+$\lvert A\rvert$, so probability spread over that volume has its density divided by
+$\lvert A\rvert$, that is, multiplied by $\lvert W\rvert = 1/\lvert A\rvert$.
+
+![Left: the density of $s \sim U[0, 1]$, the density of $x = 2s$, and the naive $p_s(x/2)$, which has area 2. Right: log densities of the three candidate source priors, all scaled to unit variance. The Gaussian falls off as a parabola, the logistic and Laplace densities linearly.](../figures/16-ica-rl/diagram_change_of_variables.svg){#fig-cov}
+
+## A prior for the sources: the sigmoid as a CDF {#sec-ica-prior}
+
+[18:22]{.t} The last modelling choice is $p_s$, the density of a single speaker's signal.
+It must not be Gaussian. Ng specifies it through its cumulative distribution function
+$F(s) = P(S \le s)$, which rises smoothly from 0 to 1, and recovers the density as
+$p_s = F'$. The question then becomes which familiar function rises smoothly from 0 to 1,
+and the sigmoid is the obvious answer. So the model takes $F = g$, with
+$g(s) = 1/(1 + e^{-s})$, and
+
+$$
+p_s(s) = g'(s) = g(s)\,\bigl(1 - g(s)\bigr).
+$$
+
+This is the logistic density. Ng's argument for it is its tails. A Gaussian density falls
+like $e^{-s^2/2}$; the logistic falls like $e^{-\lvert s\rvert}$, so large values are far
+more likely, and that, he says, describes recorded speech and many natural signals better.
+The right panel of @fig-cov shows the difference on a log scale. At equal variance, the
+logistic density at four standard deviations is 9.6 times the Gaussian's, and its excess
+kurtosis is 1.2 where the Gaussian's is 0. Ng adds that a two-sided exponential, the Laplace
+density, works as well, and he has used it himself. Its tails are heavier still, with excess
+kurtosis 3. The sigmoid, he recalls, was simply the choice that early ICA researchers needed
+and tried, in [Bell and Sejnowski's](https://doi.org/10.1162/neco.1995.7.6.1129)
+information-maximisation algorithm, and it has stayed the default because it works.
+
+[28:24]{.t} A student asks why the joint density of two logistic sources is not also
+rotationally symmetric. Ng sketches the contours of a Laplace pair as diamonds and guesses
+that the logistic looks "a bit like that too", inviting the class to plot it. The plot is
+@fig-src-dens, and the guess is half right. Close to the origin the logistic density is
+nearly Gaussian, because $\log g'(s) \approx -\log 4 - s^2/4$ for small $s$, so the inner
+contours are almost circles: along the diagonal the innermost one reaches 0.98 of its
+distance along an axis. Farther out the linear tails take over and the contours become
+diamonds, with that ratio falling to 0.86 at the outermost level drawn. A Laplace pair has
+diamonds at every level, with ratio $1/\sqrt2 \approx 0.707$, and a Gaussian pair has
+circles. What matters for ICA is only that the logistic contours are not circles. Any
+departure from rotational symmetry gives the likelihood a preferred orientation.
+
+![Contours of the joint density of two independent unit-variance sources under three priors, at the same four drops in log density from the peak. Gaussian contours are circles. Logistic contours are nearly round near the centre and become diamonds outward. Laplace contours are diamonds at every level.](../figures/16-ica-rl/diagram_source_densities.svg){#fig-src-dens}
+
+## Maximum likelihood for the unmixing matrix {#sec-ica-ml}
+
+[21:39]{.t} With these pieces the likelihood is short. ICA's central assumption is that the
+speakers are independent, so the joint source density is a product,
+$p(s) = \prod_{j=1}^n p_s(s_j)$. Combining that with @eq-ica-density and $s_j = w_j^\top x$,
+where $w_j^\top$ is the $j$-th row of $W$, gives
+
+$$
+p(x) = \left(\prod_{j=1}^n p_s\!\left(w_j^\top x\right)\right) \lvert W \rvert .
+$$
+
+For a training set $x^{(1)}, \dots, x^{(m)}$, one microphone reading per instant, the
+log-likelihood of $W$ is
+
+$$
+\ell(W) = \sum_{i=1}^m \left( \sum_{j=1}^n \log g'\!\left(w_j^\top x^{(i)}\right) + \log \lvert W \rvert \right).
+$$ {#eq-ica-loglik}
+
+[26:02]{.t} Ng writes the derivative without deriving it. The official notes do the
+algebra, which needs the identity $\nabla_W \lvert W\rvert = \lvert W\rvert (W^{-1})^\top$.
+For one example it gives the stochastic gradient ascent rule
+
+$$
+W := W + \alpha \left( \begin{bmatrix} 1 - 2g(w_1^\top x^{(i)}) \\ \vdots \\ 1 - 2g(w_n^\top x^{(i)}) \end{bmatrix} x^{(i)\top} + \left(W^\top\right)^{-1} \right).
+$$ {#eq-ica-update}
+
+The first term comes from the prior: $\frac{d}{ds}\log g'(s) = 1 - 2g(s)$. The second comes
+from the determinant and keeps $W$ from collapsing to zero, which would otherwise make every
+$w_j^\top x$ zero and every source density maximal. A student catches a slip on the board
+here: the bracket should hold $1 - 2g$, with $g$ the sigmoid. The generator compares the
+analytic gradient with central finite differences of @eq-ica-loglik, and they agree to
+$2 \times 10^{-10}$.
+
+[27:12]{.t} The whole algorithm, then, is to initialise $W$, run gradient ascent on
+@eq-ica-loglik, and read each source off as $s^{(i)}_j = w_j^\top x^{(i)}$. Playing
+$s^{(1)}_1, \dots, s^{(m)}_1$ through a speaker plays back speaker 1. @fig-ica-ml runs it on
+1,500 readings of two independent Laplace sources mixed by a fixed $A$. Batch gradient ascent
+from $W = I$ raises the average log-likelihood from $-3.736$ to $-3.109$ and levels off. The
+product $WA$ it ends with is
+$\bigl[\begin{smallmatrix}1.310 & 0.051\\ -0.035 & 1.411\end{smallmatrix}\bigr]$, a scaled
+identity up to cross-talk of under 4%, and each recovered signal correlates with its source
+at 0.999 or above. The scale is not 1, because maximum likelihood rescales each source to
+suit the logistic prior. That is the scale ambiguity from chapter 15, resolved arbitrarily.
+The data here are generated exactly by the ICA model. Ng's real-room recording separated
+less cleanly, for the reasons @sec-ica-setup gives.
+
+![ICA on two mixed Laplace sources. Left: the microphone readings, whose arms run along the columns of $A$. Centre: the same points multiplied by the $W$ that gradient ascent finds; the arms now lie on the axes, so each coordinate is one source. Right: the average log-likelihood over 400 iterations of batch gradient ascent from $W = I$.](../figures/16-ica-rl/diagram_ica_ml.svg){#fig-ica-ml}
+
+::: {.callout-note title="In the official notes"}
+The density of a linear transformation and the full derivation of @eq-ica-update are in
+cs229-notes11, sections 2 and 3. The notes also remark that the data should have zero mean,
+which the sigmoid prior assumes, and that the training examples, being successive moments of
+audio, are not independent. The notes say this does not hurt the result, and that visiting
+the examples in a random order can speed up stochastic gradient ascent.
+:::
+
+## Where ICA is used, and where it breaks {#sec-ica-practice}
+
+[30:03]{.t} Asked for the closest nonlinear extension of ICA, Ng says there is no good answer
+yet and points to his own group's work on stacking it. The large unsupervised network that
+learned to detect faces and cats in YouTube frames ([Le et al.,
+2012](https://arxiv.org/abs/1112.6209)) was trained layer by layer with an objective the
+paper calls reconstruction topographic ICA, a close relative of sparse coding. Ng's view is
+that hierarchical versions of ICA and sparse coding lost attention when supervised deep
+learning took off, and deserve more of it than they get.
+
+[33:46]{.t} The standard application is cleaning electroencephalography (EEG) data.
+Electrodes on the scalp each record a weighted sum of the electrical activity of many brain
+processes at once: the heartbeat, eye blinks, everything else. That is a cocktail party in
+the head, and ICA unmixes it the same way. An analyst identifies the components that are
+heartbeat or blink artefacts, removes them, and remixes the rest
+([Jung et al., 2000](https://doi.org/10.1111/1469-8986.3720163)). The clean signal is then
+the input to whatever comes next, such as a classifier that tries to tell from EEG whether a
+person is thinking of a person or an object. Run on small patches of natural images, ICA
+finds components that are localised, oriented edges
+([Bell and Sejnowski, 1997](https://doi.org/10.1016/S0042-6989%2897%2900121-1)). The same
+result from sparse coding
+([Olshausen and Field, 1996](https://doi.org/10.1038/381607a0)) is one of the reasons
+neuroscientists ask whether the visual cortex learns its edge detectors this way.
+
+[40:41]{.t} A student had asked whether the number of microphones must equal the number of
+speakers. Ng's answer is that more microphones than speakers is fine: run ICA, perhaps
+slightly modified, and some of the recovered sources come out silent. Fewer microphones than
+speakers is a research problem. With one microphone and two speakers, $A$ is $1 \times 2$
+and cannot be inverted, so separation needs knowledge beyond independence. A low voice and a
+high voice can sometimes be pulled apart, two similar voices hardly at all.
+
+The "slightly modified" matters more than it sounds. Run @eq-ica-loglik unchanged with ten
+microphones and five speakers, and $W$ is $10 \times 10$ while the recordings fill only a
+five-dimensional subspace. Any row $w_j$ orthogonal to that subspace outputs exactly zero for
+every example, so it is one of the silent sources. Scaling that row by $c$ leaves its
+$\log g'(0)$ terms unchanged and multiplies $\lvert W\rvert$ by $c$. The log-likelihood
+therefore grows by $m \log c$ without bound. The generator confirms the exact $m \log c$ gain
+for three microphones and two sources. So the silent sources are where the plain algorithm
+diverges, not a harmless by-product. The usual modification is to reduce the recordings to as
+many dimensions as there are sources, with PCA, before running ICA.
+
+Ng's other suggestion, from a student's follow-up, is to parameterise the model by the
+rectangular mixing matrix $A$, $10 \times 5$ here, instead of $W$. That avoids the problem
+but loses the convenient formula @eq-ica-density, which needs a square $W$. How many sources
+to assume, he says, is like choosing $k$ in k-means: try several and look for components that
+come out near-silent.
+
+## Why reinforcement learning {#sec-rl-motivation}
+
+[49:52]{.t} The fourth and last part of the course is reinforcement learning. Ng motivates it
+with the autonomous helicopter from lecture 1. At every moment the helicopter is in some
+*state*, its position, orientation and velocity, and must choose how to move the control
+sticks. Supervised learning would need, for each state, the one correct stick position, and
+nobody can write that down. What a designer *can* write is a *reward function*: high when the
+helicopter flies the intended trajectory, very negative when it crashes. Ng compares it to
+training a dog. You cannot tell the dog what to do, but you can say "good dog" and "bad dog",
+and it learns to do more of what earns the first. Games fit the same mould. Nobody knows the
+one best chess move in a given position, but a program can play and be rewarded with $+1$ for
+a win, $-1$ for a loss and 0 for a draw.
+
+[53:41]{.t} Such sparse feedback creates what Ng calls the *credit assignment problem*. A chess
+program checkmated on move 50 receives $-1$, but the losing blunder may have been on move 20,
+with the remaining 30 moves only playing out a lost position. A self-driving car that crashes
+usually made the decisive mistake seconds earlier, not at the instant of impact. Given only
+the final reward, the algorithm has to work out which of its earlier actions to do more of
+and which to do less of. Every algorithm in the rest of the course solves this problem, at
+least indirectly, and the value functions of lecture 17 are the main way they do it.
+
+## Markov decision processes {#sec-mdp-def}
+
+[56:29]{.t} Reinforcement learning problems are modelled as Markov decision processes. An MDP
+is a five-tuple $(S, A, \{P_{sa}\}, \gamma, R)$:
+
+- $S$, the set of states: chess positions, or the helicopter's possible positions,
+  orientations and velocities;
+- $A$, the set of actions: legal moves, or stick positions;
+- $P_{sa}$, the state transition probabilities: for each state $s$ and action $a$, a
+  distribution over the next state;
+- $\gamma \in [0, 1)$, the discount factor, explained in @sec-mdp-payoff;
+- $R : S \to \mathbb{R}$, the reward function.
+
+[58:29]{.t} The running example is small enough to draw. Ng takes it from Russell and
+Norvig's textbook (@fig-gridworld). A robot moves on a $4 \times 3$ grid with one cell
+blocked by a pillar, so there are 11 states, written $(x, y)$ from the bottom left. The
+actions are the four compass directions. Real robots' wheels slip, so the model makes moves
+noisy. A command goes in the intended direction with probability 0.8 and veers to each side
+with probability 0.1. From $(3, 1)$, a command to go North reaches $(3, 2)$ with probability
+0.8, $(2, 1)$ with 0.1 and $(4, 1)$ with 0.1. A move into a wall or the pillar leaves the
+robot where it is. Ng stresses that this is a caricature of real robot dynamics, chosen so
+that the whole MDP fits on the board.
+
+[1:02:41]{.t} The task is specified entirely through the reward. Ng puts $R = +1$ at $(4, 3)$,
+the goal, and $R = -1$ at $(4, 2)$, a cell to avoid. To make the robot hurry, every other
+state carries a small negative reward, $R(s) = -0.02$, which Ng describes as charging the
+robot for the electricity it spends loitering. Lecture 17 adds that the $\pm 1$ cells are
+*absorbing*: once the robot reaches one, it collects that reward and the world ends.
+
+![Left: the gridworld's rewards and its transition model. The pillar is grey, the absorbing $\pm 1$ cells are shaded, and every other cell costs 0.02 per visit. From $(3, 1)$ a North command succeeds with probability 0.8 and slips sideways with probability 0.1 each way. Right: the optimal policy for $R = -0.02$ and $\gamma = 0.99$. From $(3, 1)$ it goes West, the long way round.](../figures/16-ica-rl/diagram_gridworld.svg){#fig-gridworld}
+
+## Payoff, discounting and policies {#sec-mdp-payoff}
+
+[1:05:15]{.t} The robot wakes in some state $s_0$ and chooses an action $a_0$. The world moves
+it to $s_1 \sim P_{s_0 a_0}$, it chooses $a_1$, moves to $s_2 \sim P_{s_1 a_1}$, and so on.
+Its *total payoff* is the discounted sum of the rewards along the way:
+
+$$
+R(s_0) + \gamma R(s_1) + \gamma^2 R(s_2) + \cdots .
+$$ {#eq-mdp-payoff}
+
+The goal is to choose actions that maximise the *expected* total payoff, since the
+transitions are random. With $\gamma$ around 0.99, a reward one step from now counts 0.99 as
+much as one now, and one a hundred steps away about 0.37 as much.
+
+[1:08:00]{.t} Ng gives two reasons for $\gamma$, and says plainly that the second is the real
+one. The first is the time value of money. A dollar today is worth more than a dollar next
+year, because it can earn interest, and by the same logic a payment is better postponed than
+made now. So $\gamma$ makes the robot hurry towards positive rewards and put off negative
+ones. The second is that with $\gamma < 1$ the algorithms provably converge, and with
+$\gamma = 1$ many of them do not, or are much harder to analyse. A student supplies the
+mechanism. Without discounting, the sum @eq-mdp-payoff can grow or shrink without bound.
+With it, $\lvert\text{payoff}\rvert \le R_{\max}/(1-\gamma)$. For a robot that loiters for
+ever at $-0.02$ per step with $\gamma = 0.99$, that is $-2$, a finite number an algorithm can
+reason about.
+
+[1:11:28]{.t} What a reinforcement learning algorithm produces is a *policy*,
+$\pi : S \to A$, a rule for which action to take in each state. Executing $\pi$ means taking
+$a = \pi(s)$ in whatever state the robot is in. Ng shows the optimal policy for the gridworld
+(@fig-gridworld, right), computed offline. Lecture 17 derives value iteration, the
+algorithm that computes it. The generator runs it and reproduces, to two decimals, the values
+Ng later reads off the board.
+
+[1:14:44]{.t} The interesting cell is $(3, 1)$. North is the direct route: two steps to
+$(3, 3)$, then one East to the goal. But at $(3, 2)$ a 0.1 chance of slipping East lands the
+robot on $-1$. West goes all the way round by $(1, 1)$ and the top row, which costs more
+steps and more discounting, but never passes the $-1$. Ng's point is that the answer is not
+obvious by eye, and the optimal policy takes the long, safe route. The generator measures
+how fine the distinction is. At $(3, 1)$, the expected value of the next state is 0.736 for
+West against 0.674 for North, and the runner-up is not North but South, at 0.691: bumping
+into the wall and staying put is better than going North. The choice holds only while the
+step reward lies between 0 and $-0.0368$. Below that, loitering costs enough that the risky
+short route wins. Elsewhere the margins are smaller still. At $(3, 2)$, North beats West by
+0.0005, and only because the step reward is below $-0.0196$; at $(4, 1)$, West beats South by
+0.003. An MDP solver makes these distinctions exactly. A person eyeballing the grid would
+not.
+
+[1:16:13]{.t} Two last questions point ahead. Chess fits the framework if a "state" is the
+board when it is your turn: you move, the opponent moves, and the opponent's unknown reply
+becomes the randomness in $P_{sa}$. And the probabilities 0.8, 0.1, 0.1 need not be given.
+For a real robot they are usually estimated from data, which is how lecture 17 ends. The
+number of policies is finite but large. Lecture 17 counts it as $4^{11}$, though only the
+nine non-absorbing states need an action, so $4^9 = 262{,}144$. Enumerating them is hopeless
+for any realistic MDP, and the next lecture's value and policy iteration avoid enumeration
+altogether.
+
+::: {.callout-note title="In the official notes"}
+Markov decision processes, the five-tuple, the total payoff and policies are in cs229-notes12,
+section 1. The notes allow rewards that depend on the action, $R(s, a)$, and mention
+finite-horizon MDPs. The lecture keeps to $R(s)$ and infinite horizons.
+:::
