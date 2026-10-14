@@ -32,6 +32,7 @@ import random
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+from _linalg import dot, eigh, mean
 from _svg import (
     INDIGO,
     PURPLE,
@@ -52,11 +53,6 @@ OUT = pathlib.Path(__file__).resolve().parent
 # ---------------------------------------------------------------- linear algebra
 
 
-def mean(X):
-    """Column means."""
-    return [sum(c) / len(X) for c in zip(*X)]
-
-
 def centre(X):
     """Subtract the column means."""
     mu = mean(X)
@@ -74,39 +70,6 @@ def second_moment(X):
     """(1/m) sum x x^T; the covariance when X is centred."""
     n, m = len(X[0]), len(X)
     return [[sum(x[i] * x[j] for x in X) / m for j in range(n)] for i in range(n)]
-
-
-def eigh(A, sweeps=60):
-    """Eigenvalues and unit eigenvectors of a symmetric matrix, largest first (cyclic Jacobi)."""
-    n = len(A)
-    A = [r[:] for r in A]
-    V = [[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
-    for _ in range(sweeps):
-        off = sum(A[i][j] ** 2 for i in range(n) for j in range(n) if i != j)
-        if off < 1e-30:
-            break
-        for p in range(n - 1):
-            for q in range(p + 1, n):
-                if abs(A[p][q]) < 1e-300:
-                    continue
-                th = 0.5 * math.atan2(2 * A[p][q], A[q][q] - A[p][p])
-                c, s = math.cos(th), math.sin(th)
-                for k in range(n):
-                    akp, akq = A[k][p], A[k][q]
-                    A[k][p], A[k][q] = c * akp - s * akq, s * akp + c * akq
-                for k in range(n):
-                    apk, aqk = A[p][k], A[q][k]
-                    A[p][k], A[q][k] = c * apk - s * aqk, s * apk + c * aqk
-                for k in range(n):
-                    vkp, vkq = V[k][p], V[k][q]
-                    V[k][p], V[k][q] = c * vkp - s * vkq, s * vkp + c * vkq
-    pairs = sorted(((A[i][i], [V[k][i] for k in range(n)]) for i in range(n)), key=lambda t: -t[0])
-    return [p[0] for p in pairs], [p[1] for p in pairs]
-
-
-def dot(u, v):
-    """Inner product."""
-    return sum(a * b for a, b in zip(u, v))
 
 
 def angle_deg(u, v):
