@@ -41,8 +41,8 @@
 | 11 | [Backprop and Improving Neural Networks](https://raimbekovm.github.io/cs229-2018-notes/lectures/11-backprop.html) | Backpropagation, activation functions, initialization, normalization, optimizers | Complete |
 | 12 | [Debugging ML Models and Error Analysis](https://raimbekovm.github.io/cs229-2018-notes/lectures/12-debugging-ml.html) | Bias versus variance diagnostics, optimization versus objective, error analysis, ablative analysis | Complete |
 | 13 | [Expectation-Maximization Algorithms](https://raimbekovm.github.io/cs229-2018-notes/lectures/13-em-algorithms.html) | k-means, mixtures of Gaussians, the EM algorithm | Complete |
-| 14 | EM Algorithm and Factor Analysis | Jensen's inequality and the evidence lower bound, EM as coordinate ascent, factor analysis | Planned |
-| 15 | PCA and ICA | Principal component analysis, independent component analysis | Planned |
+| 14 | [EM Algorithm and Factor Analysis](https://raimbekovm.github.io/cs229-2018-notes/lectures/14-factor-analysis.html) | EM's updates for the mixture, EM as coordinate ascent, singular covariances, factor analysis | Complete |
+| 15 | [PCA and ICA](https://raimbekovm.github.io/cs229-2018-notes/lectures/15-pca-ica.html) | Principal component analysis, its uses and misuses, the independent component analysis setup | Complete |
 | 16 | Independent Component Analysis and RL | ICA by maximum likelihood, Markov decision processes, Bellman equations | Planned |
 | 17 | MDPs and Value/Policy Iteration | Value iteration, policy iteration, learning a model of the MDP | Planned |
 | 18 | Continuous State MDP and Model Simulation | Discretization, simulators, fitted value iteration | Planned |

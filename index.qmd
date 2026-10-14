@@ -229,24 +229,24 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 14]{.cs-card__index}
 
-[EM Algorithm and Factor Analysis]{.cs-card__title}
+[[EM Algorithm and Factor Analysis](lectures/14-factor-analysis.qmd)]{.cs-card__title}
 
-[EM as coordinate ascent on a lower bound built from Jensen's inequality, and factor analysis for few examples in many dimensions.]{.cs-card__blurb}
+[EM's concrete updates and its view as coordinate ascent, and factor analysis for few examples in many dimensions.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 15]{.cs-card__index}
 
-[PCA and ICA]{.cs-card__title}
+[[PCA and ICA](lectures/15-pca-ica.qmd)]{.cs-card__title}
 
-[Projecting data onto the directions of greatest variance, and separating mixed signals by their non-Gaussianity.]{.cs-card__blurb}
+[Projecting data onto the directions of greatest variance, when that helps and when it does not, and the cocktail-party problem ICA solves.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -321,8 +321,8 @@ them by theme.
 | 11 | Backprop and Improving Neural Networks | Complete |
 | 12 | Debugging ML Models and Error Analysis | Complete |
 | 13 | Expectation-Maximization Algorithms | Complete |
-| 14 | EM Algorithm and Factor Analysis | Planned |
-| 15 | PCA and ICA | Planned |
+| 14 | EM Algorithm and Factor Analysis | Complete |
+| 15 | PCA and ICA | Complete |
 | 16 | Independent Component Analysis and RL | Planned |
 | 17 | MDPs and Value/Policy Iteration | Planned |
 | 18 | Continuous State MDP and Model Simulation | Planned |

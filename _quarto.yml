@@ -104,6 +104,8 @@ book:
     - part: "Unsupervised Learning"
       chapters:
         - lectures/13-em-algorithms.qmd
+        - lectures/14-factor-analysis.qmd
+        - lectures/15-pca-ica.qmd
 
 format:
   html:
