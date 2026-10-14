@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 280" width="560" height="280"
+     role="img" aria-labelledby="figGainsTitle figGainsDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figGainsTitle">LQR gains over the horizon, with and without noise</title>
+  <desc id="figGainsDesc">The two entries of the optimal gain L_t, which multiplies position and velocity to give the force, against the time step for a cart with a 60-step horizon. Both are flat, at about minus 2.76 and minus 2.51, for the first half of the horizon and relax to zero over the last 25 or so steps, reaching zero at the final step. Curves for zero noise and circles for large noise coincide exactly.</desc>
+  <line x1="80.0" y1="230.0" x2="520.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="230.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="230.0" x2="80.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="80.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="153.3" y1="230.0" x2="153.3" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="153.3" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">10</text>
+  <line x1="226.7" y1="230.0" x2="226.7" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="226.7" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">20</text>
+  <line x1="300.0" y1="230.0" x2="300.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="300.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">30</text>
+  <line x1="373.3" y1="230.0" x2="373.3" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="373.3" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">40</text>
+  <line x1="446.7" y1="230.0" x2="446.7" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="446.7" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">50</text>
+  <line x1="520.0" y1="230.0" x2="520.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="520.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">60</text>
+  <line x1="76.0" y1="230.0" x2="80.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="234.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">-5</text>
+  <line x1="76.0" y1="193.6" x2="80.0" y2="193.6" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="197.6" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">-4</text>
+  <line x1="76.0" y1="157.3" x2="80.0" y2="157.3" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="161.3" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">-3</text>
+  <line x1="76.0" y1="120.9" x2="80.0" y2="120.9" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="124.9" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">-2</text>
+  <line x1="76.0" y1="84.5" x2="80.0" y2="84.5" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="88.5" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">-1</text>
+  <line x1="76.0" y1="48.2" x2="80.0" y2="48.2" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="52.2" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <text x="300.0" y="266.0" font-size="12" fill="currentColor" text-anchor="middle">time step t (horizon T = 60)</text>
+  <text x="40.0" y="130.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 130.0)">gain entry</text>
+  <polyline points="80.00,148.63 87.33,148.63 94.67,148.63 102.00,148.63 109.33,148.63 116.67,148.63 124.00,148.63 131.33,148.63 138.67,148.63 146.00,148.63 153.33,148.63 160.67,148.63 168.00,148.63 175.33,148.63 182.67,148.63 190.00,148.63 197.33,148.63 204.67,148.63 212.00,148.63 219.33,148.63 226.67,148.63 234.00,148.63 241.33,148.63 248.67,148.62 256.00,148.62 263.33,148.61 270.67,148.59 278.00,148.57 285.33,148.55 292.67,148.51 300.00,148.46 307.33,148.39 314.67,148.30 322.00,148.20 329.33,148.07 336.67,147.92 344.00,147.75 351.33,147.57 358.67,147.38 366.00,147.20 373.33,147.03 380.67,146.89 388.00,146.80 395.33,146.74 402.67,146.69 410.00,146.60 417.33,146.34 424.67,145.72 432.00,144.45 439.33,142.10 446.67,138.20 454.00,132.24 461.33,123.93 468.67,113.28 476.00,100.83 483.33,87.60 490.67,74.84 498.00,63.76 505.33,55.28 512.67,49.98 520.00,48.18" fill="none" stroke="#440154" stroke-width="2.2" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="80.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="102.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="124.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="146.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="168.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="190.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="212.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="234.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="256.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="278.0" cy="148.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="300.0" cy="148.5" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="322.0" cy="148.2" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="344.0" cy="147.8" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="366.0" cy="147.2" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="388.0" cy="146.8" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="410.0" cy="146.6" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="432.0" cy="144.4" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="454.0" cy="132.2" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="476.0" cy="100.8" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="498.0" cy="63.8" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <circle cx="520.0" cy="48.2" r="2.6" fill="none" stroke="#440154" stroke-width="1.2"/>
+  <text x="212.0" y="166.6" font-size="11.5" fill="#440154" text-anchor="middle">gain on position</text>
+  <polyline points="80.00,139.37 87.33,139.37 94.67,139.37 102.00,139.37 109.33,139.36 116.67,139.36 124.00,139.36 131.33,139.36 138.67,139.36 146.00,139.36 153.33,139.36 160.67,139.36 168.00,139.36 175.33,139.36 182.67,139.36 190.00,139.36 197.33,139.36 204.67,139.36 212.00,139.36 219.33,139.36 226.67,139.36 234.00,139.36 241.33,139.36 248.67,139.35 256.00,139.35 263.33,139.34 270.67,139.33 278.00,139.31 285.33,139.29 292.67,139.26 300.00,139.23 307.33,139.19 314.67,139.15 322.00,139.09 329.33,139.03 336.67,138.96 344.00,138.88 351.33,138.81 358.67,138.72 366.00,138.63 373.33,138.53 380.67,138.41 388.00,138.23 395.33,137.97 402.67,137.55 410.00,136.86 417.33,135.77 424.67,134.06 432.00,131.49 439.33,127.77 446.67,122.63 454.00,115.89 461.33,107.61 468.67,98.13 476.00,88.10 483.33,78.35 490.67,69.59 498.00,62.29 505.33,56.50 512.67,51.96 520.00,48.18" fill="none" stroke="#21918c" stroke-width="2.2" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="80.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="102.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="124.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="146.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="168.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="190.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="212.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="234.0" cy="139.4" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="256.0" cy="139.3" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="278.0" cy="139.3" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="300.0" cy="139.2" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="322.0" cy="139.1" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="344.0" cy="138.9" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="366.0" cy="138.6" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="388.0" cy="138.2" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="410.0" cy="136.9" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="432.0" cy="131.5" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="454.0" cy="115.9" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="476.0" cy="88.1" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="498.0" cy="62.3" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <circle cx="520.0" cy="48.2" r="2.6" fill="none" stroke="#21918c" stroke-width="1.2"/>
+  <text x="212.0" y="131.4" font-size="11.5" fill="#21918c" text-anchor="middle">gain on velocity</text>
+  <line x1="110.0" y1="196.0" x2="138.0" y2="196.0" stroke="currentColor" stroke-width="2.2" stroke-opacity="1.0"/>
+  <text x="144.0" y="200.0" font-size="11.5" fill="currentColor" text-anchor="start">Σ_w = 0</text>
+  <circle cx="124.0" cy="214.0" r="2.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="144.0" y="218.0" font-size="11.5" fill="currentColor" text-anchor="start">Σ_w = 0.25 I (every third step)</text>
+</svg>

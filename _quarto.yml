@@ -110,6 +110,8 @@ book:
       chapters:
         - lectures/16-ica-rl.qmd
         - lectures/17-value-policy-iteration.qmd
+        - lectures/18-continuous-mdps.qmd
+        - lectures/19-lqr.qmd
 
 format:
   html:

@@ -1,0 +1,293 @@
+---
+title: "Continuous State MDPs and Model Simulation"
+subtitle: "Lecture 18"
+description: "How to solve an MDP whose state is a vector of real numbers: discretization and the curse of dimensionality, building a simulator from physics or by regressing the next state on the current state and action, fitted value iteration with linear regression on features of the state, why it carries no convergence guarantee, and how to turn the fitted value function into a policy fast enough to fly a helicopter."
+---
+
+::: {.lecture-video lecture="18"}
+:::
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+Value iteration as lecture 17 left it keeps one number per state, so it needs a state space
+it can list. A car, a helicopter or a pole balanced on a cart has a state made of real
+numbers. This lecture gives two ways to cope. The first is to chop the state space into
+cells and pretend it is discrete. The second is to treat the value function as something
+to *fit*: sample states, compute what value iteration says their values should be, and run
+linear regression on features of the state to fill in everything between. That second
+method, *fitted value iteration*, needs a simulator it can query at any state, and Ng spends
+the middle of the lecture on where such a simulator comes from. His preferred answer is to
+learn one from a pilot's flight logs.
+
+## States that are vectors {#sec-cmdp-states}
+
+[3:43]{.t} Ng starts from three robots and asks, for each, what the state has to contain.
+A car seen from above needs its position $(x, y)$ and its heading $\theta$. That is enough
+at walking pace, but at any real speed the next position depends on how fast the car is
+moving, so the state also carries the velocities $\dot x, \dot y, \dot\theta$: six
+numbers. Whether to add the steering-wheel angle or the wear on the tyres is a modelling
+choice that depends on what you are building. A helicopter moves in three dimensions, so
+it has position $(x, y, z)$, an orientation given by roll, pitch and yaw $(\phi, \theta,
+\psi)$, and the six corresponding velocities: twelve numbers. The third robot is the
+classic toy of early reinforcement learning, the *inverted pendulum*: a cart on a rail with
+a pole hinged freely on top, which the controller must keep upright by pushing the cart
+left and right. Its state is $(x, \theta, \dot x, \dot\theta)$, four numbers.
+
+[10:06]{.t} In all three, $S = \mathbb{R}^n$ with $n$ equal to 4, 6 or 12. Angles wrap
+around rather than run along the real line, which a mathematician would object to; for
+the algorithms in this lecture the distinction does not matter.
+
+## Discretization, and what it costs {#sec-cmdp-discretize}
+
+[10:55]{.t} The direct approach lays a grid over the state space, gives every cell a name,
+and treats the robot as being "in" a cell whenever its true state falls inside it. The
+continuous problem becomes a discrete MDP that value iteration can solve, and the policy
+for a continuous state is the policy of its cell. Ng is clear that this is often fine. For
+a low-dimensional problem it is the quickest thing to get working.
+
+[12:31]{.t} It has two weaknesses, and he makes the first one with the example the course
+opened with. Suppose you predicted house prices by cutting the size axis into five
+intervals and fitting a constant on each. You would get a staircase, a poor
+representation of a price that varies smoothly with size. Discretizing the state space
+does exactly this to the value function: $V^*$ is approximated by a constant on every
+cell. The left of @fig-staircase shows the staircase on a one-dimensional MDP of our own.
+The state $s$ is a point on a line, the actions move it left, right or not at all by 0.25
+with Gaussian slip of standard deviation 0.15, the reward is $-s^2$, and $\gamma = 0.9$.
+With six cells, the discretized value function misses the true $V^*$ by up to 14.8. Doubling
+the cells halves the error, to 7.0, then 3.4 and 1.8 with 48 cells. The dashed curve is the
+method the rest of the lecture builds, which fits five numbers and lands within 1.8.
+
+![Left: the optimal value function of a one-dimensional MDP (purple), the staircase a six-cell discretization gives (teal), and fitted value iteration with features $1, s, \dots, s^4$ (dashed). Right: the number of cells $k^n$ needed to discretize each of $n$ state variables into $k$ values, on a log scale, with the lecture's three robots marked.](../figures/18-continuous-mdps/diagram_staircase.svg){#fig-staircase}
+
+[14:35]{.t} The second weakness is the one Bellman named the *curse of dimensionality*.
+Discretizing each of $n$ state variables into $k$ values gives $k^n$ cells. At a coarse
+$k = 10$ the pendulum needs $10^4$ cells and the car $10^6$. The helicopter needs
+$10^{12}$, and the official notes' example of a 10-dimensional state at 100 values each
+needs $10^{20}$ (right of @fig-staircase). Ng adds that the curse is not only about
+continuous states. A factory with 100 machines, each in one of $k$ conditions, has $k^{100}$
+discrete states, and fitted value iteration can be the better algorithm there too.
+
+[17:25]{.t} His working rules for when to discretize are worth having as stated. In two or
+three dimensions, just do it. In four to six, think about it, and it will often still work.
+The pendulum is fine, and friends of his made a six-dimensional bicycle model work "if you
+put some work into it". The usual trick in this range is to discretize unevenly, spending
+more values on the variables the policy is most sensitive to, because every value saved
+is saved in the exponent. At seven or eight dimensions he becomes nervous. Above that he
+would very seriously look for an algorithm that does not discretize. The official notes
+draw the line a little lower: they promise reliable results in one or two dimensions,
+four with care, and six only with luck.
+
+## Getting a model {#sec-cmdp-model}
+
+[23:20]{.t} Fitted value iteration needs a *model*, or *simulator*: a black box that takes
+a state $s$ and an action $a$ and returns a next state $s'$ drawn from $P_{sa}$. For
+simplicity the action space is taken to be discrete. Ng points out that this is usually a
+mild assumption, because robots tend to have far fewer controls than state variables. The
+car has a six-dimensional state but two controls, steering and braking. The helicopter has
+twelve state variables and four controls, two sticks under each hand. The pendulum has
+four and one.
+
+[26:13]{.t} One way to get a simulator is physics. For the pendulum, Newtonian mechanics
+gives $\dot s$ as a function of the state, the push and the masses and length of the parts.
+Ng shows the equation only as decoration. Stepping it forward as
+$s' = s + \Delta t\,\dot s$ with $\Delta t = 0.1$ s simulates the system at 10 Hz. In practice
+nobody derives these by hand. You download an open-source physics engine and give it the
+dimensions. He once built a four-legged walking robot's controller this way.
+
+[29:15]{.t} The way he uses more often is to *learn* the model from data. Take the
+helicopter into a field and have a human pilot fly it around while GPS, accelerometers and
+a compass log the state ten times a second, along with the stick positions. One flight
+gives a trajectory $s_0, a_0, s_1, a_1, \dots, s_T$; repeat it $m$ times. Predicting
+$s_{t+1}$ from $(s_t, a_t)$ is now a supervised learning problem. Its linear version is
+
+$$
+s_{t+1} \approx A s_t + B a_t,
+\qquad
+\min_{A, B} \sum_{i=1}^{m} \sum_{t=0}^{T-1} \bigl\lVert s^{(i)}_{t+1} - \bigl(A s^{(i)}_t + B a^{(i)}_t\bigr) \bigr\rVert^2,
+$$ {#eq-cmdp-linear-model}
+
+with $A \in \mathbb{R}^{n \times n}$ square and $B \in \mathbb{R}^{n \times d}$ tall and thin
+when the action has $d < n$ components. Ng's verdict from experience is that this is
+"actually not a terrible model" for a helicopter flying slowly and roughly level, and a
+poor one for fast, aggressive manoeuvres. Nonlinear features $\phi(s)$ and $\phi'(a)$ can
+replace the raw state and action when the linear model is not enough.
+
+@eq-cmdp-linear-model looks like a new kind of regression because $A$ and $B$ are
+matrices. Ng's remark that it is the same as running ordinary linear regression $n$
+times, once per state variable, is right: the squared norm is a sum over the $n$
+components, and each component involves only one row of $[A\;B]$. The notes add that the
+least-squares fit is also the maximum-likelihood one. That holds even if the noise in
+different state variables is correlated, which is the realistic case, because every
+equation shares the same regressors. The generator confirms all three routes on a
+simulated two-dimensional system with correlated noise. The joint fit, the $n$ separate
+regressions and the Gaussian maximum-likelihood fit with the true covariance agree to
+$10^{-15}$.
+
+[35:37]{.t} A student asks whether $m$ short flights differ from one long one. For the
+algorithm, Ng says, they do not. In practice the helicopter burns fuel and gets lighter,
+and the wind changes, so several flights average over conditions a single one would not
+cover.
+
+[37:41]{.t} Having fitted $A$ and $B$, there are two simulators to choose from. The
+*deterministic* one sets $s_{t+1} = A s_t + B a_t$. The *stochastic* one adds
+$\varepsilon_t \sim \mathcal{N}(0, \Sigma)$, whose covariance can be estimated from the
+residuals, and draws a fresh $\varepsilon_t$ on every step. This whole approach of
+learning a model and then planning in it is *model-based* reinforcement learning. The
+alternative, *model-free* RL, runs the learning algorithm on the real system directly.
+Ng's view in 2018 is that model-based methods were taking off faster in robotics. A
+physical robot cannot afford to be crashed thousands of times while it learns, while a
+video game or a board game is its own perfect simulator and can be.
+
+[41:45]{.t} He ends this part with a lesson from many robots. A policy optimised against a
+deterministic simulator tends to be brittle. It exploits details of the simulator that the
+real machine does not share, and that is how a five-legged robot can walk beautifully in a
+video and fall over in the lab. A simulator is always a little wrong: it misses a wind
+gust, or banks a degree too far in a turn. If the policy has to work in a slightly noisy
+simulator, it is much more likely to work on the real robot. His advice is to always add
+noise. The exact distribution matters much less than remembering to add it. (He mentions
+in passing that his own PhD thesis used reinforcement learning to fly helicopters, and that
+he lived through the crashes.)
+
+## Fitted value iteration {#sec-cmdp-fvi}
+
+[46:13]{.t} With a simulator in hand, the value function is approximated the way a price is
+approximated in linear regression:
+
+$$
+V(s) = \theta^\top \phi(s),
+$$ {#eq-cmdp-v-linear}
+
+where $\phi(s)$ is a vector of features of the state chosen by hand. Ng's advice on
+choosing them is to remember what a value is: the expected payoff from that state, so
+features should say how well the robot is doing. For the pendulum, a pole leaning far to
+the right is bad *unless* the cart is moving fast to the right to catch it. So the
+product of the pole angle and the cart velocity is a natural feature, alongside $x$,
+$\dot x$ and squares. A model-based method also makes overfitting less of a worry than in
+ordinary supervised learning. The training data come from the simulator and cost nothing,
+so a generous set of features, some of which turn out useless, can be fitted from as many
+samples as the computer can afford.
+
+[50:14]{.t} The algorithm starts from value iteration's update in continuous form,
+
+$$
+V(s) := R(s) + \gamma \max_a \mathbb{E}_{s' \sim P_{sa}}\bigl[V(s')\bigr],
+$$ {#eq-cmdp-vi}
+
+and replaces the two things it cannot do. It cannot visit every state, so it visits a
+sample. It cannot store an arbitrary $V$, so it fits @eq-cmdp-v-linear to the targets that
+@eq-cmdp-vi produces at the sampled states:
+
+1. Sample states $s^{(1)}, \dots, s^{(m)}$ at random, and set $\theta := 0$.
+2. Repeat:
+    a. For each $i = 1, \dots, m$ and each action $a$: draw $s'_1, \dots, s'_k \sim P_{s^{(i)} a}$ from the simulator and set
+       $q(a) = \frac{1}{k} \sum_{j=1}^{k} \bigl[ R(s^{(i)}) + \gamma V(s'_j) \bigr]$.
+    b. Set $y^{(i)} = \max_a q(a)$.
+    c. Set $\theta := \arg\min_\theta \tfrac{1}{2} \sum_{i=1}^{m} \bigl( \theta^\top \phi(s^{(i)}) - y^{(i)} \bigr)^2$.
+
+[56:46]{.t} Each $q(a)$ is a sample-average estimate of the expectation in @eq-cmdp-vi, so
+$y^{(i)}$ is an estimate of the whole right-hand side at $s^{(i)}$. [58:04]{.t} Discrete
+value iteration would now set $V(s^{(i)}) := y^{(i)}$, but a linear function cannot have its
+values set one point at a time. The best it can do is come as close as possible to all
+the targets at once, which is a least-squares fit. Step (c) is linear regression with
+$s^{(i)}$ in the role of $x$ and $y^{(i)}$ in the role of the price. A student asks where
+$V(s'_j)$ in step (a) comes from. [1:08:35]{.t} It is $\theta^\top \phi(s'_j)$ with the
+$\theta$ from the previous iteration, exactly as discrete value iteration uses the
+previous sweep's values.
+
+[1:00:51]{.t} Two questions clarify the bookkeeping. The $m$ here is the number of sampled
+states and has nothing to do with the $m$ flights used to learn the model. Ng's picture is
+one team flying the helicopter a thousand times and publishing a model, and another team
+running fitted value iteration on it. [1:03:06]{.t} He then asks the class how the
+algorithm simplifies with a deterministic simulator. The answer is that $k = 1$ suffices,
+since all $k$ samples would be the same next state. The generator checks this
+mechanically: with the noise switched off, $k = 1$ and $k = 5$ give the same $\theta$ to
+within $10^{-14}$. On how large $m$ should be, [1:05:38]{.t} he reasons as for any regression.
+With 50 features, 500 samples might do. But samples are free, so there is no harm in
+5,000 or 100,000 beyond running time. [1:09:07]{.t} Finally, nothing requires the
+regression to be linear. Locally weighted regression works, and replacing it with a neural
+network is, he says only half joking, how you get *deep* reinforcement learning.
+
+On the one-dimensional MDP of @fig-staircase, with 200 sampled states, $k = 10$ and five
+polynomial features, fitted value iteration lands within 1.8 of $V^*$ everywhere. That is
+as good as the 48-cell discretization, using five numbers instead of 48. With only three
+features, $1, s, s^2$, the error is 7.1. The true $V^*$ is not exactly quadratic, and a
+fit can only be as good as its features.
+
+What the lecture does not say, and the notes do in one sentence, is that fitted value
+iteration "cannot be proved to always converge". Discrete value iteration converges
+because its update is a contraction in the max norm (@sec-vi-algorithm). A least-squares
+fit is not a max-norm operation, and composing the two can expand distances instead of
+shrinking them. [Tsitsiklis and Van Roy](https://doi.org/10.1023/A:1018008221616) give the
+smallest example, reproduced in @fig-divergence. There are two states with no actions and
+no rewards; state 1 moves to state 2, which stays put, so $V^* = 0$. There is one feature,
+$\phi = 1$ in state 1 and $\phi = 2$ in state 2. The targets are $y = \gamma \cdot 2\theta$
+for both states, and the least-squares fit of $\theta' \phi$ to them is
+
+$$
+\theta' = \frac{1 \cdot 2\gamma\theta + 2 \cdot 2\gamma\theta}{1^2 + 2^2} = \frac{6\gamma}{5}\,\theta,
+$$
+
+so $\theta$ grows geometrically whenever $\gamma > 5/6$. This happens although the features
+represent $V^*$ exactly at $\theta = 0$. The cause is that the fit weights both states
+equally while the dynamics send everything to state 2. The algorithm as written starts at
+$\theta := 0$, and in this example it would sit there for ever. Any nonzero start, or any
+noise in the targets, sets the divergence going.
+
+![Fitted value iteration on Tsitsiklis and Van Roy's two-state chain, started at $\theta = 1$. At $\gamma = 0.9$ the parameter grows by a factor $6\gamma/5 = 1.08$ per iteration and passes 1,000 after 90; at $\gamma = 0.8$ it shrinks. Ordinary value iteration on the same two states converges at $\gamma = 0.9$.](../figures/18-continuous-mdps/diagram_divergence.svg){#fig-divergence}
+
+None of this makes the algorithm unusable. The notes say it usually converges or nearly
+converges in practice. At the start of lecture 19 Ng answers a student who asked whether
+it really works: it does, on a real helicopter at low speed. The counterexample is a reason
+to watch $\theta$ across iterations rather than trust it.
+
+::: {.callout-note title="In the official notes"}
+Discretization, simulators, learning a linear model and fitted value iteration are in
+cs229-notes12, section 4, which also writes the update with an integral over $s'$ and
+states the convergence caveat.
+:::
+
+## From a value function to an action {#sec-cmdp-policy}
+
+[1:10:37]{.t} Fitted value iteration returns $\theta$, and $\pi^*$ is only implicit in it:
+
+$$
+\pi(s) = \arg\max_a \mathbb{E}_{s' \sim P_{sa}}\bigl[V(s')\bigr].
+$$
+
+On a helicopter this has to be computed ten times a second. The obvious method is to
+estimate the expectation from $k$ simulator samples, as in training. Ng is reluctant to do
+that. He does not like the idea of a self-driving car with a random number generator in
+its control loop, where an unlucky draw could pick a bad action. [1:13:35]{.t} The common
+fix uses the form most simulators have, $s_{t+1} = f(s_t, a_t) + \varepsilon_t$. Train with
+the noise, so that the policy is robust, but at deployment set $\varepsilon_t = 0$ and
+$k = 1$:
+
+$$
+\pi(s) = \arg\max_a V\bigl(f(s, a)\bigr).
+$$ {#eq-cmdp-readout}
+
+Each tenth of a second the controller simulates one step for every action, evaluates $V$
+at the predicted next states, and takes the best. Ng admits this is not rigorously
+justified. There is one case where it is exact. If $V$ is quadratic and the noise is
+additive with a distribution that does not depend on the action, then
+
+$$
+\mathbb{E}\bigl[V(f + \varepsilon)\bigr] = V(f) + \tfrac{1}{2}\operatorname{tr}(H \Sigma)
+$$
+
+for zero-mean noise with covariance $\Sigma$, where $H$ is the (constant) Hessian of $V$. The
+second term is the same for every action, so dropping the noise cannot change the argmax. The
+generator confirms that the quadratic fit's two read-outs agree at every one of 601
+states. For other features the noise term depends on $f(s, a)$, so the two can disagree,
+though in this toy the quartic fit still never did. This is a first glimpse of a fact
+lecture 19 makes central: for quadratic values and linear-Gaussian dynamics, the noise
+does not change the optimal action at all.
+
+[1:18:26]{.t} Asked about continuous actions, Ng says a car's steering and braking can be
+discretized without much loss, but a helicopter's controls usually are not. When $f$ is
+smooth, the maximisation in @eq-cmdp-readout can be done by a fast numerical optimiser in
+real time, which is the territory of *model predictive control*. [1:19:24]{.t} And to a
+student asking how the controller knows where it has got to after acting: it measures. A
+tenth of a second later a new GPS reading and new sensors give the new state, wind and
+model errors included, and the argmax is taken again from there.

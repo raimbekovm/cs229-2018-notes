@@ -45,8 +45,8 @@
 | 15 | [PCA and ICA](https://raimbekovm.github.io/cs229-2018-notes/lectures/15-pca-ica.html) | Principal component analysis, its uses and misuses, the independent component analysis setup | Complete |
 | 16 | [Independent Component Analysis and RL](https://raimbekovm.github.io/cs229-2018-notes/lectures/16-ica-rl.html) | ICA by maximum likelihood, Markov decision processes, discounted payoff and policies | Complete |
 | 17 | [MDPs and Value/Policy Iteration](https://raimbekovm.github.io/cs229-2018-notes/lectures/17-value-policy-iteration.html) | Bellman equations, value iteration, policy iteration, learning a model of the MDP, exploration | Complete |
-| 18 | Continuous State MDP and Model Simulation | Discretization, simulators, fitted value iteration | Planned |
-| 19 | Reward Model and Linear Dynamical System | The linear quadratic regulator, differential dynamic programming, LQG | Planned |
+| 18 | [Continuous State MDPs and Model Simulation](https://raimbekovm.github.io/cs229-2018-notes/lectures/18-continuous-mdps.html) | Discretization, learning a simulator, fitted value iteration | Complete |
+| 19 | [Finite-Horizon MDPs and the Linear Quadratic Regulator](https://raimbekovm.github.io/cs229-2018-notes/lectures/19-lqr.html) | State-action rewards, finite horizons, linearization, the linear quadratic regulator | Complete |
 | 20 | RL Debugging and Diagnostics | Diagnosing reinforcement learning systems, from the simulator to the reward | Planned |
 
 Chapters are published as they are written, in course order.
