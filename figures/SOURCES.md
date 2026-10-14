@@ -174,3 +174,20 @@ invented one as a verified credit.
 | `15-pca-ica/diagram_pca_preprocessing.svg` | own work | Drawn by `make_diagrams.py`: PCA on uncentred and unscaled synthetic data, computed. |
 | `15-pca-ica/diagram_pca_stability.svg` | own work | Drawn by `make_diagrams.py`: angles between principal directions and subspaces of resampled synthetic data, computed. |
 | `15-pca-ica/diagram_ica_mixing.svg` | own work | Drawn by `make_diagrams.py`: uniform sources, their linear mixture and an ambiguous unmixing, computed. Recomputes the slide shown in the lecture. |
+
+## Lecture 16 — Independent Component Analysis and RL
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `16-ica-rl/diagram_source_densities.svg` | own work | Drawn by `make_diagrams.py`: contours of products of Gaussian, logistic and Laplace densities, computed. Answers the student question in the lecture. |
+| `16-ica-rl/diagram_change_of_variables.svg` | own work | Drawn by `make_diagrams.py`: the lecture's one-dimensional uniform example and the three log densities, computed. Recomputes the board sketch. |
+| `16-ica-rl/diagram_ica_ml.svg` | own work | Drawn by `make_diagrams.py`: ICA by batch gradient ascent on synthetic mixed Laplace sources. |
+| `16-ica-rl/diagram_gridworld.svg` | own work | Drawn by `make_diagrams.py` and `figures/_gridworld.py`: the lecture's gridworld (after Russell and Norvig) and its optimal policy, computed by value iteration. Recomputes the board drawing. |
+
+## Lecture 17 — MDPs and Value/Policy Iteration
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `17-value-policy-iteration/diagram_values.svg` | own work | Drawn by `make_diagrams.py`: the value of an always-East policy and the optimal value function of the gridworld, computed. Recomputes the board values. |
+| `17-value-policy-iteration/diagram_vi_convergence.svg` | own work | Drawn by `make_diagrams.py`: value iteration's error per sweep on the gridworld, computed. |
+| `17-value-policy-iteration/diagram_exploration.svg` | own work | Drawn by `make_diagrams.py`: simulated model-based learners on a corridor MDP of our own, a one-dimensional version of the lecture's +1/+10 example. |

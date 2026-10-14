@@ -106,6 +106,10 @@ book:
         - lectures/13-em-algorithms.qmd
         - lectures/14-factor-analysis.qmd
         - lectures/15-pca-ica.qmd
+    - part: "Reinforcement Learning"
+      chapters:
+        - lectures/16-ica-rl.qmd
+        - lectures/17-value-policy-iteration.qmd
 
 format:
   html:

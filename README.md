@@ -43,8 +43,8 @@
 | 13 | [Expectation-Maximization Algorithms](https://raimbekovm.github.io/cs229-2018-notes/lectures/13-em-algorithms.html) | k-means, mixtures of Gaussians, the EM algorithm | Complete |
 | 14 | [EM Algorithm and Factor Analysis](https://raimbekovm.github.io/cs229-2018-notes/lectures/14-factor-analysis.html) | EM's updates for the mixture, EM as coordinate ascent, singular covariances, factor analysis | Complete |
 | 15 | [PCA and ICA](https://raimbekovm.github.io/cs229-2018-notes/lectures/15-pca-ica.html) | Principal component analysis, its uses and misuses, the independent component analysis setup | Complete |
-| 16 | Independent Component Analysis and RL | ICA by maximum likelihood, Markov decision processes, Bellman equations | Planned |
-| 17 | MDPs and Value/Policy Iteration | Value iteration, policy iteration, learning a model of the MDP | Planned |
+| 16 | [Independent Component Analysis and RL](https://raimbekovm.github.io/cs229-2018-notes/lectures/16-ica-rl.html) | ICA by maximum likelihood, Markov decision processes, discounted payoff and policies | Complete |
+| 17 | [MDPs and Value/Policy Iteration](https://raimbekovm.github.io/cs229-2018-notes/lectures/17-value-policy-iteration.html) | Bellman equations, value iteration, policy iteration, learning a model of the MDP, exploration | Complete |
 | 18 | Continuous State MDP and Model Simulation | Discretization, simulators, fitted value iteration | Planned |
 | 19 | Reward Model and Linear Dynamical System | The linear quadratic regulator, differential dynamic programming, LQG | Planned |
 | 20 | RL Debugging and Diagnostics | Diagnosing reinforcement learning systems, from the simulator to the reward | Planned |

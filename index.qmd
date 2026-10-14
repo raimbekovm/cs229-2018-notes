@@ -249,24 +249,24 @@ them by theme.
 [Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 16]{.cs-card__index}
 
-[Independent Component Analysis and RL]{.cs-card__title}
+[[Independent Component Analysis and RL](lectures/16-ica-rl.qmd)]{.cs-card__title}
 
 [Finishing ICA by maximum likelihood, then Markov decision processes and the Bellman equations.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
-:::: {.cs-card}
+:::: {.cs-card .cs-card--done}
 [Lecture 17]{.cs-card__index}
 
-[MDPs and Value/Policy Iteration]{.cs-card__title}
+[[MDPs and Value/Policy Iteration](lectures/17-value-policy-iteration.qmd)]{.cs-card__title}
 
 [Solving an MDP by value iteration and policy iteration, and learning its model from experience.]{.cs-card__blurb}
 
-[Planned]{.cs-card__status}
+[Complete]{.cs-card__status}
 ::::
 
 :::: {.cs-card}
@@ -323,8 +323,8 @@ them by theme.
 | 13 | Expectation-Maximization Algorithms | Complete |
 | 14 | EM Algorithm and Factor Analysis | Complete |
 | 15 | PCA and ICA | Complete |
-| 16 | Independent Component Analysis and RL | Planned |
-| 17 | MDPs and Value/Policy Iteration | Planned |
+| 16 | Independent Component Analysis and RL | Complete |
+| 17 | MDPs and Value/Policy Iteration | Complete |
 | 18 | Continuous State MDP and Model Simulation | Planned |
 | 19 | Reward Model and Linear Dynamical System | Planned |
 | 20 | RL Debugging and Diagnostics | Planned |
