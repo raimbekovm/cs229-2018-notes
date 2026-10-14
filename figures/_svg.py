@@ -194,6 +194,16 @@ def clip_box(pts, to_px, xdom, ydom):
     return runs
 
 
-def curve(pts, to_px, xdom, ydom, **kw):
-    """A polyline for each in-domain run of a curve, so nothing crosses the axes."""
+def curve(pts, to_px, xdom, ydom, strict=False, **kw):
+    """A polyline for each in-domain run of a curve, so nothing crosses the axes.
+
+    Clipping is silent, which is right for a contour that is meant to leave the frame and
+    wrong for a data series that is meant to be seen whole: a y-range fitted to the wrong
+    curve then hides the data and the figure still renders. `strict=True` turns any
+    clipped point into an error, so a series that must fit its axes is checked by drawing it.
+    """
+    if strict:
+        out = [(x, y) for x, y in pts if not (xdom[0] <= x <= xdom[1] and ydom[0] <= y <= ydom[1])]
+        if out:
+            raise ValueError(f"curve: {len(out)} of {len(pts)} points outside {xdom} x {ydom}, e.g. {out[0]}")
     return "".join(polyline(r, **kw) for r in clip_box(pts, to_px, xdom, ydom) if len(r) > 1)

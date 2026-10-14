@@ -279,10 +279,9 @@ def fig_ica_ml(X, W, trace):
         s += text(x0 + 90, 238, lx, size=11.5, style="italic")
         s += text(x0 - 5, 50, ly, size=11.5, style="italic", anchor="end")
     xdom, ydom = (0, 400), (-3.8, -3.0)
-    assert all(ydom[0] < v < ydom[1] for v in trace)
     to_px = mapper(xdom, ydom, (560, 740), (40, 220))
     s += axes(to_px, xdom, ydom, (0, 200, 400), (-3.8, -3.4, -3.0), "iteration", "ℓ(W) / m", fmt="{:g}")
-    s += curve([(i, v) for i, v in enumerate(trace)], to_px, xdom, ydom, stroke=PURPLE, sw=2.0)
+    s += curve([(i, v) for i, v in enumerate(trace)], to_px, xdom, ydom, strict=True, stroke=PURPLE, sw=2.0)
     return wrap(
         770,
         275,
