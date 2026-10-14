@@ -157,3 +157,20 @@ invented one as a verified credit.
 | `13-em-algorithms/diagram_mixture.svg` | own work | Drawn by `make_diagrams.py`: a two-component Gaussian mixture and its E-step posterior, computed. |
 | `13-em-algorithms/diagram_jensen.svg` | own work | Drawn by `make_diagrams.py`: a convex function and a chord. Redraws the board sketch of Jensen's inequality. |
 | `13-em-algorithms/diagram_em_bound.svg` | own work | Drawn by `make_diagrams.py`: the log-likelihood of a one-parameter mixture and EM's lower bounds, computed. Recomputes the board sketch. |
+
+## Lecture 14 — EM Algorithm and Factor Analysis
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `14-factor-analysis/diagram_covariance.svg` | own work | Drawn by `make_diagrams.py`: maximum-likelihood Gaussians under full, diagonal and spherical covariances on synthetic data. Recomputes the board sketches. |
+| `14-factor-analysis/diagram_fa_generative.svg` | own work | Drawn by `make_diagrams.py`: samples from the factor-analysis model with the lecture's parameters. Recomputes the board example. |
+| `14-factor-analysis/diagram_fa_em.svg` | own work | Drawn by `make_diagrams.py`: EM for factor analysis on synthetic 100-dimensional data, and held-out likelihoods, computed. |
+
+## Lecture 15 — PCA and ICA
+
+| File | Status | Source |
+| :--- | :----- | :----- |
+| `15-pca-ica/diagram_pca_projection.svg` | own work | Drawn by `make_diagrams.py`: projections of synthetic height data onto two directions. Recomputes the board sketch. |
+| `15-pca-ica/diagram_pca_preprocessing.svg` | own work | Drawn by `make_diagrams.py`: PCA on uncentred and unscaled synthetic data, computed. |
+| `15-pca-ica/diagram_pca_stability.svg` | own work | Drawn by `make_diagrams.py`: angles between principal directions and subspaces of resampled synthetic data, computed. |
+| `15-pca-ica/diagram_ica_mixing.svg` | own work | Drawn by `make_diagrams.py`: uniform sources, their linear mixture and an ambiguous unmixing, computed. Recomputes the slide shown in the lecture. |
