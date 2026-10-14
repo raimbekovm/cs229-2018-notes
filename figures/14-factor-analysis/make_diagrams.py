@@ -31,6 +31,7 @@ import random
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+from _linalg import T, add, chol, eye, inv, mean, mm, mv, rank, zeros
 from _svg import (
     INDIGO,
     PURPLE,
@@ -50,90 +51,6 @@ OUT = pathlib.Path(__file__).resolve().parent
 # ---------------------------------------------------------------- linear algebra
 
 
-def zeros(r, c):
-    """An r-by-c zero matrix."""
-    return [[0.0] * c for _ in range(r)]
-
-
-def eye(n):
-    """The n-by-n identity."""
-    return [[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
-
-
-def T(A):
-    """Transpose."""
-    return [list(r) for r in zip(*A)]
-
-
-def mm(A, B):
-    """Matrix product."""
-    Bt = T(B)
-    return [[sum(a * b for a, b in zip(r, c)) for c in Bt] for r in A]
-
-
-def mv(A, v):
-    """Matrix-vector product."""
-    return [sum(a * b for a, b in zip(r, v)) for r in A]
-
-
-def add(A, B, s=1.0):
-    """A + s B."""
-    return [[a + s * b for a, b in zip(ra, rb)] for ra, rb in zip(A, B)]
-
-
-def outer(u, v):
-    """U v^T."""
-    return [[a * b for b in v] for a in u]
-
-
-def chol(A):
-    """Lower Cholesky factor of a symmetric positive-definite matrix."""
-    n = len(A)
-    L = zeros(n, n)
-    for i in range(n):
-        for j in range(i + 1):
-            s = A[i][j] - sum(L[i][k] * L[j][k] for k in range(j))
-            if i == j:
-                if s <= 0:
-                    raise ValueError("not positive definite")
-                L[i][i] = math.sqrt(s)
-            else:
-                L[i][j] = s / L[j][j]
-    return L
-
-
-def inv(A):
-    """Inverse of a symmetric positive-definite matrix, through its Cholesky factor."""
-    n = len(A)
-    L = chol(A)
-    Li = zeros(n, n)
-    for c in range(n):
-        for i in range(n):
-            s = (1.0 if i == c else 0.0) - sum(L[i][k] * Li[k][c] for k in range(i))
-            Li[i][c] = s / L[i][i]
-    return mm(T(Li), Li)
-
-
-def rank(A, tol=1e-9):
-    """Numerical rank by Gaussian elimination with partial pivoting."""
-    M = [r[:] for r in A]
-    n, m = len(M), len(M[0])
-    scale = max(abs(x) for r in M for x in r) or 1.0
-    r = 0
-    for c in range(m):
-        p = max(range(r, n), key=lambda i: abs(M[i][c]), default=None)
-        if p is None or abs(M[p][c]) < tol * scale:
-            continue
-        M[r], M[p] = M[p], M[r]
-        for i in range(r + 1, n):
-            f = M[i][c] / M[r][c]
-            M[i] = [a - f * b for a, b in zip(M[i], M[r])]
-        r += 1
-        if r == n:
-            break
-    return r
-
-
 def gauss_logpdf_batch(X, mu, S):
     """Log density of every row of X under N(mu, S)."""
     n = len(mu)
@@ -147,11 +64,6 @@ def gauss_logpdf_batch(X, mu, S):
             y.append((d[i] - sum(L[i][k] * y[k] for k in range(i))) / L[i][i])
         out.append(-0.5 * (n * math.log(2 * math.pi) + logdet + sum(v * v for v in y)))
     return out
-
-
-def mean(X):
-    """Column means."""
-    return [sum(c) / len(X) for c in zip(*X)]
 
 
 def cov_ml(X):
