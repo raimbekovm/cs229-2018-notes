@@ -2,6 +2,12 @@
 title: "Expectation-Maximization Algorithms"
 subtitle: "Lecture 13"
 description: "Unsupervised learning from unlabelled data: k-means clustering and why it converges, anomaly detection by density estimation, the mixture of Gaussians as GDA with the labels hidden, the EM algorithm for fitting it as k-means with soft assignments, Jensen's inequality, and the general derivation of EM as repeatedly building and maximising a lower bound on the log-likelihood."
+keywords:
+  - "k-means clustering"
+  - "anomaly detection"
+  - "mixture of Gaussians"
+  - "EM algorithm"
+  - "Jensen's inequality"
 ---
 
 ::: {.lecture-video lecture="13"}

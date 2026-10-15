@@ -2,6 +2,13 @@
 title: "Support Vector Machines"
 subtitle: "Lecture 6"
 description: "Laplace smoothing and why it is the Bayesian answer to a zero count, the multinomial event model that lets naive Bayes count repeated words, the case for building something quick and dirty first, and the start of support vector machines: functional and geometric margins and the optimisation problem whose solution is the maximum-margin separator."
+keywords:
+  - "Laplace smoothing"
+  - "multinomial event model"
+  - "support vector machines"
+  - "functional margin"
+  - "geometric margin"
+  - "optimal margin classifier"
 ---
 
 ::: {.lecture-video lecture="6"}

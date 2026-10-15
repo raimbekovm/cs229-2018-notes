@@ -14,6 +14,9 @@ project:
     - quarto run tools/prerender_math.ts
     - python3 tools/icon_subset.py
     - python3 tools/unblock_head.py
+    # llms.txt, llms-full.txt and a Markdown copy of every chapter, for answer
+    # engines and assistants; see the script's docstring.
+    - python3 tools/llms_txt.py
   resources:
     # Nothing links to the social card, so Quarto would not copy it otherwise.
     - figures/social-card.png

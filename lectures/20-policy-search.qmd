@@ -2,6 +2,12 @@
 title: "RL Debugging and Direct Policy Search"
 subtitle: "Lecture 20"
 description: "The last lecture of CS229: the helicopter diagnostics restated in reinforcement-learning notation, then direct policy search, which skips the value function and tunes a stochastic policy by gradient ascent on its expected payoff. The REINFORCE update, a derivation that its average is exactly that gradient, why its noise makes it slow and how weighting each action only by later rewards and subtracting a baseline cut that noise without changing the average, why policy search copes with partial observability, and when a policy is simpler to learn than a value function."
+keywords:
+  - "reinforcement learning debugging"
+  - "direct policy search"
+  - "REINFORCE"
+  - "policy gradient"
+  - "POMDPs"
 ---
 
 ::: {.lecture-video lecture="20"}

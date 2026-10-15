@@ -2,6 +2,12 @@
 title: "Finite-Horizon MDPs and the Linear Quadratic Regulator"
 subtitle: "Lecture 19"
 description: "Two generalizations of the MDP, rewards that depend on the action and a finite horizon with a non-stationary optimal policy solved by backward dynamic programming, then the linear quadratic regulator: linear dynamics from regression or linearization, a quadratic reward, an exactly quadratic value function and linear optimal policy from the Riccati recursion, and why the noise does not change that policy — with the sign errors in the official notes' equations corrected."
+keywords:
+  - "finite-horizon MDPs"
+  - "linear quadratic regulator"
+  - "LQR"
+  - "Riccati equation"
+  - "linearization"
 ---
 
 ::: {.lecture-video lecture="19"}

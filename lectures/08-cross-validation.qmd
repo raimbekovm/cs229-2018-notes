@@ -2,6 +2,13 @@
 title: "Data Splits, Models and Cross-Validation"
 subtitle: "Lecture 8"
 description: "How to tell an algorithm that underfits from one that overfits, and what to do about each: bias and variance on the housing example, regularisation as a penalty λ‖θ‖² and as a Gaussian prior on θ, train/dev/test splits and how large each should be, k-fold and leave-one-out cross-validation for small datasets, and forward search for feature selection."
+keywords:
+  - "bias and variance"
+  - "overfitting"
+  - "regularization"
+  - "cross-validation"
+  - "train/dev/test split"
+  - "feature selection"
 ---
 
 ::: {.lecture-video lecture="8"}

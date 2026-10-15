@@ -2,6 +2,12 @@
 title: "Continuous State MDPs and Model Simulation"
 subtitle: "Lecture 18"
 description: "How to solve an MDP whose state is a vector of real numbers: discretization and the curse of dimensionality, building a simulator from physics or by regressing the next state on the current state and action, fitted value iteration with linear regression on features of the state, why it carries no convergence guarantee, and how to turn the fitted value function into a policy fast enough to fly a helicopter."
+keywords:
+  - "continuous state MDPs"
+  - "discretization"
+  - "model-based reinforcement learning"
+  - "simulator"
+  - "fitted value iteration"
 ---
 
 ::: {.lecture-video lecture="18"}

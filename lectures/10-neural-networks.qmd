@@ -2,6 +2,12 @@
 title: "Introduction to Neural Networks"
 subtitle: "Lecture 10"
 description: "Neural networks built up from logistic regression: one neuron as a linear part plus an activation, three independent neurons for multi-label outputs against a softmax for mutually exclusive classes and why its gradient is still ŷ − y, regression outputs, hidden layers and what fully connected means, forward propagation with the shape of every matrix, vectorising over a batch with broadcasting, and why backpropagation starts at the last layer."
+keywords:
+  - "neural networks"
+  - "logistic regression"
+  - "softmax"
+  - "forward propagation"
+  - "vectorization"
 ---
 
 ::: {.lecture-video lecture="10"}

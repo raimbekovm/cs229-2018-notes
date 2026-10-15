@@ -2,6 +2,12 @@
 title: "Perceptron and Generalized Linear Models"
 subtitle: "Lecture 4"
 description: "The perceptron as logistic regression with a hard threshold, the exponential family of distributions and why its log-partition function hands over the mean and variance by differentiation, generalized linear models as a recipe that turns any member into a regression model with one shared update rule, and softmax regression for multi-class classification as cross-entropy minimisation."
+keywords:
+  - "perceptron"
+  - "exponential family"
+  - "generalized linear models"
+  - "softmax regression"
+  - "cross-entropy"
 ---
 
 ::: {.lecture-video lecture="4"}

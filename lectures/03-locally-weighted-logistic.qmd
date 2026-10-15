@@ -2,6 +2,12 @@
 title: "Locally Weighted and Logistic Regression"
 subtitle: "Lecture 3"
 description: "Locally weighted regression as the course's first non-parametric algorithm, least squares derived as maximum likelihood under Gaussian noise, logistic regression for binary classification fitted by gradient ascent, and Newton's method as the faster alternative when the parameters are few."
+keywords:
+  - "locally weighted regression"
+  - "logistic regression"
+  - "maximum likelihood"
+  - "Newton's method"
+  - "sigmoid function"
 ---
 
 ::: {.lecture-video lecture="3"}

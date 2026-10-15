@@ -1,5 +1,12 @@
 ---
 description: "Why low training error says anything about test error: the learning algorithm as an estimator with a sampling distribution, bias and variance as its first two moments, the split of test error into Bayes, approximation and estimation error, empirical risk minimisation, Hoeffding's inequality and the union bound, uniform convergence and sample complexity for a finite hypothesis class, the guarantee ε(ĥ) ≤ ε(h*) + 2γ, and the VC dimension that extends it to infinite classes."
+keywords:
+  - "learning theory"
+  - "empirical risk minimization"
+  - "Hoeffding's inequality"
+  - "union bound"
+  - "uniform convergence"
+  - "VC dimension"
 ---
 
 # Learning Theory {.unnumbered}

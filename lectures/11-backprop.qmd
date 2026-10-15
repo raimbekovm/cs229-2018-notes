@@ -2,6 +2,13 @@
 title: "Backprop and Improving Neural Networks"
 subtitle: "Lecture 11"
 description: "Backpropagation derived by hand for a three-layer network, with shape analysis to place every transpose and the caching that makes it cheap; then what makes training work: sigmoid, tanh and ReLU and why a network needs a non-linearity, input normalisation, vanishing and exploding gradients, variance-preserving initialisation (1/n, He's 2/n, Glorot's 2/(n_in + n_out)) and symmetry breaking, mini-batch gradient descent, and momentum."
+keywords:
+  - "backpropagation"
+  - "activation functions"
+  - "weight initialization"
+  - "vanishing gradients"
+  - "mini-batch gradient descent"
+  - "momentum"
 ---
 
 ::: {.lecture-video lecture="11"}

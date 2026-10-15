@@ -2,6 +2,13 @@
 title: "Kernels"
 subtitle: "Lecture 7"
 description: "How the optimal margin classifier becomes the support vector machine: the rescaling that turns the margin problem into minimising ½‖w‖², the representer theorem that writes w as a combination of training examples, the dual in which data appear only through inner products, kernels that compute those inner products in feature spaces too large to write down, Mercer's condition for which functions qualify, and the soft margin for data that will not separate."
+keywords:
+  - "kernel trick"
+  - "support vector machines"
+  - "Lagrange duality"
+  - "representer theorem"
+  - "Mercer's theorem"
+  - "soft margin SVM"
 ---
 
 ::: {.lecture-video lecture="7"}

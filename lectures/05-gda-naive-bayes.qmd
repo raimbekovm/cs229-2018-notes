@@ -2,6 +2,12 @@
 title: "GDA and Naive Bayes"
 subtitle: "Lecture 5"
 description: "Generative learning algorithms, which model p(x | y) and p(y) and classify by Bayes' rule: Gaussian discriminant analysis and why it implies a logistic posterior but not conversely, when its stronger assumptions beat logistic regression and when they cost it, and naive Bayes for spam filtering with binary word features."
+keywords:
+  - "generative learning algorithms"
+  - "Gaussian discriminant analysis"
+  - "naive Bayes"
+  - "Bayes' rule"
+  - "spam filtering"
 ---
 
 ::: {.lecture-video lecture="5"}

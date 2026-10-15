@@ -2,6 +2,12 @@
 title: "Introduction"
 subtitle: "Lecture 1"
 description: "What machine learning is, from Samuel's checkers program to Mitchell's experience–task–performance definition, and the five areas CS229 covers: supervised learning, learning strategy, deep learning, unsupervised learning and reinforcement learning."
+keywords:
+  - "machine learning"
+  - "supervised learning"
+  - "unsupervised learning"
+  - "reinforcement learning"
+  - "CS229 introduction"
 ---
 
 ::: {.lecture-video lecture="1"}

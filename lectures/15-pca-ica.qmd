@@ -2,6 +2,12 @@
 title: "PCA and ICA"
 subtitle: "Lecture 15"
 description: "Principal components analysis as the direction of maximum variance and, equivalently, of minimum reconstruction error; why the answer is the top eigenvectors of the covariance; centring, scaling and choosing k; where PCA helps and where it is misused; a map of the unsupervised algorithms; and the cocktail-party problem that independent components analysis solves, with its ambiguities."
+keywords:
+  - "principal component analysis"
+  - "PCA"
+  - "eigenvectors"
+  - "dimensionality reduction"
+  - "independent component analysis"
 ---
 
 ::: {.lecture-video lecture="15"}

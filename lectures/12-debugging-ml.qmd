@@ -2,6 +2,12 @@
 title: "Debugging ML Models and Error Analysis"
 subtitle: "Lecture 12"
 description: "How to decide what to do next when a learning algorithm does not work well enough: learning curves that separate high variance from high bias, the test that tells a failing optimiser from a wrong objective, the same reasoning applied to an autonomous helicopter, error analysis that credits each stage of a pipeline by plugging in ground truth, and ablative analysis that credits each component by removing it."
+keywords:
+  - "debugging learning algorithms"
+  - "learning curves"
+  - "bias versus variance"
+  - "error analysis"
+  - "ablative analysis"
 ---
 
 ::: {.lecture-video lecture="12"}
