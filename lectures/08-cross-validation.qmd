@@ -2,6 +2,13 @@
 title: "Data Splits, Models and Cross-Validation"
 subtitle: "Lecture 8"
 description: "How to tell an algorithm that underfits from one that overfits, and what to do about each: bias and variance on the housing example, regularisation as a penalty λ‖θ‖² and as a Gaussian prior on θ, train/dev/test splits and how large each should be, k-fold and leave-one-out cross-validation for small datasets, and forward search for feature selection."
+keywords:
+  - "bias and variance"
+  - "overfitting"
+  - "regularization"
+  - "cross-validation"
+  - "train/dev/test split"
+  - "feature selection"
 ---
 
 ::: {.lecture-video lecture="8"}
@@ -136,7 +143,7 @@ enjoy that protection.
 
 [21:08]{.t} His favourite illustration is text classification. Take 100 labelled
 emails and a 10,000-word vocabulary, one binary feature per word. Unregularised
-logistic regression has 10,000 parameters and 100 examples, and it will badly overfit:
+logistic regression has 10,000 parameters and 100 examples, and it will badly overfit;
 on data like this the training set is almost always linearly separable, and on separable data
 the likelihood has no maximum: scaling up any separating $\theta$ always increases it,
 so $\lVert\theta\rVert$ grows without bound. (On a toy with ten features and four examples, gradient ascent's

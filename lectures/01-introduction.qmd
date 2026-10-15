@@ -2,6 +2,12 @@
 title: "Introduction"
 subtitle: "Lecture 1"
 description: "What machine learning is, from Samuel's checkers program to Mitchell's experience–task–performance definition, and the five areas CS229 covers: supervised learning, learning strategy, deep learning, unsupervised learning and reinforcement learning."
+keywords:
+  - "machine learning"
+  - "supervised learning"
+  - "unsupervised learning"
+  - "reinforcement learning"
+  - "CS229 introduction"
 ---
 
 ::: {.lecture-video lecture="1"}
@@ -305,7 +311,7 @@ helicopter" for an accurate manoeuvre and "bad helicopter" when it crashes, and 
 algorithm's job is to find a way of acting that collects more reward over time. The
 helicopter in the video is the Stanford autonomous helicopter, whose aerobatic flight
 is described in [Abbeel et al.,
-2006](https://proceedings.neurips.cc/paper/2006/hash/98c39996bf1543e974747a2549b3107c-Abstract.html)),
+2006](https://proceedings.neurips.cc/paper/2006/hash/98c39996bf1543e974747a2549b3107c-Abstract.html),
 and a second clip applies the same reward-driven learning to a legged robot dog
 learning to climb over obstacles.
 

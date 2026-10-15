@@ -2,6 +2,12 @@
 title: "Finite-Horizon MDPs and the Linear Quadratic Regulator"
 subtitle: "Lecture 19"
 description: "Two generalizations of the MDP, rewards that depend on the action and a finite horizon with a non-stationary optimal policy solved by backward dynamic programming, then the linear quadratic regulator: linear dynamics from regression or linearization, a quadratic reward, an exactly quadratic value function and linear optimal policy from the Riccati recursion, and why the noise does not change that policy — with the sign errors in the official notes' equations corrected."
+keywords:
+  - "finite-horizon MDPs"
+  - "linear quadratic regulator"
+  - "LQR"
+  - "Riccati equation"
+  - "linearization"
 ---
 
 ::: {.lecture-video lecture="19"}
@@ -31,7 +37,7 @@ $$
 
 and it lets a problem say that actions have costs. A robot in a maze can be charged for
 moving and nothing for standing still. A helicopter can be charged for yanking the sticks
-hard, which wastes fuel and stresses the airframe. A route planner can charge each road
+hard, which makes it jerk around. A route planner can charge each road
 segment its own cost, and a factory can price sending a maintenance crew differently from
 doing nothing. [5:55]{.t} Bellman's equation changes in one visible way:
 

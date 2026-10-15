@@ -2,6 +2,12 @@
 title: "Expectation-Maximization Algorithms"
 subtitle: "Lecture 13"
 description: "Unsupervised learning from unlabelled data: k-means clustering and why it converges, anomaly detection by density estimation, the mixture of Gaussians as GDA with the labels hidden, the EM algorithm for fitting it as k-means with soft assignments, Jensen's inequality, and the general derivation of EM as repeatedly building and maximising a lower bound on the log-likelihood."
+keywords:
+  - "k-means clustering"
+  - "anomaly detection"
+  - "mixture of Gaussians"
+  - "EM algorithm"
+  - "Jensen's inequality"
 ---
 
 ::: {.lecture-video lecture="13"}
@@ -223,9 +229,11 @@ picture every time.
 equality holds only if $X$ is constant, i.e. $X = \mathbb{E}[X]$ with probability one,
 which is the measure theorist's way of saying it. A straight line is convex but not
 strictly, and for it equality holds for any $X$. [54:47]{.t} A student asks about a curve
-with $f(1) = f(3)$. Such a function is not strictly convex. For instance it may be flat
-between 1 and 3, and then equality can hold for a non-constant $X$ supported on the flat
-piece. The strictness is the hypothesis that rules this out.
+with $f(1) = f(3)$. Equal end values alone change nothing: the chord is then flat, and a
+strictly convex curve still dips below it in between. Equality for a non-constant $X$
+needs the function to be straight between the values $X$ takes, for instance flat between
+1 and 3, and such a function is not strictly convex. The strictness is the hypothesis
+that rules this out.
 
 For EM the inequality is used upside down. A concave function is the negative of a
 convex one ($f'' \le 0$), and for concave $f$, $f(\mathbb{E}[X]) \ge \mathbb{E}[f(X)]$,

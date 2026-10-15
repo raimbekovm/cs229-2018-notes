@@ -2,6 +2,12 @@
 title: "Independent Component Analysis and RL"
 subtitle: "Lecture 16"
 description: "Why ICA cannot unmix Gaussian sources, how a density changes under a linear map, the sigmoid-CDF source prior and the maximum-likelihood gradient rule for the unmixing matrix, where ICA is used and where it breaks; then reinforcement learning: the credit assignment problem, Markov decision processes on an 11-state gridworld, discounted payoff and the optimal policy."
+keywords:
+  - "independent component analysis"
+  - "cocktail party problem"
+  - "reinforcement learning"
+  - "Markov decision processes"
+  - "discount factor"
 ---
 
 ::: {.lecture-video lecture="16"}
@@ -16,7 +22,7 @@ sources can be recovered only up to order, sign and scale. This chapter adds the
 needs non-Gaussian sources, writes down the likelihood of the unmixing matrix $W$, and
 derives the stochastic gradient rule that maximises it. The second half opens the last part
 of the course, reinforcement learning. It introduces the Markov decision process and the
-11-state gridworld that lectures 16 to 18 use as their running example, and states the
+11-state gridworld that lectures 16 and 17 use as their running example, and states the
 goal: a policy that maximises the expected discounted sum of rewards.
 
 ## Gaussian sources cannot be unmixed {#sec-ica-gaussian}

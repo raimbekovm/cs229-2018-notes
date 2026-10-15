@@ -2,6 +2,12 @@
 title: "EM Algorithm and Factor Analysis"
 subtitle: "Lecture 14"
 description: "How the general EM algorithm turns into concrete updates for the mixture of Gaussians, EM as coordinate ascent on the lower bound, why a Gaussian cannot be fitted when there are fewer examples than dimensions, the factor analysis model for high-dimensional data from few examples, marginals and conditionals of Gaussians, and EM for factor analysis."
+keywords:
+  - "EM algorithm"
+  - "mixture of Gaussians"
+  - "factor analysis"
+  - "multivariate Gaussian"
+  - "coordinate ascent"
 ---
 
 ::: {.lecture-video lecture="14"}

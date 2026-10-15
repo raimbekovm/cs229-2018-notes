@@ -2,6 +2,12 @@
 title: "MDPs and Value/Policy Iteration"
 subtitle: "Lecture 17"
 description: "The value function of a policy and Bellman's equations, the optimal value function and how the optimal policy is read off it, value iteration with synchronous and asynchronous updates and how fast it converges, policy iteration, estimating the transition probabilities from experience, and exploration versus exploitation with epsilon-greedy and Boltzmann exploration."
+keywords:
+  - "Bellman equation"
+  - "value iteration"
+  - "policy iteration"
+  - "Markov decision processes"
+  - "exploration versus exploitation"
 ---
 
 ::: {.lecture-video lecture="17"}

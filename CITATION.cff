@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use these notes, please cite them as below."
+title: "CS229 2018 Lecture Notes: Machine Learning, Stanford, Autumn 2018"
+abstract: >-
+  Free, unofficial lecture notes for Stanford CS229: Machine Learning, written
+  from Andrew Ng's Autumn 2018 lectures. Every lecture has a chapter of
+  continuous prose with the board derivations written out in full and a
+  timestamp into the recording for every section.
+type: software
+authors:
+  - family-names: Raimbekov
+    given-names: Murat
+url: "https://raimbekovm.github.io/cs229-2018-notes/"
+repository-code: "https://github.com/raimbekovm/cs229-2018-notes"
+license: MIT
+keywords:
+  - CS229
+  - machine learning
+  - lecture notes
+  - Andrew Ng
+  - Stanford

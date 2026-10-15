@@ -350,6 +350,12 @@ official notes, and they are meant to sit beside both. Each page aims to be:
 - **A bridge, not a copy** — where the official notes go further, the chapter
   says which section to read next rather than reproducing it.
 
+The whole book is also a single [PDF](CS229-2018-Lecture-Notes.pdf). For an AI
+assistant, [llms.txt](llms.txt) maps every chapter to a Markdown copy with the
+maths in TeX, and [llms-full.txt](llms-full.txt) holds the book in one file. The
+same treatment of Stanford's deep learning for computer vision course is in the
+companion [CS231n 2025 Lecture Notes](https://raimbekovm.github.io/cs231n-2025-notes/).
+
 ## Roadmap {#roadmap}
 
 ::: {.cs-roadmap}

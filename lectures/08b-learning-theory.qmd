@@ -1,5 +1,12 @@
 ---
 description: "Why low training error says anything about test error: the learning algorithm as an estimator with a sampling distribution, bias and variance as its first two moments, the split of test error into Bayes, approximation and estimation error, empirical risk minimisation, Hoeffding's inequality and the union bound, uniform convergence and sample complexity for a finite hypothesis class, the guarantee ε(ĥ) ≤ ε(h*) + 2γ, and the VC dimension that extends it to infinite classes."
+keywords:
+  - "learning theory"
+  - "empirical risk minimization"
+  - "Hoeffding's inequality"
+  - "union bound"
+  - "uniform convergence"
+  - "VC dimension"
 ---
 
 # Learning Theory {.unnumbered}
@@ -320,8 +327,8 @@ uniform convergence or the definition of ERM:
 
 $$
 \varepsilon(\hat h)
-\le \hat\varepsilon(\hat h) + \gamma
-\le \hat\varepsilon(h^*) + \gamma
+\le \hat\varepsilon_S(\hat h) + \gamma
+\le \hat\varepsilon_S(h^*) + \gamma
 \le \varepsilon(h^*) + 2\gamma .
 $$
 
@@ -340,8 +347,8 @@ This is bias and variance once more, in theorem form. The first term is the best
 class can do, which can only fall as $\mathcal H$ grows; the second, which grows with
 $k$, is the price of searching a larger class with the same data. cs229-notes4 makes
 the same reading. On the threshold class the guarantee holds in every one of 3,000
-runs at each $m$ the generator tries, but it is very loose: at $m = 200$, $2\gamma$ is
-$0.245$, while ERM picks a best-in-class threshold in every run.
+runs at each $m$ the generator tries, but it is very loose: at $m = 200$ and $\delta = 0.05$,
+$2\gamma$ is $0.245$, while ERM picks a best-in-class threshold in every run.
 
 ## Infinite classes and the VC dimension {#sec-lt-vc}
 

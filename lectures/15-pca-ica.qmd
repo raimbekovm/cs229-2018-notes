@@ -2,6 +2,12 @@
 title: "PCA and ICA"
 subtitle: "Lecture 15"
 description: "Principal components analysis as the direction of maximum variance and, equivalently, of minimum reconstruction error; why the answer is the top eigenvectors of the covariance; centring, scaling and choosing k; where PCA helps and where it is misused; a map of the unsupervised algorithms; and the cocktail-party problem that independent components analysis solves, with its ambiguities."
+keywords:
+  - "principal component analysis"
+  - "PCA"
+  - "eigenvectors"
+  - "dimensionality reduction"
+  - "independent component analysis"
 ---
 
 ::: {.lecture-video lecture="15"}
@@ -95,7 +101,7 @@ constrained problem is an eigenvector. At such a point the objective equals
 $u^\top \Sigma u = \lambda u^\top u = \lambda$, so the best eigenvector is the one with the
 largest eigenvalue, and that eigenvalue is the variance captured. The generator checks
 this on a random $2 \times 2$ covariance by finding every stationary point of
-$u^\top \Sigma u$ around the unit circle. It finds two, each lies along an eigenvector to
+$u^\top \Sigma u$ around the half-circle of directions. It finds two, each lies along an eigenvector to
 within $0.02°$, and the value of the objective there matches the eigenvalue to $10^{-6}$.
 
 [22:11]{.t} To keep $k$ dimensions, take the top $k$ eigenvectors $u_1, \dots, u_k$. The

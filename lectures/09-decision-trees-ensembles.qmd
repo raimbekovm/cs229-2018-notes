@@ -2,6 +2,13 @@
 title: "Decision Trees and Ensemble Methods"
 subtitle: "Lecture 9"
 description: "Decision trees as greedy recursive partitioning of the input space, why splits are chosen by a strictly concave loss such as cross-entropy rather than misclassification, regression trees and categorical features, how trees are regularised and why they are fast, their weakness on additive structure — and how ensembles fix them: the variance of an average of correlated models, bagging, random forests, and boosting with AdaBoost."
+keywords:
+  - "decision trees"
+  - "cross-entropy loss"
+  - "bagging"
+  - "random forests"
+  - "boosting"
+  - "AdaBoost"
 ---
 
 ::: {.lecture-video lecture="9"}
@@ -349,6 +356,7 @@ gradient boosting, and with engineering on top, XGBoost.
 
 ::: {.callout-note title="In the official notes"}
 cs229-notes-ensemble, section 1, covers the bootstrap, aggregation and their combination
-with trees; section 2 gives AdaBoost, its derivation as forward stagewise additive
-modelling under the exponential loss, and gradient boosting.
+with trees; section 2 gives AdaBoost, states that it is forward stagewise additive modelling
+under the exponential loss (leaving the derivation to *The Elements of Statistical
+Learning*, section 10.4), and sketches gradient boosting.
 :::

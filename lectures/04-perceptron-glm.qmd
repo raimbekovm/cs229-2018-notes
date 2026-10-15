@@ -2,6 +2,12 @@
 title: "Perceptron and Generalized Linear Models"
 subtitle: "Lecture 4"
 description: "The perceptron as logistic regression with a hard threshold, the exponential family of distributions and why its log-partition function hands over the mean and variance by differentiation, generalized linear models as a recipe that turns any member into a regression model with one shared update rule, and softmax regression for multi-class classification as cross-entropy minimisation."
+keywords:
+  - "perceptron"
+  - "exponential family"
+  - "generalized linear models"
+  - "softmax regression"
+  - "cross-entropy"
 ---
 
 ::: {.lecture-video lecture="4"}
@@ -389,8 +395,8 @@ the predicted class — holds on only 45 percent of the plotted square even befo
 shift. This redundancy is why the official notes give softmax only $k - 1$ parameter
 vectors and fix $\theta_k = 0$: the $k$-th vector adds nothing a shift could not remove.
 
-![The same softmax model with every $\theta_k$ shifted by one common vector. The shaded
-decision regions are identical; the dashed lines $\theta_k^\top x = 0$ move to entirely
+![The same softmax model with every $\theta_c$ shifted by one common vector. The shaded
+decision regions are identical; the dashed lines $\theta_c^\top x = 0$ move to entirely
 different places, because they carry no meaning on their own. *Fitted by gradient descent
 in `figures/04-perceptron-glm/make_diagrams.py`.*](../figures/04-perceptron-glm/diagram_softmax_shift.svg){#fig-softmax-shift}
 

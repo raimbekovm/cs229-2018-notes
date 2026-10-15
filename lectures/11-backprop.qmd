@@ -2,6 +2,13 @@
 title: "Backprop and Improving Neural Networks"
 subtitle: "Lecture 11"
 description: "Backpropagation derived by hand for a three-layer network, with shape analysis to place every transpose and the caching that makes it cheap; then what makes training work: sigmoid, tanh and ReLU and why a network needs a non-linearity, input normalisation, vanishing and exploding gradients, variance-preserving initialisation (1/n, He's 2/n, Glorot's 2/(n_in + n_out)) and symmetry breaking, mini-batch gradient descent, and momentum."
+keywords:
+  - "backpropagation"
+  - "activation functions"
+  - "weight initialization"
+  - "vanishing gradients"
+  - "mini-batch gradient descent"
+  - "momentum"
 ---
 
 ::: {.lecture-video lecture="11"}
@@ -105,10 +112,10 @@ Inside the parentheses is a $2 \times 1$ vector, $\partial L/\partial z^{[2]}$, 
 product with the $1 \times 3$ vector $a^{[1]\top}$ gives $2 \times 3$. The lecture leaves $W^{[1]}$
 as an exercise; it comes out the same way, and the pattern is worth stating once in
 general. Write $\delta^{[l]} = \partial L / \partial z^{[l]}$ for the error at layer $l$ of an
-$L$-layer network with activation $g$. Then
+$N$-layer network with activation $g$. Then
 
 $$
-\delta^{[L]} = a^{[L]} - y, \qquad
+\delta^{[N]} = a^{[N]} - y, \qquad
 \delta^{[l]} = \bigl(W^{[l+1]\top} \delta^{[l+1]}\bigr) \circ g'\bigl(z^{[l]}\bigr), \qquad
 \frac{\partial L}{\partial W^{[l]}} = \delta^{[l]}\, a^{[l-1]\top}, \qquad
 \frac{\partial L}{\partial b^{[l]}} = \delta^{[l]},
@@ -123,7 +130,7 @@ with finite differences on fifty random networks; the worst disagreement is $4 \
 [31:21]{.t} Katanforoosh's view is that hardly anyone derives these by hand any more,
 since programming frameworks differentiate automatically, but that it is worth having done
 once, both to understand what the framework is doing and to read papers that write
-gradients out. For the rigorous version he points to the section notes.
+gradients out. For the rigorous version he points to the lecture notes.
 
 ## What the forward pass must keep {#sec-bp-cache}
 
@@ -239,11 +246,11 @@ two neurons each, identity activations and zero biases. The output is then the i
 multiplied by every weight matrix in turn,
 
 $$
-\hat y = W^{[L]} W^{[L-1]} \cdots W^{[1]} x.
+\hat y = W^{[N]} W^{[N-1]} \cdots W^{[1]} x.
 $$
 
 [56:05]{.t} If every $W^{[l]}$ is a little larger than the identity, say $1.5\,I$, the product
-is $1.5^{L} I$, which for $L = 10$ is about $58$; if every one is $0.5\,I$, it is $0.5^{10}
+is $1.5^{N} I$, which for $N = 10$ is about $58$; if every one is $0.5\,I$, it is $0.5^{10}
 \approx 0.001$. Small departures from 1 compound geometrically. [57:16]{.t} The same products
 appear in the backward pass, because @eq-bp-recurrence multiplies by $W^{[l+1]\top}$ and by
 $g'$ once per layer, so the gradients reaching the early layers either explode or vanish.

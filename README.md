@@ -50,6 +50,7 @@
 | 20 | [RL Debugging and Direct Policy Search](https://raimbekovm.github.io/cs229-2018-notes/lectures/20-policy-search.html) | Debugging an RL system, direct policy search, REINFORCE and its variance, partial observability | Complete |
 
 Every lecture of the course, and the learning-theory discussion section, has a chapter.
+If the notes help you, a star helps the next student find them.
 
 ---
 
@@ -73,12 +74,54 @@ next.
 This is an **unofficial** resource, not affiliated with Stanford University.
 For official course materials see [cs229.stanford.edu](https://cs229.stanford.edu/).
 
+## Questions people ask
+
+**Are these the official CS229 notes?** No. The official class notes
+(cs229-notes1 to cs229-notes13) are Stanford's and live on
+[cs229.stanford.edu](https://cs229.stanford.edu/). These notes are written from the
+lecture recordings and point to the official notes, by file and section, wherever
+those go further.
+
+**Which year of CS229 do they follow?** Autumn 2018, taught by Andrew Ng — the
+recordings Stanford Online published on YouTube, which are the ones most people
+watch. Chapter N is lecture N of that playlist.
+
+**Can I read them offline?** Yes: the whole book is one
+[PDF](https://raimbekovm.github.io/cs229-2018-notes/CS229-2018-Lecture-Notes.pdf),
+rebuilt on every change.
+
+**Can I give them to an AI assistant?** Yes. The site serves
+[`llms.txt`](https://raimbekovm.github.io/cs229-2018-notes/llms.txt), every chapter as
+Markdown with the maths in TeX (the chapter's URL with `.md` in place of `.html`),
+and the whole book in one file,
+[`llms-full.txt`](https://raimbekovm.github.io/cs229-2018-notes/llms-full.txt).
+
 ## Found a mistake?
 
 Corrections are genuinely welcome. Every page has an **Edit this page** link at
 the bottom that opens a pull request from your browser; for anything larger, open
 an [issue](https://github.com/raimbekovm/cs229-2018-notes/issues).
 [CONTRIBUTING.md](CONTRIBUTING.md) has the style guide.
+
+## Citing
+
+GitHub's **Cite this repository** button gives APA and BibTeX from
+[CITATION.cff](CITATION.cff). In BibTeX:
+
+```bibtex
+@misc{raimbekov2026cs229,
+  author       = {Raimbekov, Murat},
+  title        = {{CS229} 2018 Lecture Notes: Machine Learning, Stanford, Autumn 2018},
+  year         = {2026},
+  howpublished = {\url{https://raimbekovm.github.io/cs229-2018-notes/}}
+}
+```
+
+## Companion notes
+
+[CS231n 2025 Lecture Notes](https://github.com/raimbekovm/cs231n-2025-notes) — the same
+treatment for Stanford's Deep Learning for Computer Vision, Spring 2025: CNNs,
+transformers, diffusion and vision-language models.
 
 ## Licence
 

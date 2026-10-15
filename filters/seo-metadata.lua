@@ -173,7 +173,12 @@ function Pandoc(doc)
   local author = meta_string(meta, 'author') or meta_string(meta, 'book.author')
   local author_url = meta_string(meta, 'seo.author-url')
   local license = meta_string(meta, 'seo.license-url')
-  local keywords = meta_list(meta, 'seo.keywords')
+  -- A chapter names its own subjects in a `keywords:` front-matter list; the
+  -- book-wide list under `seo:` is the fallback, and what the landing page uses.
+  local keywords = meta_list(meta, 'keywords')
+  if #keywords == 0 then
+    keywords = meta_list(meta, 'seo.keywords')
+  end
 
   local book_title = meta_string(meta, 'book.title') or title
 
@@ -194,7 +199,34 @@ function Pandoc(doc)
     { '@type', 'name', 'url' },
     { ['@type'] = 'Person', name = author, url = author_url })
 
-  local subjects = {}
+  -- The course itself, as an entity. "CS229" alone is ambiguous to a search
+  -- engine; a Course with a provider and an instructor is not, and it is what
+  -- lets these pages be connected to queries about the course rather than
+  -- matched on the string.
+  local course = object(
+    { '@type', '@id', 'name', 'courseCode', 'description', 'url', 'provider',
+      'instructor' },
+    {
+      ['@type'] = 'Course',
+      ['@id'] = base .. '#course',
+      name = 'CS229: Machine Learning',
+      courseCode = 'CS229',
+      description = 'Stanford University\'s course on machine learning and '
+        .. 'statistical pattern recognition, as taught by Andrew Ng in Autumn 2018.',
+      url = 'https://cs229.stanford.edu/',
+      provider = object({ '@type', 'name', 'sameAs' }, {
+        ['@type'] = 'CollegeOrUniversity',
+        name = 'Stanford University',
+        sameAs = 'https://en.wikipedia.org/wiki/Stanford_University',
+      }),
+      instructor = object({ '@type', 'name', 'sameAs' }, {
+        ['@type'] = 'Person',
+        name = 'Andrew Ng',
+        sameAs = 'https://en.wikipedia.org/wiki/Andrew_Ng',
+      }),
+    })
+
+  local subjects = { object({ '@id' }, { ['@id'] = base .. '#course' }) }
   for _, keyword in ipairs(keywords) do
     table.insert(subjects, object(
       { '@type', 'name' },
@@ -209,7 +241,8 @@ function Pandoc(doc)
   if path == 'index.html' then
     table.insert(graph, object(
       { '@type', '@id', 'url', 'name', 'description', 'author', 'inLanguage',
-        'isAccessibleForFree', 'license', 'bookFormat', 'genre', 'about' },
+        'isAccessibleForFree', 'license', 'bookFormat', 'genre',
+        'learningResourceType', 'about' },
       {
         ['@type'] = 'Book',
         ['@id'] = book_id,
@@ -222,7 +255,8 @@ function Pandoc(doc)
         license = license,
         bookFormat = 'https://schema.org/EBook',
         genre = 'Lecture notes',
-        about = #subjects > 0 and subjects or nil,
+        learningResourceType = 'Lecture notes',
+        about = subjects,
       }))
     table.insert(graph, object(
       { '@type', '@id', 'url', 'name', 'inLanguage' },
@@ -237,7 +271,7 @@ function Pandoc(doc)
     table.insert(graph, object(
       { '@type', '@id', 'url', 'headline', 'alternativeHeadline', 'name',
         'description', 'author', 'inLanguage', 'isAccessibleForFree', 'license',
-        'isPartOf', 'isBasedOn', 'about', 'keywords' },
+        'isPartOf', 'isBasedOn', 'learningResourceType', 'about', 'keywords' },
       {
         -- TechArticle rather than Chapter: both are accurate, but only the
         -- former is a type search engines surface.
@@ -259,7 +293,8 @@ function Pandoc(doc)
           url = base,
         }),
         isBasedOn = video,
-        about = #subjects > 0 and subjects or nil,
+        learningResourceType = 'Lecture notes',
+        about = subjects,
         keywords = #keywords > 0 and table.concat(keywords, ', ') or nil,
       }))
     table.insert(graph, object(
@@ -283,14 +318,27 @@ function Pandoc(doc)
       }))
   end
 
+  -- Every page carries the Course its `about` points at, so the reference
+  -- resolves within the page rather than only on the landing page.
+  table.insert(graph, course)
+
   local jsonld = encode(object({ '@context', '@graph' }, {
     ['@context'] = 'https://schema.org',
     ['@graph'] = graph,
   }))
 
+  -- tools/llms_txt.py writes a Markdown twin beside every chapter; pointing at
+  -- it lets a crawler that prefers Markdown find it from the page itself.
+  local alternate = path ~= 'index.html'
+    and '<link rel="alternate" type="text/markdown" href="'
+      .. attr(base .. path:gsub('%.html$', '.md')) .. '">'
+    or '<link rel="alternate" type="text/plain" title="llms.txt" href="'
+      .. attr(base .. 'llms.txt') .. '">'
+
   quarto.doc.include_text('in-header', table.concat({
     '<link rel="canonical" href="' .. attr(url) .. '">',
     '<meta property="og:url" content="' .. attr(url) .. '">',
+    alternate,
     '<script type="application/ld+json">' .. jsonld .. '</script>',
   }, '\n'))
 
