@@ -31,7 +31,7 @@ $$
 
 and it lets a problem say that actions have costs. A robot in a maze can be charged for
 moving and nothing for standing still. A helicopter can be charged for yanking the sticks
-hard, which wastes fuel and stresses the airframe. A route planner can charge each road
+hard, which makes it jerk around. A route planner can charge each road
 segment its own cost, and a factory can price sending a maintenance crew differently from
 doing nothing. [5:55]{.t} Bellman's equation changes in one visible way:
 

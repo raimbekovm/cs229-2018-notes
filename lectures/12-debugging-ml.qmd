@@ -327,7 +327,7 @@ formula.
 *Ablative analysis* explains the gap between where it is and a much worse baseline. Back
 to spam: suppose a good classifier has been built by adding clever components to plain
 logistic regression. These are spelling correction (spammers misspell words to get them
-past the tokenizer), features of the sending host, email header features, a parser for
+past the tokeniser), features of the sending host, email header features, a parser for
 the email text, a JavaScript parser and features from images. Plain logistic regression
 gets 94 per cent and the full system 99.9. What accounts for the difference?
 

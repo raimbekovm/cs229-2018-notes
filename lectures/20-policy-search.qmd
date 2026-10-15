@@ -234,7 +234,8 @@ Gaussian density, and the same update applies with the density in place of the p
 supervised learning on a human pilot's stick inputs, learning the map from state to the
 pilot's action. Ng thinks that might fly a helicopter slowly without crashing it, but not
 well. Learning from rewards is what let the controller fly some manoeuvres better than the
-human pilots did, and imitation cannot exceed the teacher it copies.
+human pilots did, and imitation gives the controller no signal for doing better than the teacher it
+copies.
 
 ## Why REINFORCE is slow, and what helps {#sec-ps-variance}
 
@@ -286,7 +287,7 @@ same expected step.
 
 ![Exact expected payoff of the current policy during REINFORCE on the toy balancing problem, averaged over 20 runs, for the lecture's update @eq-ps-reinforce (whole payoff), @eq-ps-reinforce-baseline with $b_t = 0$ (rewards that follow), and @eq-ps-reinforce-baseline with $b_t$ the expected reward-to-go. Dashed: the best deterministic policy. Computed in `figures/20-policy-search/make_diagrams.py`.](../figures/20-policy-search/diagram_learning.svg){#fig-ps-learning}
 
-@fig-ps-learning shows what that buys. At step size $\alpha = 0.01$ all three reach the
+@fig-ps-learning shows what that buys. At step size $\alpha = 0.01$ all three approach the
 optimum, but the lecture's version needs about 290 updates for its average run to reach
 90 % of the best payoff, against 130 and 110 for the other two. At $\alpha = 0.03$ the
 lower-variance versions get there in about 100 and 40 updates. The lecture's version does

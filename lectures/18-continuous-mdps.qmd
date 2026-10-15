@@ -85,7 +85,8 @@ a state $s$ and an action $a$ and returns a next state $s'$ drawn from $P_{sa}$.
 simplicity the action space is taken to be discrete. Ng points out that this is usually a
 mild assumption, because robots tend to have far fewer controls than state variables. The
 car has a six-dimensional state but two controls, steering and braking. The helicopter has
-twelve state variables and four controls, two sticks under each hand. The pendulum has
+twelve state variables and four controls, a stick under each hand that moves in two
+directions. The pendulum has
 four and one.
 
 [26:13]{.t} One way to get a simulator is physics. For the pendulum, Newtonian mechanics

@@ -349,6 +349,7 @@ gradient boosting, and with engineering on top, XGBoost.
 
 ::: {.callout-note title="In the official notes"}
 cs229-notes-ensemble, section 1, covers the bootstrap, aggregation and their combination
-with trees; section 2 gives AdaBoost, its derivation as forward stagewise additive
-modelling under the exponential loss, and gradient boosting.
+with trees; section 2 gives AdaBoost, states that it is forward stagewise additive modelling
+under the exponential loss (leaving the derivation to *The Elements of Statistical
+Learning*, section 10.4), and sketches gradient boosting.
 :::

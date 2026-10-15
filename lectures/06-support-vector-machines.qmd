@@ -373,7 +373,7 @@ local method finds the global optimum. [1:19:13]{.t} Ng states, and leaves the s
 to lecture 7 and the notes, that a few rewrites turn it into an equivalent convex
 problem: minimise $\frac12 \lVert w \rVert^2$ subject to every functional margin
 being at least $1$. His one-line intuition is that the margin is the functional
-margin divided by $\lVert w \rVert$, so a smaller $w$ means a smaller division and a
+margin divided by $\lVert w \rVert$, so a smaller $w$ means a smaller divisor and a
 larger geometric margin. Off-the-shelf solvers handle the convex form, and for
 separable data its solution is the optimal margin classifier — "really a baby SVM",
 which kernels will grow up.
@@ -384,8 +384,8 @@ separator depends on them alone. The generator finds this separator in two
 independent ways. It searches over directions for the one that leaves the widest gap
 between the classes, and then checks the result against the optimality conditions of
 the convex problem: every functional margin is at least $1$, the two closest examples
-have functional margin exactly $1$, and $w$ can be written as a combination of those
-two examples with positive weights. That last fact — the solution is built from a
+have functional margin exactly $1$, and $w = \sum_i \alpha_i y^{(i)} x^{(i)}$ over those
+two examples alone, with both $\alpha_i > 0$. That last fact — the solution is built from a
 few training examples — is where lecture 7 begins.
 
 ::: {.callout-note title="In the official notes"}

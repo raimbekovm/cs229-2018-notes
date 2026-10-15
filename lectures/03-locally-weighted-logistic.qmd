@@ -341,7 +341,8 @@ $$ {#eq-newton-1d}
 
 ![Newton's method on $f(\theta) = \ell'(\theta)$, the derivative of a one-parameter
 logistic log-likelihood on synthetic data. Each tangent from the current guess meets
-the axis at the next guess; three steps bring it close to the root, marked by the dot.
+the axis at the next guess; the gap to the root shrinks faster at every step, and by the fifth
+the guess has all but reached it, marked by the dot.
 *Computed by
 `figures/03-locally-weighted-logistic/make_diagrams.py`.*](../figures/03-locally-weighted-logistic/diagram_newton.svg){#fig-newton}
 

@@ -389,8 +389,8 @@ the predicted class — holds on only 45 percent of the plotted square even befo
 shift. This redundancy is why the official notes give softmax only $k - 1$ parameter
 vectors and fix $\theta_k = 0$: the $k$-th vector adds nothing a shift could not remove.
 
-![The same softmax model with every $\theta_k$ shifted by one common vector. The shaded
-decision regions are identical; the dashed lines $\theta_k^\top x = 0$ move to entirely
+![The same softmax model with every $\theta_c$ shifted by one common vector. The shaded
+decision regions are identical; the dashed lines $\theta_c^\top x = 0$ move to entirely
 different places, because they carry no meaning on their own. *Fitted by gradient descent
 in `figures/04-perceptron-glm/make_diagrams.py`.*](../figures/04-perceptron-glm/diagram_softmax_shift.svg){#fig-softmax-shift}
 

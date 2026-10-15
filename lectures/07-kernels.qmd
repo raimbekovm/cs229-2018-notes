@@ -312,8 +312,8 @@ e^{-\frac{(x - z)^2}{2\sigma^2}}
 $$
 
 The weight on the degree-$k$ feature falls like $1/\sqrt{k!}$, which is the "smaller
-weighting" in concrete form. The generator truncates the sum: with $\sigma = 1$ and
-inputs in $[-1.5, 1.5]$, three features reproduce the kernel to within $0.26$, twelve
+weighting" in concrete form. The generator truncates the sum: with $\sigma = 1$, on
+sixteen pairs of inputs drawn from $[-1.5, 1.5]$, three features reproduce the kernel to within $0.26$, twelve
 to within $3 \times 10^{-6}$, and twenty to rounding error.
 
 @fig-rbf-boundary shows the Gaussian kernel at work on data no polynomial of low
@@ -412,8 +412,9 @@ for a pair of $\alpha_i$ under the box constraint.
 
 ## Kernels for inputs that are not vectors {#sec-kernel-design}
 
-[1:13:39]{.t} In practice the polynomial kernel $(x^\top z)^d$ works well and the
-Gaussian kernel is the one most used. [1:14:05]{.t} One of the early proof points for
+[1:13:39]{.t} In practice the polynomial kernel $(x^\top z)^d$ works well, and Ng
+now calls the Gaussian kernel the one most used; earlier he gave that place to the
+linear kernel, and between them the two are the usual first choices. [1:14:05]{.t} One of the early proof points for
 SVMs was handwritten digit recognition: unroll an image into a vector of pixel
 intensities and train an SVM on it. On the classic MNIST benchmark this was, in Ng's
 words, a very surprising result, and polynomial-kernel SVMs appear beside the

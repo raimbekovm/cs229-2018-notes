@@ -16,7 +16,7 @@ weighted sum of features; the weights are chosen to make the squared error on th
 training set as small as possible; and that minimum can be found either by walking
 downhill on the error surface, one gradient step at a time, or by solving a linear
 system for it directly. Gradient descent is the half that matters later: the normal
-equations work for linear regression and nothing else in the course, while the walk
+equations work for linear regression and its weighted variant and nothing else in the course, while the walk
 downhill reappears in logistic regression, generalised linear models and neural
 networks. Ng uses this lecture to set up the vocabulary all of them share —
 hypothesis, parameters, cost function, learning rate — and it is worth getting that
@@ -300,7 +300,7 @@ stochastic gradient descent or something like it.
 ## Matrix derivatives and the trace {#sec-matrix-derivatives}
 
 [53:25]{.t} For linear regression, and for exactly linear regression — none of the
-models of the following lectures — there is a way to skip the iterations altogether and
+models of the following lectures beyond its weighted variant in lecture 3 — there is a way to skip the iterations altogether and
 jump to the minimum in one step. Deriving it means setting the gradient of $J$ to zero
 and solving, and Ng's aim is to do that "in roughly four lines of linear algebra
 rather than pages and pages", which takes a little notation first. In his experience,
@@ -350,7 +350,8 @@ $$ {#eq-trace-quadratic}
 which equals $2CA$ only when $C$ is symmetric. For a random non-symmetric $C$, the
 numerical gradient matches @eq-trace-quadratic and misses $2CA$ by a visible margin;
 for the symmetric part of the same $C$ the two coincide. In the derivation that
-follows the matrix playing the role of $C$ is the identity, so nothing goes wrong, but
+follows $A$ is $\theta$ and the matrix playing the role of $C$ is $X^\top X$, which is
+symmetric, so nothing goes wrong, but
 the general rule is the one with $C + C^\top$. The official notes state the
 fully general version, $\nabla_A \operatorname{tr} ABA^\top C = CAB + C^\top A
 B^\top$, which reduces to @eq-trace-quadratic when $B$ is the identity.

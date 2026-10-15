@@ -136,7 +136,7 @@ enjoy that protection.
 
 [21:08]{.t} His favourite illustration is text classification. Take 100 labelled
 emails and a 10,000-word vocabulary, one binary feature per word. Unregularised
-logistic regression has 10,000 parameters and 100 examples, and it will badly overfit:
+logistic regression has 10,000 parameters and 100 examples, and it will badly overfit;
 on data like this the training set is almost always linearly separable, and on separable data
 the likelihood has no maximum: scaling up any separating $\theta$ always increases it,
 so $\lVert\theta\rVert$ grows without bound. (On a toy with ten features and four examples, gradient ascent's
