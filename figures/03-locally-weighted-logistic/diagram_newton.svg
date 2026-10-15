@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 290" width="700" height="290"
+     role="img" aria-labelledby="figNewtonTitle figNewtonDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figNewtonTitle">Newton's method</title>
+  <desc id="figNewtonDesc">The derivative of a logistic log-likelihood, falling through zero. From the starting point a tangent line is drawn down to the horizontal axis, giving the next guess; two more tangents land almost on the root.</desc>
+  <line x1="70.0" y1="250.0" x2="650.0" y2="250.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="70.0" y1="250.0" x2="70.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="134.4" y1="250.0" x2="134.4" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="134.4" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="263.3" y1="250.0" x2="263.3" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="263.3" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="392.2" y1="250.0" x2="392.2" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="392.2" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">2</text>
+  <line x1="521.1" y1="250.0" x2="521.1" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="521.1" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">3</text>
+  <line x1="650.0" y1="250.0" x2="650.0" y2="254.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="650.0" y="267.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">4</text>
+  <line x1="66.0" y1="250.0" x2="70.0" y2="250.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="62.0" y="254.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">-4</text>
+  <line x1="66.0" y1="176.7" x2="70.0" y2="176.7" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="62.0" y="180.7" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="66.0" y1="103.3" x2="70.0" y2="103.3" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="62.0" y="107.3" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">4</text>
+  <line x1="66.0" y1="30.0" x2="70.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="62.0" y="34.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">8</text>
+  <text x="360.0" y="286.0" font-size="12" fill="currentColor" text-anchor="middle">θ</text>
+  <text x="30.0" y="140.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 30.0 140.0)">f(θ) = ℓ′(θ)</text>
+  <line x1="70.0" y1="176.7" x2="650.0" y2="176.7" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+  <polyline points="134.44,30.92 137.02,33.65 139.60,36.38 142.18,39.10 144.76,41.82 147.33,44.53 149.91,47.23 152.49,49.91 155.07,52.58 157.64,55.23 160.22,57.86 162.80,60.47 165.38,63.05 167.96,65.61 170.53,68.15 173.11,70.65 175.69,73.12 178.27,75.56 180.84,77.97 183.42,80.35 186.00,82.69 188.58,84.99 191.16,87.26 193.73,89.49 196.31,91.69 198.89,93.84 201.47,95.95 204.04,98.03 206.62,100.06 209.20,102.06 211.78,104.02 214.36,105.93 216.93,107.81 219.51,109.64 222.09,111.44 224.67,113.20 227.24,114.91 229.82,116.59 232.40,118.23 234.98,119.83 237.56,121.40 240.13,122.92 242.71,124.42 245.29,125.87 247.87,127.29 250.44,128.67 253.02,130.02 255.60,131.34 258.18,132.63 260.76,133.88 263.33,135.10 265.91,136.29 268.49,137.44 271.07,138.57 273.64,139.67 276.22,140.75 278.80,141.79 281.38,142.81 283.96,143.80 286.53,144.76 289.11,145.70 291.69,146.62 294.27,147.51 296.84,148.38 299.42,149.23 302.00,150.05 304.58,150.85 307.16,151.64 309.73,152.40 312.31,153.14 314.89,153.87 317.47,154.57 320.04,155.26 322.62,155.93 325.20,156.58 327.78,157.21 330.36,157.83 332.93,158.44 335.51,159.02 338.09,159.60 340.67,160.16 343.24,160.70 345.82,161.23 348.40,161.75 350.98,162.26 353.56,162.75 356.13,163.23 358.71,163.70 361.29,164.16 363.87,164.60 366.44,165.04 369.02,165.46 371.60,165.88 374.18,166.28 376.76,166.68 379.33,167.06 381.91,167.44 384.49,167.81 387.07,168.17 389.64,168.52 392.22,168.86 394.80,169.20 397.38,169.52 399.96,169.84 402.53,170.16 405.11,170.46 407.69,170.76 410.27,171.05 412.84,171.34 415.42,171.62 418.00,171.89 420.58,172.16 423.16,172.42 425.73,172.67 428.31,172.92 430.89,173.17 433.47,173.41 436.04,173.64 438.62,173.87 441.20,174.10 443.78,174.32 446.36,174.53 448.93,174.74 451.51,174.95 454.09,175.15 456.67,175.35 459.24,175.55 461.82,175.74 464.40,175.92 466.98,176.11 469.56,176.29 472.13,176.46 474.71,176.63 477.29,176.80 479.87,176.97 482.44,177.13 485.02,177.29 487.60,177.45 490.18,177.60 492.76,177.75 495.33,177.90 497.91,178.04 500.49,178.19 503.07,178.33 505.64,178.46 508.22,178.60 510.80,178.73 513.38,178.86 515.96,178.99 518.53,179.11 521.11,179.24 523.69,179.36 526.27,179.48 528.84,179.60 531.42,179.71 534.00,179.82 536.58,179.93 539.16,180.04 541.73,180.15 544.31,180.26 546.89,180.36 549.47,180.46 552.04,180.56 554.62,180.66 557.20,180.76 559.78,180.85 562.36,180.95 564.93,181.04 567.51,181.13 570.09,181.22 572.67,181.31 575.24,181.40 577.82,181.48 580.40,181.57 582.98,181.65 585.56,181.73 588.13,181.81 590.71,181.89 593.29,181.97 595.87,182.04 598.44,182.12 601.02,182.19 603.60,182.27 606.18,182.34 608.76,182.41 611.33,182.48 613.91,182.55 616.49,182.62 619.07,182.68 621.64,182.75 624.22,182.82 626.80,182.88 629.38,182.94 631.96,183.01 634.53,183.07 637.11,183.13 639.69,183.19 642.27,183.25 644.84,183.31 647.42,183.36 650.00,183.42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.75" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="134.4" y1="176.7" x2="134.4" y2="30.9" stroke="#440154" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <line x1="134.4" y1="30.9" x2="271.9" y2="176.7" stroke="#440154" stroke-width="1.6" stroke-opacity="1.0"/>
+  <circle cx="134.4" cy="30.9" r="3.4" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="134.4" y="192.7" font-size="11" fill="#440154" text-anchor="middle">θ₀</text>
+  <line x1="271.9" y1="176.7" x2="271.9" y2="138.9" stroke="#3b528b" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <line x1="271.9" y1="138.9" x2="359.9" y2="176.7" stroke="#3b528b" stroke-width="1.6" stroke-opacity="1.0"/>
+  <circle cx="271.9" cy="138.9" r="3.4" fill="#3b528b" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="271.9" y="192.7" font-size="11" fill="#3b528b" text-anchor="middle">θ₁</text>
+  <line x1="359.9" y1="176.7" x2="359.9" y2="163.9" stroke="#21918c" stroke-width="1" stroke-opacity="0.6" stroke-dasharray="2 3"/>
+  <line x1="359.9" y1="163.9" x2="431.7" y2="176.7" stroke="#21918c" stroke-width="1.6" stroke-opacity="1.0"/>
+  <circle cx="359.9" cy="163.9" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="359.9" y="192.7" font-size="11" fill="#21918c" text-anchor="middle">θ₂</text>
+  <circle cx="475.2" cy="176.7" r="3.4" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+</svg>

@@ -1,0 +1,354 @@
+# 3. Locally Weighted and Logistic Regression
+
+> Locally weighted regression as the course's first non-parametric algorithm, least squares derived as maximum likelihood under Gaussian noise, logistic regression for binary classification fitted by gradient ascent, and Newton's method as the faster alternative when the parameters are few.
+
+Web version: https://raimbekovm.github.io/cs229-2018-notes/lectures/03-locally-weighted-logistic.html
+
+Lecture video: [Lecture 3: Locally Weighted and Logistic Regression](https://www.youtube.com/watch?v=het9HFqo1TQ)
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+This lecture takes the linear regression of lecture 2 in three directions. Locally
+weighted regression keeps the least-squares machinery but refits it around every
+query point, which lets a straight-line method trace a curve no single set of
+features would fit. A probabilistic reading of linear regression then shows that
+least squares is not an arbitrary choice: it is what maximum likelihood gives when
+the noise is Gaussian. And the same two-step recipe — assume a distribution for $y$
+given $x$, then maximise the likelihood — produces logistic regression, the first
+classification algorithm of the course, along with Newton's method to fit it in a
+handful of iterations. Ng ranks linear and logistic regression as the two learning
+algorithms he uses most.
+
+### Features, or a different algorithm
+
+[2:20](https://www.youtube.com/watch?v=het9HFqo1TQ&t=140s) Lecture 2 fitted a straight line to house prices, but the data may bend.
+One answer is to change the features: fit $\theta_0 + \theta_1 x + \theta_2 x^2$ by
+defining $x_2 = x^2$, and the linear-regression machinery runs unchanged, because
+"linear" refers to the parameters, not to $x$. The trouble is choosing. A quadratic
+eventually curves back down, which for house prices says a bigger house is cheaper;
+$\sqrt{x}$ or $\log x$ might bend the right way; and for data that rise, dip and
+rise again, Ng says frankly that finding the right set of features — square root,
+log, cube, $x^{2/3}$ — is hard. Feature-selection algorithms that automate the
+choice come later in the course.
+
+[5:53](https://www.youtube.com/watch?v=het9HFqo1TQ&t=353s) Locally weighted regression sidesteps the question, and it introduces a
+distinction worth having early. A *parametric* learning algorithm fits a fixed set of
+parameters, after which the training set can be erased: linear regression keeps
+only $\theta$. A *non-parametric* algorithm has to keep the data, and the amount it
+stores grows — linearly here — with the size of the training set. That is the cost
+of not having to choose features, and it is why Ng warns that such methods may not
+suit a really massive dataset.
+
+### Locally weighted regression
+
+[8:33](https://www.youtube.com/watch?v=het9HFqo1TQ&t=513s) Linear regression makes a prediction at $x$ by fitting $\theta$ once to
+all the data and returning $\theta^\top x$. Locally weighted regression postpones the
+fit until it knows where the prediction is wanted. Given the query point $x$, it
+fits a straight line that pays most attention to the training examples with inputs
+near $x$, glances at the ones further away, and uses that local line to predict at
+$x$; a different query point gets a different line. Formally it chooses $\theta$ to
+minimise a weighted cost,
+
+$$
+\sum_{i=1}^{m} w^{(i)} \left( y^{(i)} - \theta^\top x^{(i)} \right)^2,
+\qquad
+w^{(i)} = \exp\!\left( -\frac{\left(x^{(i)} - x\right)^2}{2\tau^2} \right),
+$$ (3.1)
+
+and returns $\theta^\top x$. [12:09](https://www.youtube.com/watch?v=het9HFqo1TQ&t=729s) When $x^{(i)}$ is close to the query the
+weight is near $e^0 = 1$ and that example's error counts in full; when it is far the
+weight is near zero and its error term all but disappears from the sum. (Ng first
+wrote the exponent without the square on $\tau$; a student caught it, and it is
+$\tau^2$.) The left panel of Figure 3.1 shows one such fit.
+
+![Figure 3.1. Locally weighted regression on synthetic data. Left: at the query $x = 6$, points are shaded by their weight, the bump below is the weight function, and the line is the weighted least-squares fit whose value at $x = 6$ is the prediction. Right: repeating that at every $x$ traces the whole curve, for three bandwidths. *Computed by `figures/03-locally-weighted-logistic/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/03-locally-weighted-logistic/diagram_lwr.svg)
+
+[15:27](https://www.youtube.com/watch?v=het9HFqo1TQ&t=927s) The weight function is shaped like a Gaussian bell, and Ng heads off the
+obvious confusion: it has nothing to do with a Gaussian density. Its peak is 1, it
+does not integrate to 1, and it is not a probability of anything — just a convenient
+bump. The bump's width is the *bandwidth* $\tau$, a hyperparameter, and [16:46](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1006s)
+it decides how large a neighbourhood each local fit sees. Ng leaves its effect for
+the problem set, saying only that it controls overfitting and underfitting; the right
+panel of Figure 3.1 shows both. With $\tau = 0.12$ only a couple of points carry
+weight in each fit, and the curve chases the noise into spikes; with $\tau = 4$
+nearly every point carries weight everywhere, and the curve flattens towards a single
+straight line. In the limit it *is* that line: the generator checks that a bandwidth
+of $10^4$ reproduces the ordinary least-squares fit to four decimal places. At $\tau
+= 0.6$ the curve follows the rise, the dip and the plateau without being told what
+features describe them.
+
+The questions that followed are the practical ones. Asked [18:53](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1133s) about
+predicting outside the range of the data, Ng said the formulas still work but the
+results may be poor — locally weighted regression is not good at extrapolation, but
+then most learning algorithms are not. Asked about letting $\tau$ vary across the
+input space, he said yes: there is a large literature on choosing it from the local
+density of points, and on replacing the bell with other shapes, such as a triangle
+that reaches zero outside a window. His own rule [19:58](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1198s) is to reach for locally
+weighted regression when the number of features is small, two or three, there is a
+lot of data, and you do not want to think about which features to use.
+
+[20:29](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1229s) On cost, his answer at the board needs one correction. Each prediction
+solves a weighted version of the normal equations, $X^\top W X \theta = X^\top W
+\vec{y}$ with $W$ the diagonal matrix of weights, and that is a system of dimension
+$n + 1$ — the number of parameters — not of the number of training examples, as the
+lecture puts it. What does grow with $m$ is the work of *forming* the system, since
+every training example contributes a weighted term, and that work is repeated for
+every query. So a prediction costs time proportional to $m$, which is why a few
+thousand examples are no problem and millions call for data structures such as
+k-d trees that find the nearby points without visiting all of them.
+
+**In the official notes.** Locally weighted linear regression, with the same weight function, is cs229-notes1,
+section 4; the problem set explores the bandwidth.
+### Least squares as maximum likelihood
+
+[22:24](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1344s) Lecture 2 promised a reason for squaring the error. Ng's answer starts by
+assuming how the data were generated: each house's price is a linear function of its
+features plus an error,
+
+$$
+y^{(i)} = \theta^\top x^{(i)} + \epsilon^{(i)},
+\qquad
+\epsilon^{(i)} \sim \mathcal{N}(0, \sigma^2),
+$$ (3.2)
+
+where $\epsilon^{(i)}$ gathers everything the model leaves out — the seller's mood
+that day, unmodelled features — and random noise. The density of the error is the
+Gaussian $\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left(-\epsilon^2 / 2\sigma^2\right)$,
+which, unlike the bump of Section 3.2, does integrate to one. [25:45](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1545s) The large
+assumption is that the errors are IID — independent and identically distributed
+across houses — and Ng is candid that it is false: if one house on a street is
+priced unusually high, its neighbours probably are too. It is one of those
+assumptions that is probably not true and is good enough to give a useful model.
+
+Together the assumptions say that, given $x$ and $\theta$, the price is Gaussian
+around the line:
+
+$$
+p\left(y^{(i)} \mid x^{(i)}; \theta\right) = \frac{1}{\sqrt{2\pi}\sigma}
+\exp\!\left( -\frac{\left( y^{(i)} - \theta^\top x^{(i)} \right)^2}{2\sigma^2} \right).
+$$ (3.3)
+
+[28:16](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1696s) The semicolon is read "parameterised by". Writing a comma would mean
+conditioning on $\theta$, which is not a random variable in this frequentist view;
+Ng keeps the distinction, he says, mostly to avoid upsetting statistician friends,
+and admits it changes nothing about the code one writes.
+
+[30:57](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1857s) Because the errors are independent, the probability of all the observed
+prices is the product of the individual densities, and viewed as a function of
+$\theta$ with the data fixed that product is the *likelihood*,
+
+$$
+L(\theta) = \prod_{i=1}^{m} p\left(y^{(i)} \mid x^{(i)}; \theta\right).
+$$ (3.4)
+
+[32:44](https://www.youtube.com/watch?v=het9HFqo1TQ&t=1964s) Ng's vocabulary rule is worth adopting. The likelihood of the parameters
+and the probability of the data are the same number; which name you use says which
+argument you are varying. So one speaks of the likelihood *of the parameters* and the
+probability *of the data*, never the reverse.
+
+[37:49](https://www.youtube.com/watch?v=het9HFqo1TQ&t=2269s) Maximum likelihood estimation chooses the $\theta$ that makes the observed
+data most probable. The logarithm is strictly increasing, so it is easier and
+equivalent to maximise the log-likelihood $\ell(\theta) = \log L(\theta)$, which
+turns the product into a sum:
+
+$$
+\ell(\theta) = m \log \frac{1}{\sqrt{2\pi}\sigma}
+- \frac{1}{\sigma^2} \cdot \frac{1}{2} \sum_{i=1}^{m} \left( y^{(i)} - \theta^\top x^{(i)} \right)^2 .
+$$ (3.5)
+
+The first term does not involve $\theta$, and $\sigma^2$ is a positive constant, so
+maximising $\ell$ is exactly minimising the least-squares cost $J(\theta)$ of lecture
+2 — and the answer does not depend on $\sigma$ at all. Least squares is maximum
+likelihood under IID Gaussian noise.
+
+Asked [35:31](https://www.youtube.com/watch?v=het9HFqo1TQ&t=2131s) why the noise should be Gaussian, Ng pointed to the central limit
+theorem: an error made of many small, not-too-correlated contributions — the
+seller's mood, the school district, the weather, transport — sums to something close
+to Gaussian, which is why it became the default. The same derivation also answers
+lecture 2's question about absolute error, which Ng deferred. Assume instead that the
+errors follow a Laplace distribution, with density proportional to
+$\exp(-|\epsilon|/b)$, and the log-likelihood becomes a constant minus a multiple of
+$\sum_i |y^{(i)} - \theta^\top x^{(i)}|$: maximum likelihood is then least
+*absolute* deviations. The difference is not cosmetic. With an intercept alone the
+Gaussian answer is the mean and the Laplace answer is the median, and the generator
+checks both against a grid search on a sample of twenty values around 3 plus one at
+25: the Gaussian estimate is pulled to 4.09 by the single outlier, the Laplace one
+stays at 2.93. The choice of noise model is a choice of how much to trust the
+extreme points.
+
+Asked [41:07](https://www.youtube.com/watch?v=het9HFqo1TQ&t=2467s) whether some other cost would ever be better, Ng said that under
+these assumptions none is — the derivation makes least squares the answer. If you
+know the errors are badly non-IID, more sophisticated models exist, but in practice
+he rarely bothers: assumptions known to be not quite true are often kept because
+they make the algorithm efficient.
+
+**In the official notes.** The same derivation is cs229-notes1, section 3, which also notes that the
+conclusion does not depend on $\sigma$.
+### Why not linear regression for classification
+
+[43:42](https://www.youtube.com/watch?v=het9HFqo1TQ&t=2622s) The recipe — assume $p(y \mid x; \theta)$, then maximise the likelihood —
+now goes to a problem where $y$ is 0 or 1: binary classification, with lecture 1's
+tumours as the example. The tempting shortcut is to fit a straight line to the 0/1
+labels and call anything above 0.5 a 1. Ng's objection [44:43](https://www.youtube.com/watch?v=het9HFqo1TQ&t=2683s) is a single extra
+example. Add one malignant tumour far to the right, a point whose label nobody would
+dispute, and the least-squares line tilts to reach it; the place it crosses 0.5
+slides right, and malignant tumours that were correctly classified are now called
+benign. In Figure 3.2 the threshold moves from 3.17 to 4.11, and the
+number of misclassified tumours goes from one to three, because of a point that
+contained no new information about where the boundary is. There is also the
+unnatural fact that a line outputs values below 0 and above 1 for something that
+can only be 0 or 1. Ng says some people use linear regression for classification and
+sometimes get lucky; he never does.
+
+![Figure 3.2. One malignant tumour at size 20 drags the least-squares line (dashed without it, solid with it), moving the size at which it crosses 0.5 past three malignant tumours. The logistic regression curve, fitted with the extra example, keeps its boundary at the same place. Synthetic data. *Computed by `figures/03-locally-weighted-logistic/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/03-locally-weighted-logistic/diagram_linear_vs_logistic.svg)
+
+### The logistic model
+
+[46:46](https://www.youtube.com/watch?v=het9HFqo1TQ&t=2806s) A classifier's hypothesis should output a number between 0 and 1, so
+logistic regression passes the linear function through the *sigmoid* or *logistic*
+function — the two names mean the same thing:
+
+$$
+h_\theta(x) = g\!\left(\theta^\top x\right) = \frac{1}{1 + e^{-\theta^\top x}},
+\qquad
+g(z) = \frac{1}{1 + e^{-z}} .
+$$ (3.6)
+
+$g$ starts near 0 for very negative $z$, passes through $\tfrac12$ at $z = 0$ and
+approaches 1. Ng is open that he is pulling it "out of a hat" for now: many functions
+have that shape, and lecture 4 derives this one from the generalised linear model
+framework. Section 3.6 adds a reason of its own.
+
+[50:23](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3023s) The probabilistic assumption is that the hypothesis *is* the probability
+of the positive class — the chance that the tumour is malignant:
+
+$$
+P(y = 1 \mid x; \theta) = h_\theta(x), \qquad P(y = 0 \mid x; \theta) = 1 - h_\theta(x).
+$$ (3.7)
+
+A student asked whether the roles could be swapped; they could, and nothing would
+change except which class is called positive. [52:46](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3166s) Since $y$ is 0 or 1, the
+two lines compress into one,
+
+$$
+p(y \mid x; \theta) = h_\theta(x)^{\,y} \left(1 - h_\theta(x)\right)^{1 - y},
+$$ (3.8)
+
+because whichever factor carries a zero exponent becomes 1 and drops out, leaving
+the line that applies. The trick is only notation, but it is what makes the
+likelihood a single product.
+
+### Maximum likelihood and gradient ascent
+
+[56:03](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3363s) With Equation 3.8 the likelihood is $\prod_i h(x^{(i)})^{y^{(i)}}
+(1 - h(x^{(i)}))^{1 - y^{(i)}}$, and its log is
+
+$$
+\ell(\theta) = \sum_{i=1}^{m} y^{(i)} \log h_\theta\!\left(x^{(i)}\right)
++ \left(1 - y^{(i)}\right) \log\!\left(1 - h_\theta\!\left(x^{(i)}\right)\right).
+$$ (3.9)
+
+To fit, [58:54](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3534s) Ng uses *batch gradient ascent*: the same walk as lecture 2, but
+uphill, since the goal is now to maximise $\ell$ rather than minimise $J$, so the
+minus sign in the update becomes a plus. Working out the derivative, which Ng leaves
+to the notes, gives
+
+$$
+\theta_j := \theta_j + \alpha \sum_{i=1}^{m} \left( y^{(i)} - h_\theta\!\left(x^{(i)}\right) \right) x_j^{(i)} .
+$$ (3.10)
+
+The generator checks this gradient against finite differences of Equation 3.9.
+
+[1:03:06](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3786s) Ng then put a question to the room. Flip the sign and swap the two
+terms in the bracket, and Equation 3.10 is character for character the LMS rule
+of lecture 2 — yet the lecture had just argued that linear regression is wrong for
+classification. What changed? The hypothesis: $h_\theta$ is now $g(\theta^\top x)$,
+not $\theta^\top x$, so the same-looking update does something different. The
+resemblance is not a coincidence; it holds for the whole family of generalised linear
+models, and Ng adds that the likeness caused priority disputes in the field's early
+history, between people who thought the algorithms were one and people who saw they
+were not.
+
+[1:02:15](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3735s) Asked whether $\ell$ has local maxima, Ng said no: for logistic
+regression the log-likelihood is concave, so the only maximum is the global one. The
+Hessian makes that checkable, $\nabla^2 \ell = -\sum_i h(1-h)\, x^{(i)} x^{(i)\top}$,
+a negative sum of outer products, and the generator confirms it is negative
+semidefinite at two hundred random parameter values. He then gave this as *another
+reason* to choose the logistic function over other S-shaped functions — that it
+guarantees a single maximum. That is true but not unique to it, and the generator
+says where the property actually comes from. $\ell$ is concave because $\log g(z)$ and
+$\log(1 - g(z))$ are both concave in $z$, and that is a property of the S-curve, not of
+logistic regression. The normal CDF, which gives *probit* regression, has it too. The
+Cauchy CDF, $\tfrac12 + \arctan(z)/\pi$, an S-curve with heavy tails, does not: its log
+bends upward in the left tail (Figure 3.3), and on a three-example dataset the
+resulting log-likelihood has positive curvature at $\theta = -0.9$, so the argument
+that rules out local maxima no longer applies. The logistic function is one of a class
+of choices with a single maximum, not the only one; its claim to being *the* choice is
+the generalised-linear-model derivation of lecture 4.
+
+![Figure 3.3. Left: three S-shaped choices of $g$ — logistic, the normal CDF (probit) and the Cauchy CDF. Right: their logarithms. The first two bend downward everywhere, which is what makes the log-likelihood concave; the Cauchy curve bends upward in its left tail. *Computed by `figures/03-locally-weighted-logistic/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/03-locally-weighted-logistic/diagram_links.svg)
+
+Asked [1:04:53](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3893s) whether logistic regression has an equivalent of the normal
+equations, Ng's short answer was no: there is no known closed form for the maximising
+$\theta$, so an iterative method is always needed.
+
+**In the official notes.** The derivative of the sigmoid, $g'(z) = g(z)(1 - g(z))$, and the derivation of
+Equation 3.10 from it are in cs229-notes1, section 5.
+### Newton's method
+
+[1:05:36](https://www.youtube.com/watch?v=het9HFqo1TQ&t=3936s) Gradient ascent takes baby steps. Ng's comparison is a problem that
+needs a hundred or a thousand gradient iterations and only ten of Newton's method,
+each of which costs more. To explain it he solves a different problem first: given a
+function $f$ of a single real $\theta$, find where $f(\theta) = 0$. Maximising $\ell$ is
+such a problem, since at the maximum $\ell'(\theta) = 0$, so in the end $f$ will be
+$\ell'$.
+
+[1:08:33](https://www.youtube.com/watch?v=het9HFqo1TQ&t=4113s) The picture is a sequence of tangents. From the current guess, draw the
+line tangent to $f$ and follow it down to where it crosses zero; that crossing is the
+next guess. Repeat, and within a few iterations the guesses sit on the root
+(Figure 3.4). If the tangent at $\theta_0$ meets the axis a horizontal distance
+$\Delta$ away, its slope is the height over the run, $f'(\theta_0) = f(\theta_0) /
+\Delta$, so $\Delta = f(\theta_0)/f'(\theta_0)$ and
+
+$$
+\theta^{(t+1)} := \theta^{(t)} - \frac{f\left(\theta^{(t)}\right)}{f'\left(\theta^{(t)}\right)}
+\quad\Longrightarrow\quad
+\theta^{(t+1)} := \theta^{(t)} - \frac{\ell'\left(\theta^{(t)}\right)}{\ell''\left(\theta^{(t)}\right)} .
+$$ (3.11)
+
+![Figure 3.4. Newton's method on $f(\theta) = \ell'(\theta)$, the derivative of a one-parameter logistic log-likelihood on synthetic data. Each tangent from the current guess meets the axis at the next guess; the gap to the root shrinks faster at every step, and by the fifth the guess has all but reached it, marked by the dot. *Computed by `figures/03-locally-weighted-logistic/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/03-locally-weighted-logistic/diagram_newton.svg)
+
+The update uses only where $\ell'$ vanishes, so it is the same whether the goal is a
+maximum or a minimum — the official notes leave this as a question, and that is the
+answer. What makes it the right tool here is that $\ell$ is concave, so its only
+stationary point is the maximum.
+
+[1:14:22](https://www.youtube.com/watch?v=het9HFqo1TQ&t=4462s) The speed has a name, *quadratic convergence*, which Ng calls "not a
+great name". Informally, once Newton's method is close, the error is roughly squared
+at each step: an error of 0.01 becomes about 0.0001 and then about 0.00000001, so the
+number of correct digits doubles per iteration. On the problem of Figure 3.4 the
+generator's errors run 0.053, then 0.0014, then $9 \times 10^{-7}$. The doubling only
+starts near the root; from the start at zero the first few steps shrink the error
+more slowly.
+
+[1:16:03](https://www.youtube.com/watch?v=het9HFqo1TQ&t=4563s) With $\theta$ a vector, the first derivative becomes the gradient and the
+second the *Hessian* $H$, the $(n+1) \times (n+1)$ matrix of second partial derivatives
+$H_{ij} = \partial^2 \ell / \partial\theta_i \partial\theta_j$:
+
+$$
+\theta := \theta - H^{-1} \nabla_\theta \ell(\theta) .
+$$ (3.12)
+
+[1:17:22](https://www.youtube.com/watch?v=het9HFqo1TQ&t=4642s) That matrix is the catch. Each iteration solves a linear system in it, or
+inverts it, which is nothing for ten parameters and prohibitive for a hundred
+thousand. Ng's rule of thumb follows: with ten or fifty parameters he would very
+likely use Newton's method and be done in a few iterations; with ten thousand or more
+he would use gradient descent. The gap in iteration counts can be far larger than his
+hundred-to-ten. On the tumour data of Figure 3.2, which are nearly
+separable and so put the maximum far out at $\theta \approx (-14.9, 4.4)$, Newton's
+method reaches it to six decimal places in 9 iterations; gradient ascent with the
+safe fixed step $\alpha = 4/\lambda_{\max}(X^\top X)$ needs about 117,000.
+
+**In the official notes.** Newton's method and its vector form are cs229-notes1, section 7, which adds that
+Newton's method applied to the logistic log-likelihood is also called Fisher scoring.

@@ -1,0 +1,309 @@
+# 15. PCA and ICA
+
+> Principal components analysis as the direction of maximum variance and, equivalently, of minimum reconstruction error; why the answer is the top eigenvectors of the covariance; centring, scaling and choosing k; where PCA helps and where it is misused; a map of the unsupervised algorithms; and the cocktail-party problem that independent components analysis solves, with its ambiguities.
+
+Web version: https://raimbekovm.github.io/cs229-2018-notes/lectures/15-pca-ica.html
+
+Lecture video: [Lecture 15: PCA and ICA](https://www.youtube.com/watch?v=dyb_cFywuik)
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+Principal components analysis (PCA) reduces $n$-dimensional data to $k \ll n$ dimensions by
+projecting it onto the $k$ directions along which it varies most. Those directions are the
+top $k$ eigenvectors of the data's covariance matrix. Like factor analysis in the previous
+lecture, PCA assumes the data lie near a low-dimensional subspace. Unlike factor analysis it
+has no probabilistic model: it does not define $p(x)$, it just finds the subspace. Ng
+spends as long on when *not* to use PCA as on how it works. The last quarter of the lecture
+sets up independent components analysis (ICA), which looks for statistically independent
+directions instead of high-variance ones. The algorithm itself is in lecture 16.
+
+### One-dimensional data living in two dimensions
+
+[2:09](https://www.youtube.com/watch?v=dyb_cFywuik&t=129s) Ng's first example is a school that measured its children's heights twice in
+the same month, once in centimetres and once in inches, with each value rounded to a whole
+unit. Plotted against each other, the two numbers lie almost exactly on a line. The data
+have $n = 2$, but they are really one-dimensional: a child's height plus a little rounding
+noise perpendicular to the line. PCA's job is to find that line, the principal axis of
+variation, and replace each point by its position along it.
+
+Because centimetres and inches measure the same thing, he offers two less contrived
+examples. In the first, two vibration sensors made by different manufacturers sit on
+different parts of a factory machine. Both measure how hard the machine is shaking, which
+is useful for preventive maintenance, since the vibration pattern changes before a machine
+fails. [5:50](https://www.youtube.com/watch?v=dyb_cFywuik&t=350s) In the second, from his autonomous-helicopter work, each pilot is
+scored on skill and on enjoyment of flying. The two might both reflect one underlying
+aptitude. Going from two dimensions to one is only for the whiteboard. In practice, Ng says,
+PCA takes something like 10,000 dimensions to 100 or 1,000.
+
+[7:29](https://www.youtube.com/watch?v=dyb_cFywuik&t=449s) Before running PCA, the data are standardised. Subtract the mean of each feature,
+then divide each feature by its standard deviation, so that every feature has mean 0 and
+variance 1. Section 15.4 explains why both steps matter.
+
+### Two definitions of the best direction
+
+[10:00](https://www.youtube.com/watch?v=dyb_cFywuik&t=600s) Ng draws two candidate lines through the standardised height data: the
+45-degree line, which is clearly right, and the perpendicular line, which is clearly wrong.
+He then gives two ways to say what makes the first one right (Figure 15.1).
+Project every point orthogonally onto a line. For the good line, the projection segments
+are short, so the sum of squared distances from the points to their projections is small.
+The projected points are also spread out along the line, while on the bad line they bunch
+together near the origin. So PCA could be defined as *minimising the squared projection
+distance* or as *maximising the variance of the projections*.
+
+![Figure 15.1. Sixty standardised height measurements (crosses) projected orthogonally onto the first principal direction $u_1$ (left) and onto the perpendicular direction $u_2$ (right). The projections are the dots, joined to their points by thin segments. On $u_1$ the projections spread out and the segments are short; on $u_2$ the projections collapse onto the origin and the segments are long.](https://raimbekovm.github.io/cs229-2018-notes/figures/15-pca-ica/diagram_pca_projection.svg)
+
+[12:00](https://www.youtube.com/watch?v=dyb_cFywuik&t=720s) The two definitions are the same, and the reason is Pythagoras. For a unit
+vector $u$ and a centred point $x^{(i)}$, the squared length of the point splits into the
+squared length of its projection plus the squared distance to it:
+
+$$
+\lVert x^{(i)} \rVert^2 = \bigl(u^\top x^{(i)}\bigr)^2 + \bigl\lVert x^{(i)} - (u^\top x^{(i)})\,u \bigr\rVert^2 .
+$$
+
+The left side does not depend on $u$. Averaging over the data, projected variance plus mean
+squared distance is a constant, so maximising one minimises the other. The generator checks
+this at 3,600 directions around the half-circle. The two terms sum to the same constant to
+$10^{-12}$, and the direction with the largest variance is exactly the direction with the
+smallest distance. On the height data that direction is 45.0°. The projected variance there
+is 1.9986 and the mean squared distance is 0.0014, out of a total of 2, because the
+correlation between the two measurements is 0.9986. Ng leaves the proof to the homework and
+recalls a paper that collected many equivalent derivations of PCA. Historically these two
+are the founding pair: [Pearson (1901)](https://doi.org/10.1080/14786440109462720) posed the
+problem as fitting the closest line or plane to a set of points, and
+[Hotelling (1933)](https://doi.org/10.1037/h0071325) posed it as finding components that
+account for as much of the variance as possible.
+
+### The principal direction is an eigenvector
+
+[13:14](https://www.youtube.com/watch?v=dyb_cFywuik&t=794s) Ng derives PCA from the variance definition. For a unit vector $u$, the
+projection of $x^{(i)}$ onto it has length $u^\top x^{(i)}$, so the problem is
+
+$$
+\max_{u:\ \lVert u \rVert = 1}\ \frac1m \sum_{i=1}^m \bigl(u^\top x^{(i)}\bigr)^2
+= \max_{u:\ \lVert u \rVert = 1}\ u^\top \Bigl( \frac1m \sum_{i=1}^m x^{(i)} x^{(i)\top} \Bigr) u
+= \max_{u:\ \lVert u \rVert = 1}\ u^\top \Sigma\, u ,
+$$ (15.1)
+
+where $\Sigma$ is the covariance matrix of the standardised data. Ng apologises that the
+symbol is the same as the one for summation. [19:13](https://www.youtube.com/watch?v=dyb_cFywuik&t=1153s) The maximiser is the
+*principal eigenvector* of $\Sigma$, the one with the largest eigenvalue. The argument uses
+a Lagrangian, $\mathcal{L}(u, \lambda) = u^\top \Sigma u - \lambda(u^\top u - 1)$. Setting
+its gradient in $u$ to zero gives $\Sigma u = \lambda u$, so any stationary point of the
+constrained problem is an eigenvector. At such a point the objective equals
+$u^\top \Sigma u = \lambda u^\top u = \lambda$, so the best eigenvector is the one with the
+largest eigenvalue, and that eigenvalue is the variance captured. The generator checks
+this on a random $2 \times 2$ covariance by finding every stationary point of
+$u^\top \Sigma u$ around the half-circle of directions. It finds two, each lies along an eigenvector to
+within $0.02°$, and the value of the objective there matches the eigenvalue to $10^{-6}$.
+
+[22:11](https://www.youtube.com/watch?v=dyb_cFywuik&t=1331s) To keep $k$ dimensions, take the top $k$ eigenvectors $u_1, \dots, u_k$. The
+new representation of $x^{(i)}$ is the vector of its projections onto them:
+
+$$
+y^{(i)} = \begin{bmatrix} u_1^\top x^{(i)} \\ \vdots \\ u_k^\top x^{(i)} \end{bmatrix} \in \mathbb{R}^k,
+\qquad
+x^{(i)} \approx y^{(i)}_1 u_1 + \dots + y^{(i)}_k u_k \in \mathbb{R}^n .
+$$ (15.2)
+
+The second formula decompresses: it maps the $k$ numbers back to a point in $\mathbb{R}^n$
+on the $k$-dimensional subspace. For the heights, $y^{(i)}$ is a single cleaned-up
+estimate of each child's height, and mapping it back puts every child exactly on the line.
+Because $\Sigma$ is symmetric, its eigenvectors can always be chosen orthogonal, so
+$u_1, \dots, u_k$ is an orthonormal basis of the subspace. [47:11](https://www.youtube.com/watch?v=dyb_cFywuik&t=2831s) A student asks
+whether the test set needs its own eigenvectors. It does not. The $u_j$ are computed once,
+on the training set, and the same ones are used to map every future example.
+
+### Pre-processing and the choice of k
+
+[28:07](https://www.youtube.com/watch?v=dyb_cFywuik&t=1687s) A student asks why the pre-processing matters, and Figure 15.2 shows
+both cases. If the data are not centred, $\frac1m \sum_i x^{(i)} x^{(i)\top}$ is a second
+moment about the origin, not a covariance. Its top eigenvector points from the origin
+towards the cloud, not along it. In the generator it lies within 2° of the direction of
+the data's mean. If the features are not scaled, a feature measured in small units has
+numerically large variance and dominates. Ng's example is centimetres against kilometres.
+The heights show the effect in a milder form. Centimetre values are 2.54 times the inch
+values, so the unstandardised principal direction lies at 21.4°, close to
+$\arctan(1/2.54) = 21.5°$. That is the line $x_2 = x_1/2.54$, which is a statement about
+units, not about the data. After standardising, the principal direction is at exactly 45°.
+
+![Figure 15.2. What PCA returns without the pre-processing. Left: a cloud away from the origin; the top eigenvector of the uncentred second-moment matrix points at the cloud (purple), while PCA on centred data follows the cloud's own axis (teal). Right: heights in centimetres against inches, centred but not scaled, on equal axes. The unscaled first direction (purple) follows the centimetre axis at 21°, while after standardising it is 45° (teal).](https://raimbekovm.github.io/cs229-2018-notes/figures/15-pca-ica/diagram_pca_preprocessing.svg)
+
+[58:57](https://www.youtube.com/watch?v=dyb_cFywuik&t=3537s) To choose $k$, look at the eigenvalues. Since the eigenvalue $\lambda_j$ is the
+variance along $u_j$, the fraction
+
+$$
+\frac{\sum_{j=1}^k \lambda_j}{\sum_{j=1}^n \lambda_j}
+$$
+
+is the share of the total variance kept by the first $k$ directions. Practitioners report
+choosing $k$ to "retain 90%" (or 95, 98, or 99%) of the variance. Ng adds that compressing
+very high-dimensional data tenfold while keeping 95% of its variance is common. The
+same quantity measures reconstruction quality. The mean squared error of the
+decompression in Equation 15.2 equals the sum of the discarded eigenvalues,
+$\sum_{j > k} \lambda_j$, so "variance retained" is one minus the relative reconstruction
+error. The generator asserts this equality for every $k$ from 0 to 10 on a
+ten-dimensional data set.
+
+### When to use PCA, and when not to
+
+[31:54](https://www.youtube.com/watch?v=dyb_cFywuik&t=1914s) The use Ng endorses most is **visualisation**: projecting data from $n$
+dimensions down to 2 or 3 so that it can be plotted. His example is from Krishna Shenoy's
+neuroscience lab at Stanford. Monkeys were trained to tap a square on a touch screen when
+it appeared, in exchange for juice, while about 50 electrodes recorded activity in their
+brains. A 50-dimensional time series cannot be looked at directly. A former CS229 student
+in the lab projected it with PCA and could watch the brain's state move through two or
+three dimensions: waiting, preparing once the target appeared, holding, and then moving off
+at the go signal. [36:15](https://www.youtube.com/watch?v=dyb_cFywuik&t=2175s) The second endorsed use is **compression for efficiency**.
+High-dimensional data usually lie close to a much smaller subspace. Ng calls it "just a
+fact of life". Feeding a learning algorithm a 1,000-dimensional $y^{(i)}$ in place of a
+10,000-dimensional $x^{(i)}$ saves memory, bandwidth and compute.
+
+[38:23](https://www.youtube.com/watch?v=dyb_cFywuik&t=2303s) He calls two other uses questionable. The first is **reducing overfitting** by
+shrinking the number of features before, say, logistic regression. In his experience this
+works about half the time. The half that works gets published and the half that fails does
+not, so the literature makes it look more reliable than it is. He uses regularisation for
+this instead. [40:16](https://www.youtube.com/watch?v=dyb_cFywuik&t=2416s) The second is measuring **similarity in a reduced space**. In
+early face recognition, two $100 \times 100$ images were compared by Euclidean distance
+after PCA rather than in raw pixel space, in the hope that the projection would remove
+noise. Sometimes it helps a little, but not reliably. [42:11](https://www.youtube.com/watch?v=dyb_cFywuik&t=2531s) This was the era of
+[eigenfaces](https://doi.org/10.1162/jocn.1991.3.1.71). Researchers ran PCA on face images
+and plotted each eigenvector as a picture. Then they read meaning into individual
+eigenvectors: one is the lighting direction, another is a beard. Ng's judgement is that
+such readings were "at least as much a product of the researcher's imagination" as of the
+data. The reason is that individual eigenvectors are unstable, which the next section
+quantifies.
+
+[44:35](https://www.youtube.com/watch?v=dyb_cFywuik&t=2675s) His rule of thumb follows: *before putting PCA into a system, try the system on
+the original $x^{(i)}$.* Class project proposals often include a PCA step by default. Unless
+you need the speed or the memory, the step adds a component to debug without a reason. Asked
+whether there is a minimum dimension below which PCA is pointless, he says no. Even going
+from two dimensions to one is justified if halving memory really matters.
+
+### Why individual eigenvectors should not be interpreted
+
+[54:49](https://www.youtube.com/watch?v=dyb_cFywuik&t=3289s) A student asks why k-means centroids are treated as interpretable and principal
+components are not. Ng's answer is that individual eigenvectors are numerically unstable,
+while the *subspace* spanned by the first $k$ of them is stable. His picture is
+three-dimensional data lying close to the plane of the whiteboard. $u_1$ and $u_2$ are two
+directions in that plane, and $u_3$ points out of the board. A small change to the data can
+spin $u_1$ and $u_2$ around inside the plane, while the plane itself stays put. He says
+that changing one training example "in the fifth decimal place" can change the
+eigenvectors significantly.
+
+That claim is true only under a condition the lecture leaves implicit. How far an
+eigenvector moves depends on the size of the perturbation *relative to the gap* between
+its eigenvalue and the next one. The generator tests it with data whose top two
+eigenvalues differ by an exact relative gap. The data are a regular twelve-sided polygon in
+a plane, stretched slightly along one axis, plus two points off the plane. Changing one
+coordinate of one point by $10^{-5}$ moves $u_1$ by $0.0009°$ when the gap is $10^{-1}$,
+$0.08°$ when it is $10^{-3}$, $9.6°$ when it is $10^{-5}$, and $59°$ when it is $10^{-7}$.
+The plane spanned by $u_1, u_2$ moves by less than $10^{-6}$ degrees in every case. So a
+fifth-decimal change matters only when the eigenvalues agree to about five decimals.
+
+The more realistic version is the one Ng gives in answer to a follow-up question
+[57:56](https://www.youtube.com/watch?v=dyb_cFywuik&t=3476s): a lab mate collects a slightly different data set. Then sampling noise, not
+rounding, is the perturbation. Figure 15.3 draws pairs of 200-point samples from the
+same three-dimensional distribution and compares their principal directions. When
+$\lambda_2 / \lambda_1 = 0.5$, the two samples' $u_1$ differ by a median of $5°$. At $0.9$
+they differ by $36°$, and at $0.98$ and above they are essentially unrelated, around
+$45$–$50°$. Throughout, the two samples' top-two subspaces differ by under $1°$. High-dimensional
+data typically have long runs of similar eigenvalues, so this is the usual case. The
+subspace can be reported; the individual axes are an arbitrary choice of basis within it.
+
+![Figure 15.3. Median angle, over 200 pairs of samples of 200 points from the same three-dimensional distribution, between the two samples' first eigenvectors (purple) and between their two-dimensional principal subspaces (teal), as the second eigenvalue approaches the first. The third eigenvalue is 0.01 throughout.](https://raimbekovm.github.io/cs229-2018-notes/figures/15-pca-ica/diagram_pca_stability.svg)
+
+Two more questions close the PCA half. [56:21](https://www.youtube.com/watch?v=dyb_cFywuik&t=3381s) Is there a probabilistic version? Yes:
+[probabilistic PCA](https://doi.org/10.1111/1467-9868.00196) is factor analysis with the
+noise covariance constrained to $\sigma^2 I$, the spherical restriction of the last
+lecture, in place of a general diagonal $\Psi$. [56:33](https://www.youtube.com/watch?v=dyb_cFywuik&t=3393s) Can PCA overfit? Ng's answer is
+that it can when $k$ is close to $m$, for instance a 1,000-dimensional subspace estimated from
+1,000 examples. Then the subspace fits the sample, not the distribution.
+
+### A map of the unsupervised algorithms
+
+[49:23](https://www.youtube.com/watch?v=dyb_cFywuik&t=2963s) A student asks when to use PCA and when to use factor analysis. Ng answers by
+sorting the four unsupervised algorithms of the course along two axes: whether they model a
+density $p(x)$, and whether they assume the data lie near a subspace or in clusters
+("clumps").
+
+| | Models $p(x)$ | No probabilistic model |
+| --- | --- | --- |
+| **Data near a subspace** | factor analysis | PCA |
+| **Data in clusters** | mixture of Gaussians | k-means |
+
+: Table 15.1. The four unsupervised algorithms of lectures 13–15, after Ng's board.
+
+The left column is where EM lives. EM applies whenever there is a model $p(x, z)$ with $z$
+unobserved, whether $z$ is discrete (the mixture) or Gaussian (factor analysis). The
+density models are what you want for anomaly detection. The right column is for
+compression and for human understanding: PCA to see high-dimensional data, k-means to split
+customers into market segments or genes into groups. Ng adds that the mixture of Gaussians
+often works well on data that are not really clustered, so the table is a guide, not a rule.
+
+### Independent components analysis: the cocktail party
+
+[1:02:36](https://www.youtube.com/watch?v=dyb_cFywuik&t=3756s) PCA looks for directions of high variance. ICA looks for directions that are
+*statistically independent*. The motivating problem is the cocktail party. Several people
+talk at once, and several microphones placed around the room each record a different
+mixture of their voices. Ng plays a demonstration with two microphones. Each one picks up a
+voice counting to ten in English mixed with another voice in Spanish. ICA, given only the
+two recordings and told nothing about voices, returns one track per speaker. A second
+example mixes the counting voice with music from a radio. Because this one was recorded in a
+real room, Ng notes, the separation is not perfect, but most of the music is gone.
+
+[1:07:32](https://www.youtube.com/watch?v=dyb_cFywuik&t=4052s) The model is linear. Let $s^{(i)} \in \mathbb{R}^n$ hold the $n$ sources at
+time $i$, where $s^{(i)}_j$ is the air-pressure deviation produced by speaker $j$.
+Microphone $j$ records
+
+$$
+x^{(i)}_j = \sum_{k=1}^n A_{jk}\, s^{(i)}_k, \qquad\text{that is,}\qquad x^{(i)} = A s^{(i)},
+$$ (15.3)
+
+with an unknown, square *mixing matrix* $A$. Here $x^{(i)}$ is the recording at time $i$,
+and the recordings must be time-aligned across microphones. The goal is the *unmixing
+matrix* $W = A^{-1}$, so that $s^{(i)} = W x^{(i)}$. Writing $w_j^\top$ for the rows of
+$W$, source $j$ is $s^{(i)}_j = w_j^\top x^{(i)}$. Asked whether there must be as many
+microphones as speakers, Ng says yes for now. The general case is deferred.
+
+Two caveats are worth stating. First, Equation 15.3 is an idealisation. In a real room
+each voice reaches each microphone after a delay and with echoes, so a microphone records
+a sum of filtered copies of each source, not a single weighted sum. This is part of why the
+real-room demonstration separates imperfectly. Second, Ng remarks that "sound can only
+add", and that some versions of ICA put sign constraints on $A$ and $W$ for that reason.
+That needs restating. The sources are pressure *deviations*, which are positive and
+negative. Sound waves superpose with signs, and cancellation is how noise-cancelling
+headphones work. What is plausibly non-negative is the *gain* from a speaker to a
+microphone, so a sign constraint, where one is used, belongs on the entries of $A$, not on
+the signals.
+
+[1:14:12](https://www.youtube.com/watch?v=dyb_cFywuik&t=4452s) Why should recovery be possible at all? Ng's picture
+(Figure 15.4) uses two sources that each emit an independent value uniform on
+$[-1, 1]$ at every instant, so the pairs $(s_1, s_2)$ fill a square. The mixing matrix
+shears the square into a parallelogram, and that is all the microphones see. The edges of
+the parallelogram reveal the directions of the original axes, and an unmixing matrix that
+turns the parallelogram back into an axis-aligned square recovers the sources.
+
+![Figure 15.4. The ICA problem with two uniform sources. Independent sources fill a square (left). Mixing by $A$ gives the parallelogram the microphones observe (centre). Unmixing by $W = PDA^{-1}$, where $P$ swaps the two rows and $D$ flips one sign, gives a square again (right): the sources are recovered, but as $(-s_2, s_1)$.](https://raimbekovm.github.io/cs229-2018-notes/figures/15-pca-ica/diagram_ica_mixing.svg)
+
+[1:15:44](https://www.youtube.com/watch?v=dyb_cFywuik&t=4544s) Recovery has unavoidable ambiguities. The first is *order*. Nothing in the
+data says which source is the person and which is the radio, so the sources come back in an
+arbitrary order. The second is *sign*. A square flipped horizontally or vertically is the
+same square, so a source can come back negated. For audio that is harmless, because
+$-s_j$ sounds identical to $s_j$. The official notes add a third, *scale*. Multiplying a
+source by $\alpha$ and the corresponding column of $A$ by $1/\alpha$ leaves $x$ unchanged,
+so the sources are determined only up to scale, and for audio that is only a volume. All
+three combine into $W = P D A^{-1}$ with $P$ a permutation and $D$ diagonal, as in the
+right panel of Figure 15.4. The generator checks that every such $W$, including swaps,
+sign flips and rescalings by 2 and $-\tfrac12$, returns exactly the sources, permuted and
+rescaled.
+
+The picture also shows what ICA depends on. A uniform square has corners, which mark the
+original axes. Lecture 16 shows that Gaussian sources, whose density is round, have no such
+corners, and that this ambiguity cannot be resolved. It then derives the algorithm that
+finds $W$ by maximum likelihood.
+
+**In the official notes.** PCA, with the variance derivation and the eigenvector solution, is cs229-notes10. The ICA
+model, its permutation, scaling and sign ambiguities, and the reason Gaussian sources
+cannot be separated are in cs229-notes11, section 1. The density of a linear
+transformation and the maximum-likelihood algorithm for $W$ are in sections 2 and 3.

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 346" width="680" height="346"
+     role="img" aria-labelledby="figUniformTitle figUniformDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figUniformTitle">Empirical error curves around the true error curve</title>
+  <desc id="figUniformDesc">A finite class of ten threshold classifiers. The solid curve is each hypothesis's true error, lowest at t = 0.35 and 0.45 where the class comes closest to the real threshold 0.4. The dashed curves are training errors on three samples of sixty examples; they scatter around the true curve, and the hypothesis with the lowest training error on the first sample is circled, with its true error marked above it.</desc>
+  <line x1="80.0" y1="270.0" x2="640.0" y2="270.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="270.0" x2="80.0" y2="50.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="108.0" y1="270.0" x2="108.0" y2="274.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="108.0" y="287.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.05</text>
+  <line x1="220.0" y1="270.0" x2="220.0" y2="274.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="220.0" y="287.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.25</text>
+  <line x1="332.0" y1="270.0" x2="332.0" y2="274.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="332.0" y="287.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.45</text>
+  <line x1="444.0" y1="270.0" x2="444.0" y2="274.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="444.0" y="287.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.65</text>
+  <line x1="556.0" y1="270.0" x2="556.0" y2="274.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="556.0" y="287.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.85</text>
+  <line x1="76.0" y1="270.0" x2="80.0" y2="270.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="274.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="76.0" y1="196.7" x2="80.0" y2="196.7" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="200.7" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0.2</text>
+  <line x1="76.0" y1="123.3" x2="80.0" y2="123.3" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="127.3" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0.4</text>
+  <line x1="76.0" y1="50.0" x2="80.0" y2="50.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="54.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0.6</text>
+  <text x="360.0" y="306.0" font-size="12" fill="currentColor" text-anchor="middle">threshold t of the hypothesis h_t(x) = 1{x ≥ t}</text>
+  <text x="40.0" y="160.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 160.0)">error</text>
+  <polyline points="108.00,147.78 164.00,178.33 220.00,196.67 276.00,221.11 332.00,208.89 388.00,184.44 444.00,166.11 500.00,147.78 556.00,111.11 612.00,68.33" fill="none" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.7" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="108.0" cy="147.8" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="164.0" cy="178.3" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="220.0" cy="196.7" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="276.0" cy="221.1" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="332.0" cy="208.9" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="388.0" cy="184.4" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="444.0" cy="166.1" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="500.0" cy="147.8" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="556.0" cy="111.1" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="612.0" cy="68.3" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="276.0" cy="221.1" r="7.0" fill="none" fill-opacity="1.0" stroke="#440154" stroke-width="1.6" stroke-opacity="1.0"/>
+  <line x1="276.0" y1="221.1" x2="276.0" y2="202.2" stroke="#440154" stroke-width="1.2" stroke-opacity="1.0"/>
+  <text x="266.0" y="243.1" font-size="11" fill="#440154" text-anchor="end">ĥ: lowest training error</text>
+  <polyline points="108.00,135.56 164.00,153.89 220.00,178.33 276.00,190.56 332.00,196.67 388.00,147.78 444.00,123.33 500.00,98.89 556.00,74.44 612.00,68.33" fill="none" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.7" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="108.0" cy="135.6" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="164.0" cy="153.9" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="220.0" cy="178.3" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="276.0" cy="190.6" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="332.0" cy="196.7" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="388.0" cy="147.8" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="444.0" cy="123.3" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="500.0" cy="98.9" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="556.0" cy="74.4" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="612.0" cy="68.3" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <polyline points="108.00,129.44 164.00,160.00 220.00,166.11 276.00,208.89 332.00,196.67 388.00,196.67 444.00,184.44 500.00,129.44 556.00,98.89 612.00,80.56" fill="none" stroke="#3b528b" stroke-width="1.3" stroke-opacity="0.7" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="108.0" cy="129.4" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="164.0" cy="160.0" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="220.0" cy="166.1" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="276.0" cy="208.9" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="332.0" cy="196.7" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="388.0" cy="196.7" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="444.0" cy="184.4" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="500.0" cy="129.4" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="556.0" cy="98.9" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="612.0" cy="80.6" r="2.6" fill="#3b528b" fill-opacity="0.7" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <polyline points="108.00,125.17 164.00,150.83 220.00,176.50 276.00,202.17 332.00,202.17 388.00,176.50 444.00,150.83 500.00,125.17 556.00,99.50 612.00,73.83" fill="none" stroke="#21918c" stroke-width="2.6" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="108.0" cy="125.2" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="164.0" cy="150.8" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="220.0" cy="176.5" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="276.0" cy="202.2" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="332.0" cy="202.2" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="388.0" cy="176.5" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="444.0" cy="150.8" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="500.0" cy="125.2" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="556.0" cy="99.5" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="612.0" cy="73.8" r="3.4" fill="#21918c" fill-opacity="1.0" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="338.0" y="230.2" font-size="11" fill="#21918c" text-anchor="start">h*: lowest true error</text>
+  <line x1="332.0" y1="206.2" x2="336.0" y2="218.2" stroke="#21918c" stroke-width="1.0" stroke-opacity="1.0"/>
+  <line x1="110.0" y1="330.0" x2="140.0" y2="330.0" stroke="#21918c" stroke-width="2.6" stroke-opacity="1.0"/>
+  <text x="146.0" y="334.0" font-size="11" fill="currentColor" text-anchor="start">ε(h), true error</text>
+  <line x1="300.0" y1="330.0" x2="330.0" y2="330.0" stroke="#3b528b" stroke-width="1.3" stroke-opacity="1.0" stroke-dasharray="5 4"/>
+  <text x="336.0" y="334.0" font-size="11" fill="currentColor" text-anchor="start">ε̂_S(h) on three training sets of m = 60</text>
+</svg>

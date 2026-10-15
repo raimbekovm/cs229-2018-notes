@@ -1,0 +1,373 @@
+# 4. Perceptron and Generalized Linear Models
+
+> The perceptron as logistic regression with a hard threshold, the exponential family of distributions and why its log-partition function hands over the mean and variance by differentiation, generalized linear models as a recipe that turns any member into a regression model with one shared update rule, and softmax regression for multi-class classification as cross-entropy minimisation.
+
+Web version: https://raimbekovm.github.io/cs229-2018-notes/lectures/04-perceptron-glm.html
+
+Lecture video: [Lecture 4: Perceptron and Generalized Linear Model](https://www.youtube.com/watch?v=iZTeva0WSTQ)
+
+*Based on the lecture by Anand Avati — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+Lectures 2 and 3 derived linear regression and logistic regression separately, and
+both ended with the same update, $\theta_j := \theta_j + \alpha\,(y - h_\theta(x))\,x_j$.
+This lecture, given by Anand Avati while Ng was away, explains why. Both models are
+instances of a *generalized linear model*: pick a distribution for $y$ from the
+exponential family, let its natural parameter be a linear function of $x$, and the
+hypothesis, the likelihood and the update all follow — the same update every time,
+with only $h_\theta$ changing. The sigmoid, which lecture 3 introduced without
+justification, falls out of this recipe once $y$ is assumed Bernoulli. The lecture opens
+with the perceptron, which has the same update for a different reason, and closes with
+softmax regression, which extends logistic regression to many classes.
+
+### The perceptron
+
+[1:35](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=95s) The perceptron replaces logistic regression's sigmoid with a hard threshold,
+$g(z) = 1$ if $z \ge 0$ and $0$ otherwise, so $h_\theta(x) = g(\theta^\top x)$ outputs a
+label rather than a probability. The update is the one from lecture 3, written for one
+example at a time:
+
+$$
+\theta := \theta + \alpha \left(y^{(i)} - h_\theta(x^{(i)})\right) x^{(i)} .
+$$ (4.1)
+
+Avati reads it from the inside out. Since $y$ and $h_\theta(x)$ are both 0 or 1, the
+bracket can take only three values: 0 when the prediction is right, so nothing happens;
+$+1$ when a positive example was called negative; and $-1$ in the opposite case. A
+correctly classified example therefore leaves $\theta$ alone, and a misclassified one
+adds or subtracts a multiple of itself.
+
+[7:27](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=447s) The geometric picture makes that rule look inevitable rather than arbitrary.
+The decision boundary $\theta^\top x = 0$ is the line perpendicular to $\theta$, and
+$\theta^\top x$ is positive for inputs on the side $\theta$ points toward. We want
+$\theta$ to have a positive dot product with the positive examples and a negative one
+with the negative examples — to be *similar* to the first and dissimilar to the second.
+When a positive $x$ lands on the wrong side, the most naive way to make $\theta$ more
+like $x$ is to add a bit of $x$ to it. That rotates $\theta$ toward $x$, and the boundary
+rotates with it (Figure 4.1).
+
+![Figure 4.1. One perceptron step. The positive example $x$ lies on the wrong side of the dashed boundary $\theta^\top x = 0$; adding $\alpha x$ (here $\alpha = 1$, for visibility) gives $\theta'$, whose boundary puts $x$ on the positive side while every other point keeps its side. *Computed by `figures/04-perceptron-glm/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/04-perceptron-glm/diagram_perceptron_update.svg)
+
+The lecture calls $\alpha$ "some small learning rate", but for the perceptron as usually
+run it has no effect at all. Starting from $\theta = 0$, every update adds $\pm\alpha
+x^{(i)}$, so $\theta$ is always $\alpha$ times a sum of examples, and the sign of
+$\theta^\top x$ — the only thing the prediction depends on — does not depend on $\alpha$.
+The generator checks this: on a separable set of 40 points, $\alpha = 1$ and
+$\alpha = 0.001$ make the same 8 mistakes in the same order and finish with parameter
+vectors that differ by exactly the factor of 1000. The learning rate starts to matter
+only if it changes over time, which is where a student question led.
+
+[12:39](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=759s) Asked why the perceptron is not used in practice, Avati gives two reasons.
+It has no probabilistic interpretation: it draws a boundary but says nothing about how
+confident it is. And it has a famous limitation. The perceptron was celebrated in the
+late 1950s as a model of the brain ([Rosenblatt,
+1958](https://doi.org/10.1037/h0042519)); the 1969 book *Perceptrons* by Marvin Minsky
+and Seymour Papert (the lecture remembers it as a paper by Minsky) set out what a single
+linear threshold unit cannot compute, and the smallest example is XOR — two positive and
+two negative points at the corners of a square, diagonally opposite, which no line
+separates. Interest in the model collapsed afterwards.
+
+[13:39](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=819s) A second question asked when to stop training. If the data are linearly
+separable, the answer is a theorem the lecture does not state: the perceptron stops
+making mistakes after finitely many updates. If every $\lVert x^{(i)} \rVert \le R$ and
+some unit vector $u$ separates the classes with margin $\gamma$, the number of mistakes is
+at most $(R/\gamma)^2$, whatever the order of the examples (Novikoff, 1962). On the
+generator's 40 points the bound is 55 and the perceptron makes 8. If the data are not
+separable, it never settles — on XOR it is still making mistakes on all four points in
+the thousandth pass — so Avati's practical advice is to anneal: shrink $\alpha$ with every
+example until $\theta$ stops moving much. That is exactly the case where $\alpha$ is no
+longer irrelevant, since later updates then count for less than earlier ones.
+
+[13:31](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=811s) Avati also offers the cleanest way to place the perceptron beside the previous
+lecture: logistic regression is a soft version of it. The step function is the limit of
+$g(kz) = 1/(1 + e^{-kz})$ as the slope $k$ grows (Figure 4.2); at $k = 12$ the two
+already differ by less than 0.003 everywhere outside $|z| < 0.5$. What the sigmoid buys
+in exchange for that softness is a likelihood, and with it everything that follows.
+
+![Figure 4.2. The perceptron's threshold as a hard sigmoid: $g(kz)$ for $k = 1, 3, 12$ steepens toward the step function. *Computed by `figures/04-perceptron-glm/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/04-perceptron-glm/diagram_soft_hard.svg)
+
+**In the official notes.** The perceptron is the short digression of cs229-notes1, section 6, which presents it
+only as an algorithm; the mistake bound above is not in the 2018 notes.
+### The exponential family
+
+[14:53](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=893s) The exponential family is a class of distributions with convenient
+mathematics, and it is the bridge to generalized linear models. A distribution belongs to
+it if its density (or, for discrete $y$, its probability mass function) can be written
+
+$$
+p(y; \eta) = b(y) \exp\!\left( \eta^\top T(y) - a(\eta) \right) .
+$$ (4.2)
+
+Avati names each piece. The variable is called $y$, not $x$, on purpose: these
+distributions will model the *output* of a supervised problem, and $x$ enters only when
+the model is built. $\eta$ is the *natural parameter*. $T(y)$ is the *sufficient
+statistic*, in the statistician's sense, but for every distribution in this course
+$T(y) = y$, and the lecture tells the reader to make that substitution and move on.
+$b(y)$ is the *base measure*, which may depend only on $y$; and $a(\eta)$ is the
+*log-partition function*, which may depend only on $\eta$. In most of the course $y$ and
+$\eta$ are scalars; softmax will need a vector $\eta$.
+
+[18:48](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=1128s) The name of $a$ explains its job. Moving it out of the exponent gives
+$p(y;\eta) = b(y)\, e^{\eta T(y)} / e^{a(\eta)}$, so $e^{a(\eta)}$ is the normalising
+constant — the *partition function* — that makes the density integrate to one, and
+$a(\eta)$ is its log. That has a consequence worth making explicit, because the lecture
+says one can choose $a$, $b$ and $T$ freely as long as the result integrates to one. The
+condition is not a side constraint on $a$; it determines it. Once $b$ and $T$ are fixed,
+
+$$
+a(\eta) = \log \int b(y)\, e^{\eta T(y)}\, dy ,
+$$
+
+with a sum in place of the integral for discrete $y$. Choosing $b$ and $T$ chooses the
+family; $a$ comes with it. The generator confirms, for the three families below, that the
+$a(\eta)$ read off by pattern matching equals this normaliser computed by brute-force
+summation.
+
+[21:44](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=1304s) To show that a familiar distribution is a member, write its density in the
+usual form and massage it until it matches Equation 4.2. For the Bernoulli with mean
+$\phi$, the density $\phi^y (1-\phi)^{1-y}$ — an "if–else written in maths", as Avati puts
+it, since it equals $\phi$ when $y = 1$ and $1 - \phi$ when $y = 0$ — becomes, after
+wrapping it in $\exp\log$,
+
+$$
+p(y; \phi) = \exp\!\left( y \log\frac{\phi}{1-\phi} + \log(1-\phi) \right) .
+$$
+
+Matching term by term gives $b(y) = 1$, $T(y) = y$, the natural parameter
+$\eta = \log\frac{\phi}{1-\phi}$, and $a(\eta) = -\log(1-\phi)$. [26:14](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=1574s) Inverting
+the expression for $\eta$ gives
+
+$$
+\phi = \frac{1}{1 + e^{-\eta}} ,
+$$ (4.3)
+
+the sigmoid, which arrives here without being asked for. Substituting it into $a$ gives
+$a(\eta) = \log(1 + e^{\eta})$, now a function of $\eta$ alone as the definition requires.
+
+[28:41](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=1721s) The Gaussian works the same way once its variance is fixed. With
+$\sigma^2 = 1$ — and lecture 3 showed that the variance has no effect on the fitted
+$\theta$ in least squares, so nothing is lost —
+
+$$
+\frac{1}{\sqrt{2\pi}} \exp\!\left( -\tfrac12 (y - \mu)^2 \right)
+= \underbrace{\frac{1}{\sqrt{2\pi}} e^{-y^2/2}}_{b(y)} \,
+\exp\!\Big( \mu\, y - \underbrace{\tfrac12 \mu^2}_{a(\eta)} \Big),
+$$
+
+so $\eta = \mu$ and $a(\eta) = \eta^2 / 2$. A student asked what happens if the variance
+is unknown: the Gaussian is still in the family, but $\eta$ becomes a two-dimensional
+vector and $T(y) = (y, y^2)$. The Poisson, which the lecture uses later without deriving,
+fits the same mould: $\lambda^y e^{-\lambda} / y!$ has $b(y) = 1/y!$, $\eta = \log \lambda$
+and $a(\eta) = e^{\eta}$.
+
+**In the official notes.** The Bernoulli and Gaussian derivations are cs229-notes1, section 8, which also lists
+the multinomial, Poisson, gamma, exponential, beta and Dirichlet as members.
+### Why the exponential family is convenient
+
+[33:10](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=1990s) Three properties make the family worth the trouble, and Avati states them
+without proof — they are an exercise in the first problem set. First, maximum likelihood
+in the natural parameter is a concave problem, so it has no spurious local maxima; the
+negative log-likelihood, its cost-function form, is convex. Second and third, the
+log-partition function produces the moments by differentiation:
+
+$$
+\mathbb{E}[y; \eta] = \frac{\partial a}{\partial \eta} ,
+\qquad
+\operatorname{Var}[y; \eta] = \frac{\partial^2 a}{\partial \eta^2} .
+$$ (4.4)
+
+[35:08](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2108s) The point Avati makes about these is practical: computing a mean or a
+variance normally means integrating against the density, and here it means
+differentiating a single function, which is far easier. For the Bernoulli,
+$a'(\eta) = 1/(1+e^{-\eta}) = \phi$ and $a''(\eta) = \phi(1-\phi)$; for the Gaussian,
+$a' = \eta = \mu$ and $a'' = 1$; for the Poisson, both derivatives are $e^\eta = \lambda$,
+the textbook fact that a Poisson's mean equals its variance. The generator checks all
+three by computing $a'$ and $a''$ by finite differences and the mean and variance by
+summing over the support. The first property follows from the third: a variance is never
+negative, so $a$ is convex, and the log-likelihood $\log b(y) + \eta y - a(\eta)$ is
+linear minus convex, which is concave. [36:06](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2166s) When $\eta$ is a vector, as for a
+Gaussian with unknown variance, a student asked how this generalises; the gradient of
+$a$ gives the mean of $T(y)$ and its Hessian the covariance.
+
+### Generalized linear models
+
+[36:35](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2195s) A generalized linear model attaches the inputs to an exponential-family
+distribution, and the lecture frames it as three design choices.
+
+1. $y \mid x; \theta$ is distributed according to some member of the exponential family,
+   with natural parameter $\eta$.
+2. The natural parameter is linear in the input: $\eta = \theta^\top x$, with
+   $\theta, x \in \mathbb{R}^n$.
+3. At test time, the prediction for $x$ is the mean of that distribution:
+   $h_\theta(x) = \mathbb{E}[y \mid x; \theta]$.
+
+[38:36](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2316s) The first choice is the modelling decision, and it is dictated by what kind
+of quantity $y$ is. Real-valued outputs such as house prices call for a Gaussian; binary
+labels for a Bernoulli; counts — non-negative integers, such as the number of visitors to
+a website — for a Poisson; positive reals such as a volume or the time until an event for
+a gamma or an exponential. Avati warns that the *exponential distribution* and the
+*exponential family* are different things, though the first is a member of the second,
+and the list ends with distributions over probabilities, the beta and the Dirichlet, which
+mostly appear in Bayesian statistics. Whether a GLM is a classifier or a regressor is
+therefore not a property of GLMs at all: it is decided by the distribution put in the
+first slot.
+
+[42:55](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2575s) The picture to keep in mind has two halves. On the left is a linear model:
+$x$ goes in, a learnable $\theta$ multiplies it, and out comes a number. On the right is a
+distribution from the exponential family, and that number becomes its natural parameter.
+[45:40](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2740s) Only $\theta$ is learned. A student asked whether training adjusts the
+distribution's parameters, and the answer separates two uses of the word "parameter": $\eta$
+is not a variable that gradient descent touches, it is the output of the linear model
+for one particular $x$. Training is maximum likelihood over $\theta$,
+
+$$
+\max_\theta \; \sum_{i=1}^m \log p\!\left(y^{(i)}; \eta = \theta^\top x^{(i)}\right) ,
+$$
+
+which is concave in $\theta$ because it is concave in $\eta$ and $\eta$ is linear in
+$\theta$.
+
+[48:46](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=2926s) Here the recipe pays off. One would expect each new distribution to need its
+own algebra: write $p$ as a function of $\theta^\top x$, differentiate, simplify. It
+does not, because for every GLM built this way the stochastic gradient-ascent update is
+
+$$
+\theta_j := \theta_j + \alpha \left( y^{(i)} - h_\theta(x^{(i)}) \right) x^{(i)}_j ,
+$$ (4.5)
+
+with $h_\theta(x) = a'(\theta^\top x)$ the only thing that changes. The derivation is
+one line: the log-likelihood of one example is $\log b(y) + \theta^\top x\, y -
+a(\theta^\top x)$, and its gradient is $(y - a'(\theta^\top x))\, x$, which by
+Equation 4.4 is $(y - h_\theta(x))\, x$. This is why linear regression, logistic
+regression and Poisson regression share an update: the first is the Gaussian GLM with
+$h = \theta^\top x$, the second the Bernoulli with $h = 1/(1+e^{-\theta^\top x})$, the
+third the Poisson with $h = e^{\theta^\top x}$. The generator checks the expression
+against a numerical gradient of the log-likelihood for all three.
+
+"Every GLM" carries a qualification the lecture leaves implicit: the identity holds
+because the natural parameter itself is set to $\theta^\top x$. A model that instead
+connects $\theta^\top x$ to the mean through some other function does not inherit it. The
+probit model of lecture 3, $P(y = 1 \mid x) = \Phi(\theta^\top x)$ with $\Phi$ the
+standard normal CDF, is a Bernoulli model with exactly the same shape, and the update
+that looks right for it — Equation 4.5 with $h = \Phi(\theta^\top x)$ — is not its
+gradient: at a test point on synthetic data it has the right direction but a length off
+by 41 percent. That would be harmless if it only rescaled the step, but it also moves
+the place where the step vanishes. Iterated to convergence, the look-alike update stops
+at $\theta = (-0.200, 0.697)$, while the probit maximum-likelihood estimate is
+$(-0.210, 0.707)$. The two links are close, so the error is small, but the algorithm is
+now solving a different equation from the one it claims to.
+
+[50:43](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=3043s) For batch training, sum the update over the examples. Asked about Newton's
+method, Avati calls it probably the most common way to fit a GLM, provided the number of
+features is below a few thousand, so that the Hessian is affordable — the same rule of
+thumb Ng gave in lecture 3. Concavity is what makes it safe: on a Poisson regression with
+200 synthetic counts, Newton's method reaches the maximum in 7 iterations, at the same
+$\theta$ that plain gradient ascent eventually finds.
+
+### Three parametrisations
+
+[52:03](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=3123s) The lecture pauses on terminology, because a GLM has three sets of numbers
+called parameters and they are easy to confuse (Figure 4.3). The *model
+parameters* $\theta$ are what learning adjusts. The *natural parameter* $\eta$ is the
+linear model's output, one per example. The *canonical parameters* are the ones the
+distribution is usually written in: $\phi$ for a Bernoulli, $\mu$ (and $\sigma^2$) for a
+Gaussian, $\lambda$ for a Poisson. The step from $\theta$ to $\eta$ is linear by design
+choice 2. The step from $\eta$ to the mean has a name: $g(\eta) = \mathbb{E}[y;\eta] =
+a'(\eta)$ is the *canonical response function*, and its inverse $g^{-1}$ is the
+*canonical link function*.
+
+![Figure 4.3. The three parametrisations of a GLM. Only $\theta$ is learned; $\eta = \theta^\top x$ is the natural parameter of the distribution for one input; the response function $g = a'$ maps it to the mean, and the canonical link $g^{-1}$ maps back.](https://raimbekovm.github.io/cs229-2018-notes/figures/04-perceptron-glm/diagram_parametrisations.svg)
+
+[56:23](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=3383s) With the vocabulary in place, logistic regression stops being a choice and
+becomes a consequence. For a binary label the natural distribution is the Bernoulli;
+design choice 3 says the hypothesis is its mean, $h_\theta(x) = \phi$; and
+Equation 4.3 says $\phi = 1/(1 + e^{-\eta})$ with $\eta = \theta^\top x$. Lecture 3
+pulled the logistic function "out of thin air" because it squashes the real line into
+$(0, 1)$. Here, as Avati puts it, it simply pops out: the sigmoid is the canonical
+response function of the Bernoulli. The same steps applied to the Gaussian return
+$h_\theta(x) = \theta^\top x$, ordinary least squares.
+
+The idea and the name are due to [Nelder and Wedderburn
+(1972)](https://doi.org/10.2307/2344614), who showed that one fitting procedure covered
+regression models that had been treated separately.
+
+**In the official notes.** cs229-notes1, section 9, constructs the GLM from the same three assumptions and derives
+ordinary least squares (9.1) and logistic regression (9.2) from them.
+### What the assumptions say about the data
+
+[1:00:03](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=3603s) Avati's last pass over GLMs draws the assumptions as a story about how the
+data were generated. For the Gaussian, take a line $\theta^\top x$; at every $x$, stand a
+unit-variance Gaussian on the line; and draw each training $y$ from the Gaussian above its
+$x$ (Figure 4.4, left). Learning runs the story backwards: each choice of
+$\theta$ is a different line, and maximum likelihood picks the line from whose Gaussians
+the observed points were most likely to have come.
+
+[1:04:50](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=3890s) For classification the story has one more step. The line now gives $\eta$,
+which can be any real number; passing it through the sigmoid gives $\phi$, the
+probability that $y = 1$ at that $x$; and each label is a coin flip with that bias, so
+labels are mostly 0 where the curve is low and mostly 1 where it is high
+(Figure 4.4, right). Logistic regression asks which $\theta$ would have produced
+a sigmoid from which these labels were most likely drawn.
+
+![Figure 4.4. The data-generating process each GLM assumes, sampled from the model. Left: Gaussian $y$ around the line $\theta^\top x$, with the density drawn sideways at three inputs. Right: Bernoulli labels whose probability of being 1 follows $g(\theta^\top x)$. *Computed by `figures/04-perceptron-glm/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/04-perceptron-glm/diagram_glm_generative.svg)
+
+### Softmax regression
+
+[1:07:58](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=4078s) Softmax regression extends logistic regression to $k$ classes. The notes
+present it as one more GLM, built on the multinomial distribution; the lecture
+deliberately takes another route and presents it as *cross-entropy minimisation*, an
+interpretation worth having because it is how classifiers with thousands of classes are
+usually described.
+
+[1:11:04](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=4264s) The labels are *one-hot* vectors: a vector of $k$ zeros with a single 1 in
+the position of the correct class. Where logistic regression had one parameter vector,
+softmax has one per class, $\theta_1, \dots, \theta_k$, which together form an
+$n \times k$ matrix. For an input $x$, each class gets a score $\theta_c^\top x$, called a
+*logit*, which can be any real number. [1:16:24](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=4584s) To turn the scores into a probability
+distribution over classes, exponentiate them, which makes them all positive, and divide
+by their sum, which makes them add to one:
+
+$$
+\hat p(y = c \mid x) = \frac{\exp(\theta_c^\top x)}{\sum_{j=1}^k \exp(\theta_j^\top x)} .
+$$ (4.6)
+
+[1:19:09](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=4749s) The label is read as a distribution too, $p(y)$, which puts probability 1
+on the correct class. Learning makes $\hat p$ look like $p$ by minimising the *cross
+entropy* between them,
+
+$$
+\mathrm{CE}(p, \hat p) = -\sum_{c=1}^k p(c) \log \hat p(c) = -\log \hat p(y \mid x) ,
+$$ (4.7)
+
+where the sum collapses because $p$ is zero everywhere except at the true class $y$.
+(The minus sign is missing from the board the first time; it belongs there, since the
+loss has to be non-negative.) Figure 4.5 follows one example through the
+pipeline: an input whose true class is triangle but which scores highest for square
+receives $\hat p(\text{triangle}) = 0.19$ and a loss of 1.67. The last expression in
+Equation 4.7 is the negative log-likelihood of a multinomial model, so the lecture's
+route and the notes' arrive at the same objective. Its gradient for class $c$ is
+$(\hat p(c \mid x) - \mathbb{1}\{y = c\})\, x$, the same "prediction minus truth, times
+input" shape as Equation 4.5; and with $k = 2$ the softmax probability of class 1 is
+exactly $1/(1 + e^{-(\theta_1 - \theta_2)^\top x})$, logistic regression with
+$\theta = \theta_1 - \theta_2$.
+
+![Figure 4.5. Softmax regression for one example. The logits are exponentiated, then normalised into a distribution $\hat p$ over the three classes; the label is a one-hot distribution on triangle, and the cross-entropy loss is $-\log \hat p(\text{triangle} \mid x)$. *Computed by `figures/04-perceptron-glm/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/04-perceptron-glm/diagram_softmax_pipeline.svg)
+
+[1:12:53](https://www.youtube.com/watch?v=iZTeva0WSTQ&t=4373s) That two-class reduction exposes something the board picture hides. The
+lecture draws one line per class, $\theta_c^\top x = 0$, with each class's own region on
+the positive side, as though each $\theta_c$ carves out its class independently. But
+Equation 4.6 is unchanged if the same vector $c$ is added to every $\theta_j$: the factor
+$e^{c^\top x}$ cancels between numerator and denominator. Only the differences
+$\theta_i - \theta_j$ matter, so the decision boundary between two classes is
+$(\theta_i - \theta_j)^\top x = 0$, and the individual lines $\theta_c^\top x = 0$ can be
+moved anywhere without changing a single prediction (Figure 4.6). On the fitted
+model in the figure, the board's picture — exactly one positive score, and it belongs to
+the predicted class — holds on only 45 percent of the plotted square even before any
+shift. This redundancy is why the official notes give softmax only $k - 1$ parameter
+vectors and fix $\theta_k = 0$: the $k$-th vector adds nothing a shift could not remove.
+
+![Figure 4.6. The same softmax model with every $\theta_c$ shifted by one common vector. The shaded decision regions are identical; the dashed lines $\theta_c^\top x = 0$ move to entirely different places, because they carry no meaning on their own. *Fitted by gradient descent in `figures/04-perceptron-glm/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/04-perceptron-glm/diagram_softmax_shift.svg)
+
+**In the official notes.** cs229-notes1, section 9.3, derives softmax regression as the GLM for the multinomial
+distribution, with $T(y)$ a $(k-1)$-dimensional indicator vector, and arrives at the same
+hypothesis and log-likelihood.

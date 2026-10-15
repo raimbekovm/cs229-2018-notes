@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 285" width="560" height="285"
+     role="img" aria-labelledby="figPcaStabTitle figPcaStabDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figPcaStabTitle">Stability of a principal direction against stability of a principal subspace</title>
+  <desc id="figPcaStabDesc">Median angle, over two hundred pairs of samples of 200 points from the same three-dimensional distribution, between the two samples' first eigenvectors and between their two-dimensional principal subspaces, plotted against the ratio of the second to the first eigenvalue. The first eigenvector's angle stays small until the ratio nears one and then climbs steeply; the subspace angle stays near zero throughout.</desc>
+  <line x1="80.0" y1="230.0" x2="520.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="230.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="230.0" x2="80.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="80.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.5</text>
+  <line x1="168.0" y1="230.0" x2="168.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="168.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.6</text>
+  <line x1="256.0" y1="230.0" x2="256.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="256.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.7</text>
+  <line x1="344.0" y1="230.0" x2="344.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="344.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.8</text>
+  <line x1="432.0" y1="230.0" x2="432.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="432.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0.9</text>
+  <line x1="520.0" y1="230.0" x2="520.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="520.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">1</text>
+  <line x1="76.0" y1="230.0" x2="80.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="234.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">0</text>
+  <line x1="76.0" y1="190.0" x2="80.0" y2="190.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="194.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10</text>
+  <line x1="76.0" y1="150.0" x2="80.0" y2="150.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="154.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">20</text>
+  <line x1="76.0" y1="110.0" x2="80.0" y2="110.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="114.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">30</text>
+  <line x1="76.0" y1="70.0" x2="80.0" y2="70.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="74.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">40</text>
+  <line x1="76.0" y1="30.0" x2="80.0" y2="30.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="34.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">50</text>
+  <text x="300.0" y="266.0" font-size="12" fill="currentColor" text-anchor="middle">λ₂ / λ₁</text>
+  <text x="40.0" y="130.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 130.0)">median angle (degrees)</text>
+  <polyline points="80.00,208.87 168.00,199.25 256.00,178.73 344.00,150.46 388.00,136.33 432.00,85.93 476.00,56.51 502.40,36.95 520.00,31.84" fill="none" stroke="#440154" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="80.00,226.89 168.00,227.03 256.00,226.89 344.00,227.24 388.00,227.05 432.00,226.95 476.00,227.29 502.40,227.35 520.00,227.25" fill="none" stroke="#21918c" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="80.0" cy="208.9" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="80.0" cy="226.9" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="168.0" cy="199.3" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="168.0" cy="227.0" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="256.0" cy="178.7" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="256.0" cy="226.9" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="344.0" cy="150.5" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="344.0" cy="227.2" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="388.0" cy="136.3" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="388.0" cy="227.1" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="432.0" cy="85.9" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="432.0" cy="227.0" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="476.0" cy="56.5" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="476.0" cy="227.3" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="502.4" cy="37.0" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="502.4" cy="227.4" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="520.0" cy="31.8" r="2.6" fill="#440154" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <circle cx="520.0" cy="227.2" r="2.6" fill="#21918c" fill-opacity="1.0" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="386.8" y="44.5" font-size="11.5" fill="#440154" text-anchor="end">first eigenvector u₁</text>
+  <text x="300.0" y="214.0" font-size="11.5" fill="#21918c" text-anchor="middle">subspace spanned by u₁, u₂</text>
+</svg>

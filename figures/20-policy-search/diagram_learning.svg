@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 290" width="700" height="290"
+     role="img" aria-labelledby="figLearningTitle figLearningDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figLearningTitle">REINFORCE learning curves at two step sizes</title>
+  <desc id="figLearningDesc">Exact expected payoff of the current policy against the number of updates, averaged over 20 runs, for three estimators of the same gradient: the whole payoff multiplying every score term, as in the lecture; each action's score multiplied only by the rewards from that step on; and the same with a baseline subtracted. At the smaller step size all three reach the best policy, the lecture's version last. At the larger one the two lower-variance versions converge within about a hundred updates, while the lecture's version dips and some of its runs stall on a poor policy.</desc>
+  <line x1="80.0" y1="230.0" x2="330.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="230.0" x2="80.0" y2="40.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="80.0" y1="230.0" x2="80.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="80.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="130.0" y1="230.0" x2="130.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="130.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">100</text>
+  <line x1="180.0" y1="230.0" x2="180.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="180.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">200</text>
+  <line x1="230.0" y1="230.0" x2="230.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="230.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">300</text>
+  <line x1="280.0" y1="230.0" x2="280.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="280.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">400</text>
+  <line x1="330.0" y1="230.0" x2="330.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="330.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">500</text>
+  <line x1="76.0" y1="230.0" x2="80.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="234.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">4</text>
+  <line x1="76.0" y1="192.0" x2="80.0" y2="192.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="196.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">6</text>
+  <line x1="76.0" y1="154.0" x2="80.0" y2="154.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="158.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">8</text>
+  <line x1="76.0" y1="116.0" x2="80.0" y2="116.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="120.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10</text>
+  <line x1="76.0" y1="78.0" x2="80.0" y2="78.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="82.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">12</text>
+  <line x1="76.0" y1="40.0" x2="80.0" y2="40.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="72.0" y="44.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">14</text>
+  <text x="205.0" y="266.0" font-size="12" fill="currentColor" text-anchor="middle">REINFORCE updates</text>
+  <text x="40.0" y="135.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 40.0 135.0)">expected payoff J(θ)</text>
+  <text x="205.0" y="26.0" font-size="12.5" fill="currentColor" text-anchor="middle" font-weight="600">step size α = 0.01</text>
+  <line x1="80.0" y1="49.5" x2="330.0" y2="49.5" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.45" stroke-dasharray="3 3"/>
+  <polyline points="80.00,206.27 85.00,192.11 90.00,184.47 95.00,170.08 100.00,165.86 105.00,160.41 110.00,157.54 115.00,152.38 120.00,141.38 125.00,130.07 130.00,124.45 135.00,125.21 140.00,120.49 145.00,109.77 150.00,100.63 155.00,94.98 160.00,95.30 165.00,91.61 170.00,92.04 175.00,96.06 180.00,94.39 185.00,83.30 190.00,83.60 195.00,79.19 200.00,80.56 205.00,83.97 210.00,87.80 215.00,80.36 220.00,77.58 225.00,74.14 230.00,69.83 235.00,63.66 240.00,63.63 245.00,66.08 250.00,64.25 255.00,64.10 260.00,68.07 265.00,66.53 270.00,68.13 275.00,63.53 280.00,61.27 285.00,57.86 290.00,56.81 295.00,57.59 300.00,57.54 305.00,55.90 310.00,55.53 315.00,55.54 320.00,55.82 325.00,57.31 330.00,58.83" fill="none" stroke="#440154" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="80.00,206.27 85.00,187.77 90.00,172.26 95.00,156.66 100.00,138.25 105.00,130.88 110.00,120.50 115.00,107.76 120.00,101.16 125.00,94.63 130.00,88.29 135.00,81.26 140.00,76.91 145.00,72.83 150.00,70.54 155.00,67.77 160.00,67.73 165.00,66.70 170.00,68.40 175.00,70.15 180.00,67.28 185.00,64.43 190.00,62.87 195.00,62.05 200.00,62.03 205.00,61.44 210.00,62.01 215.00,61.07 220.00,60.11 225.00,59.82 230.00,61.57 235.00,61.78 240.00,62.47 245.00,61.48 250.00,61.62 255.00,60.16 260.00,58.84 265.00,57.56 270.00,57.20 275.00,57.33 280.00,57.35 285.00,57.49 290.00,58.06 295.00,57.67 300.00,58.11 305.00,57.87 310.00,57.44 315.00,56.98 320.00,57.08 325.00,57.20 330.00,56.58" fill="none" stroke="#3b528b" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="80.00,206.27 85.00,190.86 90.00,172.27 95.00,148.88 100.00,128.60 105.00,112.42 110.00,102.33 115.00,93.19 120.00,88.80 125.00,82.05 130.00,77.54 135.00,74.76 140.00,70.81 145.00,69.67 150.00,67.66 155.00,67.15 160.00,66.15 165.00,65.61 170.00,64.74 175.00,63.10 180.00,62.39 185.00,61.76 190.00,60.71 195.00,59.96 200.00,59.82 205.00,59.32 210.00,58.65 215.00,58.51 220.00,58.16 225.00,57.72 230.00,56.83 235.00,56.33 240.00,56.11 245.00,56.09 250.00,56.12 255.00,56.25 260.00,55.91 265.00,55.73 270.00,55.40 275.00,55.39 280.00,55.09 285.00,54.86 290.00,54.81 295.00,54.81 300.00,54.67 305.00,54.55 310.00,54.51 315.00,54.31 320.00,54.12 325.00,54.02 330.00,53.93" fill="none" stroke="#21918c" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="410.0" y1="230.0" x2="660.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="410.0" y1="230.0" x2="410.0" y2="40.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <line x1="410.0" y1="230.0" x2="410.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="410.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">0</text>
+  <line x1="460.0" y1="230.0" x2="460.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="460.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">100</text>
+  <line x1="510.0" y1="230.0" x2="510.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="510.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">200</text>
+  <line x1="560.0" y1="230.0" x2="560.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="560.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">300</text>
+  <line x1="610.0" y1="230.0" x2="610.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="610.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">400</text>
+  <line x1="660.0" y1="230.0" x2="660.0" y2="234.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="660.0" y="247.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">500</text>
+  <line x1="406.0" y1="230.0" x2="410.0" y2="230.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="402.0" y="234.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">4</text>
+  <line x1="406.0" y1="192.0" x2="410.0" y2="192.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="402.0" y="196.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">6</text>
+  <line x1="406.0" y1="154.0" x2="410.0" y2="154.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="402.0" y="158.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">8</text>
+  <line x1="406.0" y1="116.0" x2="410.0" y2="116.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="402.0" y="120.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">10</text>
+  <line x1="406.0" y1="78.0" x2="410.0" y2="78.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="402.0" y="82.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">12</text>
+  <line x1="406.0" y1="40.0" x2="410.0" y2="40.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.7"/>
+  <text x="402.0" y="44.0" font-size="11" fill="currentColor" text-anchor="end" fill-opacity="0.8">14</text>
+  <text x="535.0" y="266.0" font-size="12" fill="currentColor" text-anchor="middle">REINFORCE updates</text>
+  <text x="370.0" y="135.0" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 370.0 135.0)"></text>
+  <text x="535.0" y="26.0" font-size="12.5" fill="currentColor" text-anchor="middle" font-weight="600">step size α = 0.03</text>
+  <line x1="410.0" y1="49.5" x2="660.0" y2="49.5" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.45" stroke-dasharray="3 3"/>
+  <polyline points="410.00,206.27 415.00,180.70 420.00,177.62 425.00,149.80 430.00,149.74 435.00,150.56 440.00,137.31 445.00,134.94 450.00,137.94 455.00,131.07 460.00,126.59 465.00,119.74 470.00,118.84 475.00,122.01 480.00,120.45 485.00,108.54 490.00,110.64 495.00,107.65 500.00,121.80 505.00,129.12 510.00,124.01 515.00,125.56 520.00,117.99 525.00,112.62 530.00,112.11 535.00,111.17 540.00,115.13 545.00,110.88 550.00,98.17 555.00,101.94 560.00,98.69 565.00,98.54 570.00,96.29 575.00,99.53 580.00,95.24 585.00,91.63 590.00,92.32 595.00,92.90 600.00,98.73 605.00,95.58 610.00,90.17 615.00,85.10 620.00,85.92 625.00,85.43 630.00,84.10 635.00,85.32 640.00,86.23 645.00,86.79 650.00,86.78 655.00,86.65 660.00,89.22" fill="none" stroke="#440154" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="410.00,206.27 415.00,156.35 420.00,131.12 425.00,119.97 430.00,110.89 435.00,96.02 440.00,85.87 445.00,78.32 450.00,76.09 455.00,75.85 460.00,64.76 465.00,63.32 470.00,63.71 475.00,60.46 480.00,61.53 485.00,59.39 490.00,59.25 495.00,57.85 500.00,63.10 505.00,58.00 510.00,59.80 515.00,59.39 520.00,57.68 525.00,55.11 530.00,55.20 535.00,57.41 540.00,54.60 545.00,53.76 550.00,54.82 555.00,54.53 560.00,55.00 565.00,59.62 570.00,58.96 575.00,58.17 580.00,58.16 585.00,56.78 590.00,55.36 595.00,55.61 600.00,52.94 605.00,52.26 610.00,53.37 615.00,54.18 620.00,52.16 625.00,52.06 630.00,52.01 635.00,51.50 640.00,52.41 645.00,52.62 650.00,51.41 655.00,51.52 660.00,51.46" fill="none" stroke="#3b528b" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="410.00,206.27 415.00,141.46 420.00,104.47 425.00,84.67 430.00,75.02 435.00,68.83 440.00,66.23 445.00,63.59 450.00,60.22 455.00,58.95 460.00,58.09 465.00,57.22 470.00,56.49 475.00,55.59 480.00,55.19 485.00,54.59 490.00,53.92 495.00,54.75 500.00,54.73 505.00,54.51 510.00,53.72 515.00,53.44 520.00,53.00 525.00,53.99 530.00,52.66 535.00,52.90 540.00,52.88 545.00,52.91 550.00,52.43 555.00,52.61 560.00,52.96 565.00,52.32 570.00,52.67 575.00,52.81 580.00,52.33 585.00,51.90 590.00,51.83 595.00,51.76 600.00,52.01 605.00,52.03 610.00,51.85 615.00,52.23 620.00,52.54 625.00,51.65 630.00,51.38 635.00,51.27 640.00,51.12 645.00,51.05 650.00,51.10 655.00,50.87 660.00,51.08" fill="none" stroke="#21918c" stroke-width="2.0" stroke-opacity="1.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="530.0" y1="156.0" x2="556.0" y2="156.0" stroke="#440154" stroke-width="2.2" stroke-opacity="1.0"/>
+  <text x="562.0" y="160.0" font-size="11.5" fill="currentColor" text-anchor="start">whole payoff</text>
+  <line x1="530.0" y1="174.0" x2="556.0" y2="174.0" stroke="#3b528b" stroke-width="2.2" stroke-opacity="1.0"/>
+  <text x="562.0" y="178.0" font-size="11.5" fill="currentColor" text-anchor="start">rewards that follow</text>
+  <line x1="530.0" y1="192.0" x2="556.0" y2="192.0" stroke="#21918c" stroke-width="2.2" stroke-opacity="1.0"/>
+  <text x="562.0" y="196.0" font-size="11.5" fill="currentColor" text-anchor="start">… minus a baseline</text>
+  <line x1="530.0" y1="216.0" x2="556.0" y2="216.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.45" stroke-dasharray="3 3"/>
+  <text x="562.0" y="220.0" font-size="11.5" fill="currentColor" text-anchor="start">best policy</text>
+</svg>

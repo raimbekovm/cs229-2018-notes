@@ -1,0 +1,434 @@
+# 7. Kernels
+
+> How the optimal margin classifier becomes the support vector machine: the rescaling that turns the margin problem into minimising ½‖w‖², the representer theorem that writes w as a combination of training examples, the dual in which data appear only through inner products, kernels that compute those inner products in feature spaces too large to write down, Mercer's condition for which functions qualify, and the soft margin for data that will not separate.
+
+Web version: https://raimbekovm.github.io/cs229-2018-notes/lectures/07-kernels.html
+
+Lecture video: [Lecture 7: Kernels](https://www.youtube.com/watch?v=8NYoQiRANpg)
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+A support vector machine is the optimal margin classifier of lecture 6 run in a
+feature space of enormous, possibly infinite, dimension. That sounds impossible to
+compute, and the lecture's argument is a chain of three observations that make it
+cheap. The optimal $w$ is always a weighted sum of the training examples. Once $w$ is
+written that way, the training problem and the prediction rule touch the data only
+through inner products $\langle x^{(i)}, x^{(j)} \rangle$. And for some very large
+feature maps $\phi$, the inner product $\phi(x)^\top \phi(z)$ can be computed directly
+from $x$ and $z$ in time proportional to their own dimension — that shortcut is a
+*kernel*. Ng calls the SVM one of his favourite algorithms because it is "very
+turnkey": the optimisation is convex and good packages solve it. The lecture ends by
+dropping the assumption that the data are separable and with kernels designed for
+inputs that are not vectors at all.
+
+### From the largest margin to the smallest $w$
+
+[1:13](https://www.youtube.com/watch?v=8NYoQiRANpg&t=73s) Lecture 6 posed the optimal margin classifier as: choose $\gamma$, $w$ and
+$b$ to maximise $\gamma$, subject to every example having geometric margin at least
+$\gamma$. [5:31](https://www.youtube.com/watch?v=8NYoQiRANpg&t=331s) Ng spends a minute on why that maximises the *worst* margin. If
+three examples had geometric margins $17$, $2$ and $5$, the set's margin is $2$, and the
+only way to raise $\gamma$ under the constraints is to raise the margin of whichever
+example is lowest. Pushing $\gamma$ up as far as it goes is the same as maximising
+$\min_i \gamma^{(i)}$.
+
+[6:33](https://www.youtube.com/watch?v=8NYoQiRANpg&t=393s) The step to a tractable problem uses the freedom that made the functional
+margin useless in lecture 6. Take $w = (2, 1)$ and $b = -2$: the boundary $2x_1 + x_2
+= 2$ crosses the axes at $(1, 0)$ and $(0, 2)$, and so does the boundary for $10w$ and
+$10b$, or for $w/10$ and $b/10$. Because rescaling $(w, b)$ changes nothing about the
+classifier, we may pick the scale, and [8:49](https://www.youtube.com/watch?v=8NYoQiRANpg&t=529s) the convenient choice is the one
+that makes the worst functional margin exactly $1$: $\min_i y^{(i)}(w^\top x^{(i)} +
+b) = 1$. Then the geometric margin is $\gamma = \hat\gamma / \lVert w \rVert = 1 /
+\lVert w \rVert$, maximising it is minimising $\lVert w \rVert$, and minimising the
+smooth $\frac12 \lVert w \rVert^2$ has the same solution:
+
+$$
+\min_{w, b} \; \frac12 \lVert w \rVert^2
+\quad \text{subject to} \quad
+y^{(i)} \left( w^\top x^{(i)} + b \right) \ge 1 ,
+\quad i = 1, \dots, m .
+$$ (7.1)
+
+This is a convex quadratic objective under linear constraints — a quadratic program,
+with one global optimum and reliable solvers. On lecture 6's example set the solution
+has $\lVert w \rVert = 1.293$, so $\gamma = 1/\lVert w \rVert = 0.773$, the same margin
+lecture 6's generator found by searching over directions; the two examples that
+touch the margin have functional margin exactly $1$ and every other example more.
+
+### The representer theorem
+
+[10:34](https://www.youtube.com/watch?v=8NYoQiRANpg&t=634s) So far $x$ has been two- or a hundred-dimensional. The goal is feature
+vectors with a hundred trillion dimensions, or infinitely many, where $w$ cannot even
+be stored. [11:07](https://www.youtube.com/watch?v=8NYoQiRANpg&t=667s) The way through is to assume that $w$ is a linear combination
+of the training examples,
+
+$$
+w = \sum_{i=1}^m \alpha_i \, y^{(i)} x^{(i)} ,
+$$ (7.2)
+
+with the labels $y^{(i)} = \pm 1$ written in by convention because they make later
+algebra tidier. [11:57](https://www.youtube.com/watch?v=8NYoQiRANpg&t=717s) Ng presents this as an assumption but stresses that it is
+not one: the *representer theorem* proves that the optimal $w$ always has this form,
+so nothing is lost. He skips the proof as long and involved and gives two
+intuitions.
+
+[13:11](https://www.youtube.com/watch?v=8NYoQiRANpg&t=791s) The first is from gradient descent. Run stochastic gradient descent for
+logistic regression from $\theta = 0$. Each update adds a multiple of one training
+example, $\theta := \theta + \alpha \, (y^{(i)} - h_\theta(x^{(i)}))\, x^{(i)}$ (this
+$\alpha$ is the learning rate, unrelated to the $\alpha_i$ above). By induction,
+$\theta$ is a linear combination of training examples after every step, however many
+steps you take; [15:22](https://www.youtube.com/watch?v=8NYoQiRANpg&t=922s) batch gradient descent is the same, and so is gradient
+descent on the SVM's own objective. The generator runs 300 SGD steps in five
+dimensions on three examples and finds $\theta$ within $10^{-15}$ of the span of those
+three vectors.
+
+[16:09](https://www.youtube.com/watch?v=8NYoQiRANpg&t=969s) The second is geometric. [16:50](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1010s) The vector $w$ is perpendicular to
+the decision boundary: it fixes the boundary's orientation, and $b$ slides the boundary
+along it. [18:39](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1119s) Now suppose the inputs have three features but every training
+example has $x_3 = 0$, so the data lie in the $x_1 x_2$-plane. Then, Ng says, $w_3$
+should be $0$ — $w$ should lie in the space the examples span.
+
+That second intuition is worth sharpening, because as stated it is not true of every
+separator. With all $x_3 = 0$, the term $w_3 x_3$ is zero on every training example,
+so *any* value of $w_3$ classifies the training set identically: the generator takes
+the SVM's $w$ and sets $w_3 = 5$, and every margin constraint still holds. What forces
+$w_3 = 0$ is the objective. A non-zero $w_3$ adds $w_3^2$ to $\lVert w \rVert^2$ and
+buys nothing in the constraints, so the *minimum-norm* solution drops it. That is the
+real content of the representer theorem: among all the $w$ that fit the data equally
+well, minimising $\lVert w \rVert^2$ (or, in general, any loss plus a squared-norm
+regulariser) picks one in the span of the data.
+
+### Everything is an inner product
+
+[20:34](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1234s) Substitute Equation 7.2 into Equation 7.1. Since
+$\lVert w \rVert^2 = w^\top w$, the objective becomes
+
+$$
+\frac12 \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j \, y^{(i)} y^{(j)}
+\left\langle x^{(i)}, x^{(j)} \right\rangle ,
+$$
+
+and the constraints become $y^{(i)} \big( \sum_j \alpha_j y^{(j)} \langle x^{(j)},
+x^{(i)} \rangle + b \big) \ge 1$, where $\langle x, z \rangle = x^\top z$ is the inner
+product. [24:13](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1453s) The point is where the inputs now appear: nowhere except inside
+inner products. Whatever the dimension of $x$, the problem is stated in terms of the
+$m \times m$ table of inner products between training examples.
+
+[25:14](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1514s) The form actually solved in practice goes one step further. Ng skips the
+derivation, which uses Lagrange duality, and writes down the result, the *dual
+optimisation problem*:
+
+$$
+\max_\alpha \; W(\alpha) = \sum_{i=1}^m \alpha_i
+- \frac12 \sum_{i=1}^m \sum_{j=1}^m y^{(i)} y^{(j)} \alpha_i \alpha_j
+\left\langle x^{(i)}, x^{(j)} \right\rangle
+\quad \text{subject to} \quad
+\alpha_i \ge 0, \quad \sum_{i=1}^m \alpha_i y^{(i)} = 0 .
+$$ (7.3)
+
+$b$ has dropped out, to be recovered afterwards from any example with $\alpha_i > 0$.
+Two facts about Equation 7.3 go beyond the lecture and are worth having. First, it is not
+merely a simplification of the substituted problem: when there are more examples than
+dimensions, many different $\alpha$ give the same $w$, and the dual picks out
+particular ones — non-negative, and zero for every example that is not on the margin.
+Those with $\alpha_i > 0$ are the support vectors. Second, its optimal value equals the
+primal's: on lecture 6's data the generator solves Equation 7.3 by sequential minimal
+optimisation, the algorithm in the official notes, and finds $W(\alpha^*) = \frac12
+\lVert w^* \rVert^2 = 0.8364$, with only 2 of the 24 $\alpha_i$ non-zero, and the
+resulting $w$ and $b$ agree with lecture 6's direction search to five decimal places.
+
+[27:05](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1625s) Prediction is an inner product too:
+
+$$
+h(x) = g\!\left( w^\top x + b \right)
+= g\!\left( \sum_{i=1}^m \alpha_i y^{(i)} \left\langle x^{(i)}, x \right\rangle + b \right) .
+$$ (7.4)
+
+[28:20](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1700s) Once the $\alpha_i$ are stored, both training and prediction need nothing
+but inner products of inputs — and since most $\alpha_i$ are zero, prediction sums only
+over the support vectors.
+
+**In the official notes.** cs229-notes3, section 5, derives Lagrange duality and the KKT conditions, and section
+6 applies them to obtain Equation 7.3 and the formula for $b$. The representer theorem,
+with a proof for general losses, is in the supplementary notes on the representer
+theorem, section 2.
+### The kernel trick
+
+[28:42](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1722s) Ng gives the recipe in four steps. First, write the whole algorithm in
+terms of inner products $\langle x, z \rangle$. Second, choose a feature map $\phi$
+from the original inputs to a higher-dimensional space — [30:12](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1812s) a house's floor
+area $x$ could become $(x, x^2, x^3, x^4)$, or area and bedrooms $(x_1, x_2)$ could
+become all their products up to some degree. Third, find a way to compute
+
+$$
+K(x, z) = \phi(x)^\top \phi(z) ,
+$$ (7.5)
+
+the *kernel function*, cheaply. Fourth, replace every $\langle x, z \rangle$ in the
+algorithm by $K(x, z)$. [32:19](https://www.youtube.com/watch?v=8NYoQiRANpg&t=1939s) The algorithm is then running on $\phi(x)$, in
+the high-dimensional space, without ever forming $\phi(x)$. Forming it is what would
+be expensive: Ng has seen problems with a billion features, and even 100,000 makes
+every vector operation costly.
+
+[33:55](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2035s) A student asks about the no-free-lunch theorem, and Ng's answer frames
+why this works at all. The theorem — [Wolpert's](https://doi.org/10.1162/neco.1996.8.7.1341)
+form of it for supervised learning shows that, averaged over all possible target
+functions, no learning algorithm has lower off-training-set error than any other —
+says that in the worst case learning does not work. Ng finds it less useful than
+fascinating, because the problems we meet are not drawn adversarially: "the universe
+is not that hostile toward us", and an inductive bias such as "the boundary is
+smooth in some feature space" tends to pay off.
+
+### Polynomial kernels
+
+[34:42](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2082s) The first example shows the saving. Let $x \in \mathbb{R}^n$ and let
+$\phi(x)$ list every product $x_i x_j$ — for $n = 3$, the nine terms $x_1 x_1, x_1
+x_2, x_1 x_3, x_2 x_1, \dots, x_3 x_3$, duplicates included. [35:38](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2138s) So $\phi(x)
+\in \mathbb{R}^{n^2}$: with $n = 10{,}000$ that is $10^8$ features, and computing
+$\phi(x)^\top \phi(z)$ explicitly takes order $n^2$ time. [37:18](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2238s) But
+
+$$
+\left( x^\top z \right)^2
+= \Big( \sum_{i=1}^n x_i z_i \Big) \Big( \sum_{j=1}^n x_j z_j \Big)
+= \sum_{i=1}^n \sum_{j=1}^n (x_i x_j)(z_i z_j)
+= \phi(x)^\top \phi(z) ,
+$$ (7.6)
+
+and the left-hand side takes order $n$ time: one inner product of $n$-vectors, then
+one squaring. The middle expression is the explicit computation — march down both
+lists of products, multiply, add — and the identity says that the cheap computation
+gives the same number.
+
+[41:11](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2471s) Adding a constant, $K(x, z) = (x^\top z + c)^2$, corresponds to appending
+the first-degree terms and a constant to the features: $\phi(x)$ now also contains
+$\sqrt{2c}\, x_1, \dots, \sqrt{2c}\, x_n$ and $c$. The constant $c$ sets the relative
+weight of the linear terms against the quadratic ones. [42:29](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2549s) More generally,
+$K(x, z) = (x^\top z + c)^d$ is still order $n$ to compute and corresponds to a
+$\phi(x)$ containing every monomial of degree up to $d$ — terms like $x_1 x_2 x_5
+x_{17} x_{29}$ or $x_1 x_2^2 x_3 x_{18}$ when $d = 5$ — each with a weight that
+involves $c$ and a multinomial coefficient. The generator builds these explicit
+feature vectors for $d = 2$ and $3$ and confirms that their inner product equals the
+kernel on 200 random pairs.
+
+[42:56](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2576s) Ng gives the number of distinct monomials as $\binom{n+d}{d}$, which the
+generator confirms by enumeration, and then glosses it as "roughly $(n+d)^d$, very
+roughly". The binomial coefficient is the right count; the gloss is high by about a
+factor of $d!$. For $n = 10{,}000$ and $d = 5$, $\binom{n+d}{d} \approx 8.3 \times
+10^{17}$ while $(n+d)^d \approx 1.0 \times 10^{20}$, a ratio of $120 = 5!$. The point
+survives — the feature space grows like $n^d/d!$, astronomically, while the kernel
+costs order $n$ for every $d$.
+
+[44:23](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2663s) This is what Ng means by the SVM: the optimal margin classifier plus the
+kernel trick. Choose a kernel, solve Equation 7.3 with $K(x^{(i)}, x^{(j)})$ in place of
+the inner products, and predict with Equation 7.4 likewise; the computation scales
+with the dimension of $x$, not of $\phi(x)$. [45:51](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2751s) A student asks whether a
+kernel belongs to one feature map. Essentially yes: up to trivial changes such as
+permuting the features, which leave every inner product unchanged, a different feature
+map needs a different kernel.
+
+### Seeing the lift
+
+[47:09](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2829s) To show what this does geometrically, Ng plays a short
+[visualisation by Udi Aharoni](https://www.youtube.com/watch?v=3liCbRZPrZA). Red and
+blue points in the plane cannot be separated by a line; a feature map lifts them into
+three dimensions, where a plane separates them; and the plane, viewed back in the
+original plane, cuts out an ellipse. Figure 7.1 does the same thing one dimension
+lower, so it fits on a page. The positives sit between the negatives on a line, so no
+single threshold separates them. Map each $x$ to $\phi(x) = (x, x^2)$ and the points
+land on a parabola, where the SVM finds a straight line; pulled back to the original
+line, that straight line becomes the two thresholds $x = -1.30$ and $x = 1.40$.
+
+![Figure 7.1. A one-dimensional data set lifted by $\phi(x) = (x, x^2)$. On the left no threshold separates the classes; on the right the SVM separates them with a straight line, and the four circled support vectors fix it. Pulled back to the line, the linear boundary is the pair of thresholds marked on the left.](https://raimbekovm.github.io/cs229-2018-notes/figures/07-kernels/diagram_lift.svg)
+
+[49:10](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2950s) The boundary is linear in a high-dimensional space and very non-linear in
+the original one. [49:27](https://www.youtube.com/watch?v=8NYoQiRANpg&t=2967s) A student asks whether the data must be linearly
+separable in that high-dimensional space; so far the derivation has pretended so, and
+the soft margin below removes the assumption.
+
+### Which functions are kernels
+
+[50:02](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3002s) Ng's working intuition is that a kernel measures similarity. An inner
+product is large when two vectors point the same way and small when they point in
+unrelated directions, so $K(x, z)$ should be large when $x$ and $z$ are alike and
+small when they are not. [51:19](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3079s) By that standard, here is a function pulled "out
+of the air":
+
+$$
+K(x, z) = \exp\!\left( -\frac{\lVert x - z \rVert^2}{2\sigma^2} \right) ,
+$$ (7.7)
+
+close to $1$ when $x$ and $z$ are near each other and close to $0$ when they are far
+apart. [52:13](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3133s) Can it be used? Only if some $\phi$ makes $K(x, z) = \phi(x)^\top
+\phi(z)$; the whole derivation assumed so, and a $K$ without such a $\phi$ breaks
+it — the optimisation problem may no longer correspond to any classifier at all.
+
+[53:01](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3181s) One necessary condition is immediate: $K(x, x) = \phi(x)^\top \phi(x) \ge
+0$. [53:27](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3207s) A stronger one comes from taking any $m$ points $x^{(1)}, \dots,
+x^{(m)}$ and forming the *kernel matrix* (or Gram matrix) $K_{ij} = K(x^{(i)},
+x^{(j)})$. For any vector $z$,
+
+$$
+z^\top K z
+= \sum_i \sum_j z_i \, \phi(x^{(i)})^\top \phi(x^{(j)}) \, z_j
+= \sum_k \Big( \sum_i z_i \, \phi_k(x^{(i)}) \Big)^2
+\ge 0 ,
+$$
+
+so a valid kernel always produces a positive semidefinite kernel matrix (and a
+symmetric one, since inner products are). [57:21](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3441s) *Mercer's theorem* says the
+converse holds too: $K$ is a valid kernel if and only if, for every finite set of
+points, the kernel matrix is symmetric positive semidefinite. Ng proves only the
+direction above and states the other.
+
+The similarity intuition is a good guide but not a test, and the gap is easy to fall
+into. "Two points are similar if they are within 1.5 of each other" sounds like a
+reasonable similarity, $K(x, z) = 1\{|x - z| < 1.5\}$. At the three points $0, 1, 2$
+its kernel matrix has eigenvalues $1 + \sqrt 2$, $1$ and $1 - \sqrt 2 < 0$; the vector
+$z = (1, -\sqrt 2, 1)$ gives $z^\top K z \approx -1.66$. No feature map produces that
+matrix, so it is not a kernel, and the SVM built on it can fail to be a convex
+problem. The generator checks this alongside the Gaussian kernel, whose kernel matrix
+on 25 random points has every eigenvalue non-negative.
+
+[59:13](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3553s) Equation 7.7 is valid, and it is called the *Gaussian kernel*.
+[59:36](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3576s) The most widely used kernel is in fact the *linear kernel*, $K(x, z) =
+x^\top z$ with $\phi(x) = x$ — the SVM with no feature map at all — and the Gaussian
+is next. [1:00:11](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3611s) Its feature space is infinite-dimensional, and Ng describes it as
+containing every monomial, of every degree, with the high-degree ones given smaller
+weight. That can be made exact in one dimension:
+
+$$
+e^{-\frac{(x - z)^2}{2\sigma^2}}
+= e^{-\frac{x^2}{2\sigma^2}} e^{-\frac{z^2}{2\sigma^2}} \sum_{k=0}^\infty \frac{1}{k!}\left(\frac{xz}{\sigma^2}\right)^k
+= \sum_{k=0}^\infty \phi_k(x) \phi_k(z) ,
+\qquad
+\phi_k(x) = e^{-\frac{x^2}{2\sigma^2}} \frac{x^k}{\sigma^k \sqrt{k!}} .
+$$
+
+The weight on the degree-$k$ feature falls like $1/\sqrt{k!}$, which is the "smaller
+weighting" in concrete form. The generator truncates the sum: with $\sigma = 1$, on
+sixteen pairs of inputs drawn from $[-1.5, 1.5]$, three features reproduce the kernel to within $0.26$, twelve
+to within $3 \times 10^{-6}$, and twenty to rounding error.
+
+Figure 7.2 shows the Gaussian kernel at work on data no polynomial of low
+degree separates cleanly: a disc of one class inside a ring of the other. The decision
+function $f(x) = \sum_i \alpha_i y^{(i)} K(x^{(i)}, x) + b$ is a sum of bumps centred on
+the support vectors, 22 of the 110 examples, and its zero level set is the closed
+curve between the classes.
+
+![Figure 7.2. A Gaussian-kernel SVM ($\sigma = 0.8$, $C = 10$) on a disc of positives inside a ring of negatives. The solid curve is $f(x) = 0$, the dashed curves $f(x) = \pm 1$, and the circled points are the support vectors. Far from every training example $f(x)$ falls back to $b$, which is why a dashed curve also appears near the corners.](https://raimbekovm.github.io/cs229-2018-notes/figures/07-kernels/diagram_rbf_boundary.svg)
+
+### Kernelising other algorithms
+
+[1:01:20](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3680s) The kernel trick is not specific to the SVM. Any algorithm that can be
+written in terms of inner products of inputs can be kernelised, and Ng lists linear
+regression, logistic regression, every generalised linear model, the perceptron
+(which the problem sets kernelise) and, later in the course, principal components
+analysis. Linear regression in an infinite-dimensional feature space is a perfectly
+well-defined computation. [1:03:07](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3787s) In practice, though, the trick is applied
+overwhelmingly to SVMs and much less often elsewhere.
+
+[1:01:26](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3686s) Ng credits the popularisation to Vladimir Vapnik and Corinna Cortes.
+The history is slightly split between two papers. The kernelised maximum-margin
+classifier was introduced by [Boser, Guyon and
+Vapnik](https://doi.org/10.1145/130385.130401) in 1992; Cortes and Vapnik's
+["Support-vector networks"](https://doi.org/10.1007/BF00994018) of 1995 added the soft
+margin of the next section.
+
+### The soft margin
+
+[1:04:07](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3847s) Mapping to a high-dimensional space makes data much more separable, but
+a separating boundary is not always wanted. If the data are slightly noisy, a
+boundary that classifies every training example correctly may be contorting itself
+around a few mislabelled ones. [1:05:17](https://www.youtube.com/watch?v=8NYoQiRANpg&t=3917s) The *$\ell_1$-norm soft margin SVM*
+relaxes the constraint that every functional margin be at least $1$, allowing a slack
+$\xi_i \ge 0$ per example and charging for it:
+
+$$
+\min_{w, b, \xi} \; \frac12 \lVert w \rVert^2 + C \sum_{i=1}^m \xi_i
+\quad \text{subject to} \quad
+y^{(i)} \left( w^\top x^{(i)} + b \right) \ge 1 - \xi_i ,
+\quad \xi_i \ge 0 .
+$$ (7.8)
+
+[1:06:49](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4009s) Recall that a positive functional margin means a correct prediction;
+the hard-margin SVM demands more, a functional margin of at least $1$. A slack of
+$\xi_i = 0.5$ lets example $i$ get away with functional margin $0.5$; a slack above $1$
+lets it be misclassified. At the optimum each slack is as small as its constraint
+allows, $\xi_i = \max(0,\, 1 - y^{(i)}(w^\top x^{(i)} + b))$, so Equation 7.8 is
+the same as minimising $\frac12\lVert w \rVert^2$ plus $C$ times the *hinge loss*
+summed over the training set — a form worth recognising, since it puts the SVM beside
+logistic regression as a regularised loss. [1:07:55](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4075s) The examples on the margin
+have functional margin exactly $1$, Ng notes, because otherwise the line could be moved
+to widen the margin; examples further away have larger ones.
+
+[1:08:59](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4139s) His second reason for the soft margin is robustness. The hard-margin
+classifier maximises the *worst-case* margin, so a single outlier — technically
+leaving the data separable — can swing the boundary dramatically.
+Figure 7.3 measures this on lecture 6's data with one positive example added
+near the negatives. The hard-margin normal turns by $43^\circ$ to squeeze past the
+outlier and the margin shrinks from $0.77$ to $0.30$. With $C = 0.1$, adding the same
+outlier turns the soft-margin boundary by under $4^\circ$; the outlier simply sits on
+the wrong side, with slack $\xi = 1.21$.
+
+![Figure 7.3. The same data with one positive outlier near the negatives. Left, the hard-margin SVM turns its boundary by $43^\circ$ to separate the outlier. Right, a soft margin with $C = 0.1$ barely moves: the dotted line is the solution with the same $C$ and the outlier removed.](https://raimbekovm.github.io/cs229-2018-notes/figures/07-kernels/diagram_soft_margin.svg)
+
+How much protection the soft margin gives depends on $C$, which is the part to take
+away from the figure. With $C = 1$ on the same data the outlier still turns the
+boundary by $27^\circ$: the slack is so expensive that the solution prefers to move.
+$C$ trades the width of the margin against the training errors it will tolerate, and
+[1:12:58](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4378s) choosing it is a bias–variance question that lecture 8 takes up.
+
+[1:11:34](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4294s) Repeating the dual derivation for Equation 7.8 changes exactly one
+thing: the constraint $\alpha_i \ge 0$ becomes the box $0 \le \alpha_i \le C$. The
+generator checks the consequences on its solution, which are the optimality conditions
+in the notes: examples with $0 < \alpha_i < C$ sit exactly on the margin, every example
+with positive slack has $\alpha_i = C$, and examples beyond the margin have $\alpha_i
+= 0$. [1:12:19](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4339s) Ng's practical remark is that in the early days of SVMs solving this
+problem was itself a research worry, much as matrix inversion once was; today's
+packages solve it and you need not think about it. The generator's solver is a version
+of sequential minimal optimisation, the coordinate method of the official notes,
+which updates two $\alpha_i$ at a time so that $\sum_i \alpha_i y^{(i)} = 0$ stays
+satisfied.
+
+**In the official notes.** cs229-notes3, section 8, derives the dual of the soft-margin problem and its KKT
+conditions, and section 9 presents the SMO algorithm, including the closed-form update
+for a pair of $\alpha_i$ under the box constraint.
+### Kernels for inputs that are not vectors
+
+[1:13:39](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4419s) In practice the polynomial kernel $(x^\top z)^d$ works well, and Ng
+now calls the Gaussian kernel the one most used; earlier he gave that place to the
+linear kernel, and between them the two are the usual first choices. [1:14:05](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4445s) One of the early proof points for
+SVMs was handwritten digit recognition: unroll an image into a vector of pixel
+intensities and train an SVM on it. On the classic MNIST benchmark this was, in Ng's
+words, a very surprising result, and polynomial-kernel SVMs appear beside the
+convolutional networks of the time in the comparison of classifiers by
+[LeCun et al.](https://doi.org/10.1109/5.726791) [1:15:07](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4507s) Ng's summary is that
+SVMs were for a time the best algorithm on it, with convolutional networks pulling
+ahead in more recent years.
+
+[1:15:25](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4525s) Much of the inventive work on SVMs, Ng says, has gone into designing
+kernels, and his example is a protein classifier. A protein is a variable-length
+sequence of amino acids, of which there are 20 (Ng uses the letters A to Z on the board
+for convenience). [1:17:01](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4621s) One feature vector for a sequence counts every
+possible run of four amino acids — how many times AAAA occurs, then AAAB, and so on
+to the end of the list — so that $\phi(x)$ has $20^4 = 160{,}000$ entries (with Ng's 26
+letters it would be 456,976). [1:18:20](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4700s) Writing it out is expensive, but
+$K(x, z) = \phi(x)^\top \phi(z)$ can be computed directly from the two sequences.
+Ng describes a dynamic programme reminiscent of Knuth–Morris–Pratt string matching;
+the kernel as published, the [spectrum kernel of Leslie, Eskin and
+Noble](https://psb.stanford.edu/psb-online/proceedings/psb02/leslie.pdf), builds a
+suffix tree and computes it in time linear in the two sequences' lengths. Only the
+four-letter runs that actually occur contribute, so a dictionary of counts per
+sequence is already enough, and the generator confirms that this gives the same
+number as the explicit 160,000-dimensional inner product.
+
+[1:19:35](https://www.youtube.com/watch?v=8NYoQiRANpg&t=4775s) If the inputs are histograms — the demographic make-up of two
+countries, say — one kernel sums the bin-by-bin minimum of the two histograms,
+$K(h, g) = \sum_k \min(h_k, g_k)$, a direct measure of their overlap. It is a valid
+kernel on non-negative histograms, and the proof is one line: $\min(a, b) =
+\int_0^\infty 1\{t < a\}\, 1\{t < b\}\, dt$, an inner product of two indicator
+functions. The generator's kernel matrix on twenty random histograms has, as it must,
+no negative eigenvalue. The
+general lesson is the recipe of the kernel trick read backwards: for an unusual kind
+of input, ask what similarity you would want between two examples, then make sure it
+is an inner product in some space, and the SVM machinery applies unchanged.

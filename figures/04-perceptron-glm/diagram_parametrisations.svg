@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 175" width="720" height="175"
+     role="img" aria-labelledby="figParamsTitle figParamsDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figParamsTitle">Three parametrisations of a generalised linear model</title>
+  <desc id="figParamsDesc">Three boxes in a row. Model parameters theta, the only quantity learned, map linearly to the natural parameter eta equals theta transpose x. Eta maps to the canonical parameter (phi for a Bernoulli, mu for a Gaussian, lambda for a Poisson) through g, the derivative of the log-partition function, and back through its inverse, the canonical link.</desc>
+  <rect x="30.0" y="40.0" width="170.0" height="90.0" fill="#21918c" fill-opacity="0.12" stroke="#3b528b" stroke-width="1.4" stroke-opacity="1.0" rx="8"/>
+  <text x="115.0" y="62.0" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">model parameters</text>
+  <text x="115.0" y="94.0" font-size="18" fill="currentColor" text-anchor="middle" font-style="italic">θ</text>
+  <text x="115.0" y="118.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">learned by maximum likelihood</text>
+  <rect x="275.0" y="40.0" width="170.0" height="90.0" fill="none" fill-opacity="0.12" stroke="#3b528b" stroke-width="1.4" stroke-opacity="1.0" rx="8"/>
+  <text x="360.0" y="62.0" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">natural parameter</text>
+  <text x="360.0" y="94.0" font-size="18" fill="currentColor" text-anchor="middle" font-style="italic">η</text>
+  <text x="360.0" y="118.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">one per example</text>
+  <rect x="520.0" y="40.0" width="170.0" height="90.0" fill="none" fill-opacity="0.12" stroke="#3b528b" stroke-width="1.4" stroke-opacity="1.0" rx="8"/>
+  <text x="605.0" y="62.0" font-size="12" fill="currentColor" text-anchor="middle" font-weight="600">canonical parameter</text>
+  <text x="605.0" y="94.0" font-size="18" fill="currentColor" text-anchor="middle" font-style="italic">φ,  μ,  λ</text>
+  <text x="605.0" y="118.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">Bernoulli, Gaussian, Poisson</text>
+  <line x1="202.0" y1="85.0" x2="266.0" y2="85.0" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.9"/>
+  <polygon points="272.0,85.0 266.0,87.7 266.0,82.3" fill="currentColor" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="237.0" y="74.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">η = θᵀx</text>
+  <text x="237.0" y="104.0" font-size="10" fill="currentColor" text-anchor="middle" fill-opacity="0.7">linear</text>
+  <line x1="447.0" y1="70.0" x2="511.0" y2="70.0" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.9"/>
+  <polygon points="517.0,70.0 511.0,72.7 511.0,67.3" fill="currentColor" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="482.0" y="60.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">g(η) = a′(η)</text>
+  <line x1="517.0" y1="100.0" x2="453.0" y2="100.0" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.9"/>
+  <polygon points="447.0,100.0 453.0,97.3 453.0,102.7" fill="currentColor" fill-opacity="0.9" stroke="none" stroke-width="1.0" stroke-opacity="1.0"/>
+  <text x="482.0" y="120.0" font-size="12" fill="currentColor" text-anchor="middle" font-style="italic">g⁻¹</text>
+  <text x="360.0" y="160.0" font-size="11" fill="currentColor" text-anchor="middle" fill-opacity="0.8">g is the canonical response function; g⁻¹ the canonical link</text>
+</svg>

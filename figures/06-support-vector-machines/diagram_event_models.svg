@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 268" width="720" height="268"
+     role="img" aria-labelledby="figEventModelsTitle figEventModelsDesc" font-family="Source Serif 4, Georgia, serif">
+  <title id="figEventModelsTitle">The same e-mail under the multivariate Bernoulli and the multinomial event models</title>
+  <desc id="figEventModelsDesc">Top: a row of cells indexed by dictionary word, with a 1 under buy, drugs and now and a 0 under a, aardvark and zymurgy. Bottom: four cells holding the dictionary indices 1600, 800, 1600, 6200, one per word of the e-mail, so the repeated word drugs appears twice.</desc>
+  <text x="360.0" y="26.0" font-size="14" fill="currentColor" text-anchor="middle" font-weight="600">e-mail:  “drugs buy drugs now”</text>
+  <text x="24.0" y="66.0" font-size="12" fill="currentColor" text-anchor="start">multivariate Bernoulli: x ∈ {0, 1}¹⁰ ⁰⁰⁰, one entry per dictionary word</text>
+  <rect x="34.0" y="84.0" width="58.0" height="30.0" fill="none" fill-opacity="1.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="63.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace">0</text>
+  <text x="63.0" y="130.0" font-size="11" fill="currentColor" text-anchor="middle">a</text>
+  <text x="63.0" y="144.0" font-size="10" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" fill-opacity="0.7">1</text>
+  <rect x="100.0" y="84.0" width="58.0" height="30.0" fill="none" fill-opacity="1.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="129.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace">0</text>
+  <text x="129.0" y="130.0" font-size="11" fill="currentColor" text-anchor="middle">aardvark</text>
+  <text x="129.0" y="144.0" font-size="10" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" fill-opacity="0.7">2</text>
+  <text x="195.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" fill-opacity="0.7">⋯</text>
+  <rect x="232.0" y="84.0" width="58.0" height="30.0" fill="#21918c" fill-opacity="0.25" stroke="#21918c" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="261.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">1</text>
+  <text x="261.0" y="130.0" font-size="11" fill="currentColor" text-anchor="middle">buy</text>
+  <text x="261.0" y="144.0" font-size="10" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" fill-opacity="0.7">800</text>
+  <text x="327.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" fill-opacity="0.7">⋯</text>
+  <rect x="364.0" y="84.0" width="58.0" height="30.0" fill="#21918c" fill-opacity="0.25" stroke="#21918c" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="393.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">1</text>
+  <text x="393.0" y="130.0" font-size="11" fill="currentColor" text-anchor="middle">drugs</text>
+  <text x="393.0" y="144.0" font-size="10" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" fill-opacity="0.7">1600</text>
+  <text x="459.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" fill-opacity="0.7">⋯</text>
+  <rect x="496.0" y="84.0" width="58.0" height="30.0" fill="#21918c" fill-opacity="0.25" stroke="#21918c" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="525.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">1</text>
+  <text x="525.0" y="130.0" font-size="11" fill="currentColor" text-anchor="middle">now</text>
+  <text x="525.0" y="144.0" font-size="10" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" fill-opacity="0.7">6200</text>
+  <text x="591.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" fill-opacity="0.7">⋯</text>
+  <rect x="628.0" y="84.0" width="58.0" height="30.0" fill="none" fill-opacity="1.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="657.0" y="104.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace">0</text>
+  <text x="657.0" y="130.0" font-size="11" fill="currentColor" text-anchor="middle">zymurgy</text>
+  <text x="657.0" y="144.0" font-size="10" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" fill-opacity="0.7">10000</text>
+  <text x="24.0" y="186.0" font-size="12" fill="currentColor" text-anchor="start">multinomial event model: x ∈ {1, …, 10 000}ⁿ, one entry per word of the e-mail (here n = 4)</text>
+  <rect x="34.0" y="202.0" width="88.0" height="30.0" fill="#3b528b" fill-opacity="0.18" stroke="#3b528b" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="78.0" y="222.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">1600</text>
+  <text x="78.0" y="248.0" font-size="11" fill="currentColor" text-anchor="middle">x₁ = drugs</text>
+  <rect x="130.0" y="202.0" width="88.0" height="30.0" fill="#3b528b" fill-opacity="0.18" stroke="#3b528b" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="174.0" y="222.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">800</text>
+  <text x="174.0" y="248.0" font-size="11" fill="currentColor" text-anchor="middle">x₂ = buy</text>
+  <rect x="226.0" y="202.0" width="88.0" height="30.0" fill="#3b528b" fill-opacity="0.18" stroke="#3b528b" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="270.0" y="222.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">1600</text>
+  <text x="270.0" y="248.0" font-size="11" fill="currentColor" text-anchor="middle">x₃ = drugs</text>
+  <rect x="322.0" y="202.0" width="88.0" height="30.0" fill="#3b528b" fill-opacity="0.18" stroke="#3b528b" stroke-width="1.0" stroke-opacity="0.8"/>
+  <text x="366.0" y="222.0" font-size="14" fill="currentColor" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-weight="600">6200</text>
+  <text x="366.0" y="248.0" font-size="11" fill="currentColor" text-anchor="middle">x₄ = now</text>
+  <text x="430.0" y="216.0" font-size="12" fill="#440154" text-anchor="start">“drugs” counted twice;</text>
+  <text x="430.0" y="234.0" font-size="12" fill="#440154" text-anchor="start">the Bernoulli vector records it once</text>
+</svg>

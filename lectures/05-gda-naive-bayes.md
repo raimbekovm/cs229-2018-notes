@@ -1,0 +1,354 @@
+# 5. GDA and Naive Bayes
+
+> Generative learning algorithms, which model p(x | y) and p(y) and classify by Bayes' rule: Gaussian discriminant analysis and why it implies a logistic posterior but not conversely, when its stronger assumptions beat logistic regression and when they cost it, and naive Bayes for spam filtering with binary word features.
+
+Web version: https://raimbekovm.github.io/cs229-2018-notes/lectures/05-gda-naive-bayes.html
+
+Lecture video: [Lecture 5: GDA and Naive Bayes](https://www.youtube.com/watch?v=nt63k3bfXS0)
+
+*Based on the lecture by Andrew Ng — [CS229](https://cs229.stanford.edu/), Stanford
+University, Autumn 2018.*
+
+Every algorithm so far has been *discriminative*: it models $p(y \mid x)$ directly, or
+maps $x$ to a label, and learns by searching for a boundary between the classes. This
+lecture introduces the other family. A *generative* learning algorithm models what each
+class looks like, $p(x \mid y)$, together with how common each class is, $p(y)$, and
+classifies a new example by asking which class model it fits better. Gaussian
+discriminant analysis (GDA) does this with a Gaussian per class and turns out to imply
+exactly the logistic form of lecture 3 — but with stronger assumptions, which help when
+data are scarce and hurt when they are wrong. Naive Bayes does it for text, with one
+binary feature per word and an assumption Ng calls flatly untrue, and still makes a
+serviceable spam filter.
+
+### Two ways to build a classifier
+
+[1:09](https://www.youtube.com/watch?v=nt63k3bfXS0&t=69s) Ng starts from the tumour data again, two features and two classes.
+Logistic regression initialises a line and lets gradient descent move it until it
+separates the malignant from the benign examples; it is searching for a boundary. A
+generative algorithm never looks for a boundary. It takes the malignant tumours alone
+and fits a model of where they live — roughly inside one ellipse — then does the same
+for the benign tumours. When a new patient arrives, it compares their features against
+the two models and picks the class whose model the patient resembles more.
+
+[3:56](https://www.youtube.com/watch?v=nt63k3bfXS0&t=236s) In symbols, a discriminative algorithm learns $p(y \mid x)$, or a function
+from $x$ to labels. A generative one learns $p(x \mid y)$ — what the features are like
+given the class — and the *class prior* $p(y)$, the odds that a tumour is malignant
+before the patient has even been examined. [5:50](https://www.youtube.com/watch?v=nt63k3bfXS0&t=350s) Bayes' rule converts those two
+into the quantity a classifier needs:
+
+$$
+p(y = 1 \mid x) = \frac{p(x \mid y = 1)\, p(y = 1)}{p(x)},
+\qquad
+p(x) = p(x \mid y = 1)\, p(y = 1) + p(x \mid y = 0)\, p(y = 0) .
+$$ (5.1)
+
+[35:49](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2149s) If all that is wanted is the most likely label, the denominator can be
+skipped. $p(x)$ does not depend on $y$, so
+
+$$
+\arg\max_y\, p(y \mid x) = \arg\max_y\, p(x \mid y)\, p(y) ,
+$$
+
+and implementations often never compute $p(x)$ at all. Ng's aside on notation is worth
+keeping: $\min_z (z - 5)^2$ is $0$, the smallest value attained, while
+$\arg\min_z (z-5)^2$ is $5$, the input that attains it.
+
+### The multivariate Gaussian
+
+[9:46](https://www.youtube.com/watch?v=nt63k3bfXS0&t=586s) GDA needs a Gaussian over vectors. A random vector $z \in \mathbb{R}^n$ is
+distributed $\mathcal{N}(\mu, \Sigma)$, with mean vector $\mu \in \mathbb{R}^n$ and
+covariance matrix $\Sigma \in \mathbb{R}^{n \times n}$, symmetric and positive
+definite, if its density is
+
+$$
+p(z; \mu, \Sigma) = \frac{1}{(2\pi)^{n/2} \lvert\Sigma\rvert^{1/2}}
+\exp\!\left( -\tfrac12 (z - \mu)^\top \Sigma^{-1} (z - \mu) \right),
+$$ (5.2)
+
+where $\Sigma = \mathbb{E}[(z - \mu)(z - \mu)^\top]$. Ng's view is that almost nobody
+memorises this formula until they have used it enough times, and that pictures teach
+it better. [12:00](https://www.youtube.com/watch?v=nt63k3bfXS0&t=720s) Ng projected a sequence of three-dimensional plots;
+Figure 5.1 recomputes them as contour maps, every panel at the same four
+density heights so that panels can be compared.
+
+![Figure 5.1. Contours of two-dimensional Gaussians with mean zero, each panel drawn at the same four density heights. Shrinking $\Sigma$ makes the bump taller and narrower — at $0.6I$ the highest level appears; enlarging it lowers the peak until only the lowest level remains. Positive off-diagonal entries tilt the contours along $z_1 = z_2$, negative ones the other way; the dashed line is the leading eigenvector of $\Sigma$. *Computed by `figures/05-gda-naive-bayes/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/05-gda-naive-bayes/diagram_gaussians.svg)
+
+With $\mu = 0$ and $\Sigma = I$ — the *standard* Gaussian — the contours are circles.
+Multiplying $\Sigma$ by $0.6$ shrinks the spread, and because the density must still
+integrate to one, it grows taller: in two dimensions the peak $1/(2\pi\lvert\Sigma
+\rvert^{1/2})$ scales by $1/0.6$, from $0.159$ to $0.265$. Doubling $\Sigma$ halves it.
+Raising the off-diagonal entries makes $z_1$ and $z_2$ positively correlated, and the
+circles stretch into ellipses along the diagonal, narrower as the entry rises to $0.8$;
+negative entries tilt them the other way. One coincidence in the figure is a useful
+check on the formula: the off-diagonal-$0.8$ Gaussian has the same peak as $0.6I$,
+because both have $\lvert\Sigma\rvert = 0.36$. Changing $\mu$ moves the bump without
+changing its shape.
+
+[16:26](https://www.youtube.com/watch?v=nt63k3bfXS0&t=986s) A student asked whether the columns of $\Sigma$ point in meaningful
+directions. Ng's answer is that single columns are not worth reading in isolation — the
+matrix is symmetric — but its eigenvectors are: they are the principal axes of the elliptical contours, the
+long axis belonging to the largest eigenvalue. For the off-diagonal-$0.8$ panel the
+eigenvalues are $1.8$ and $0.2$, with the long axis along $(1, 1)/\sqrt2$. This is the
+idea principal component analysis builds on later in the course.
+
+**In the official notes.** cs229-notes2, section 1.1, defines the multivariate normal and shows the same family of
+surface plots.
+### The GDA model and its fit
+
+[19:02](https://www.youtube.com/watch?v=nt63k3bfXS0&t=1142s) Gaussian discriminant analysis assumes that each class's features are
+Gaussian, with a mean of their own and a covariance they share, and that the label is a
+coin flip:
+
+$$
+\begin{aligned}
+y &\sim \operatorname{Bernoulli}(\phi), \\
+x \mid y = 0 &\sim \mathcal{N}(\mu_0, \Sigma), \\
+x \mid y = 1 &\sim \mathcal{N}(\mu_1, \Sigma) .
+\end{aligned}
+$$ (5.3)
+
+For generative models Ng drops the convention $x_0 = 1$, so $x \in \mathbb{R}^n$. The
+parameters are $\phi \in (0, 1)$, $\mu_0, \mu_1 \in \mathbb{R}^n$ and
+$\Sigma \in \mathbb{R}^{n \times n}$. [20:24](https://www.youtube.com/watch?v=nt63k3bfXS0&t=1224s) A shared $\Sigma$ is a choice, not a
+necessity — separate $\Sigma_0$ and $\Sigma_1$ are perfectly reasonable — and the
+reason for it becomes clear when the decision boundary is drawn.
+
+[23:05](https://www.youtube.com/watch?v=nt63k3bfXS0&t=1385s) The fit is where the two families part. Logistic regression chose $\theta$ to
+maximise the *conditional* likelihood $\prod_i p(y^{(i)} \mid x^{(i)}; \theta)$. GDA
+maximises the *joint* likelihood,
+
+$$
+L(\phi, \mu_0, \mu_1, \Sigma) = \prod_{i=1}^m p\!\left(x^{(i)}, y^{(i)}\right)
+= \prod_{i=1}^m p\!\left(x^{(i)} \mid y^{(i)}\right) p\!\left(y^{(i)}\right) .
+$$
+
+[26:56](https://www.youtube.com/watch?v=nt63k3bfXS0&t=1616s) Taking logs, differentiating and setting the derivatives to zero gives
+closed forms — the derivation is a problem-set exercise, and Ng gives the answers along
+with the intuition for each:
+
+$$
+\begin{aligned}
+\phi &= \frac1m \sum_{i=1}^m 1\{y^{(i)} = 1\}, &
+\mu_k &= \frac{\sum_i 1\{y^{(i)} = k\}\, x^{(i)}}{\sum_i 1\{y^{(i)} = k\}}, \\
+\Sigma &= \frac1m \sum_{i=1}^m \left(x^{(i)} - \mu_{y^{(i)}}\right)\left(x^{(i)} - \mu_{y^{(i)}}\right)^\top .
+\end{aligned}
+$$ (5.4)
+
+The *indicator* $1\{\cdot\}$ is 1 when its argument is true and 0 when it is false.
+The estimate of $\phi$ is the fraction of malignant tumours in the training set, as the
+maximum-likelihood bias of a coin is the fraction of heads. Each mean is the average of
+its class's feature vectors: the indicator in the numerator keeps only that class's
+examples, the one in the denominator counts them. And $\Sigma$ is the average outer
+product of each example's deviation from *its own* class mean — one covariance fitted to
+both clouds at once. Ng is careful to say that this intuition is not the derivation;
+the derivation is calculus on $\log L$. The generator takes the shortcut of checking the
+result instead: on 80 synthetic points, 500 random perturbations of the closed-form
+estimates all lower the joint log-likelihood.
+
+There is no iteration anywhere in Equation 5.4: fitting GDA is computing two means and a
+covariance. That will matter when Ng explains why GDA is still worth using.
+
+**In the official notes.** The model and its maximum-likelihood estimates are cs229-notes2, section 1.2.
+### GDA's boundary is logistic
+
+[37:07](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2227s) On the same two-feature data, Ng shows logistic regression's line migrating
+over about twenty iterations of gradient descent, then GDA fitting one Gaussian to each
+class and classifying by Bayes' rule. Both produce straight boundaries, and the two
+lines are close but not the same (Figure 5.2, left).
+
+![Figure 5.2. Left: GDA with a shared covariance on synthetic data, with the fitted Gaussians' contours at one and two standard deviations, the GDA boundary, and logistic regression's boundary on the same 80 points. Right: classes with very different spreads, each given its own covariance; the boundary becomes a conic, here a hyperbola. *Computed by `figures/05-gda-naive-bayes/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/05-gda-naive-bayes/diagram_gda_fit.svg)
+
+[39:42](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2382s) A student asked why the model uses two means but one covariance. With a
+shared $\Sigma$ the boundary is linear, which is what many problems want. With
+$\Sigma_0$ and $\Sigma_1$ the model also works, but the boundary is no longer a line,
+and Ng says the parameter count roughly doubles. That holds for the covariance part,
+and for the whole model only when $n$ is large: counting $\phi$ and the means too, a
+shared covariance needs $1 + 2n + n(n+1)/2$ parameters and two covariances
+$1 + 2n + n(n+1)$, a ratio of $1.38$ at $n = 2$, $1.72$ at $n = 10$ and $1.96$ at
+$n = 100$. [58:13](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3493s) Asked later what the posterior looks like with separate
+covariances, Ng's recollection was that it is still a logistic function, but with
+quadratic terms inside it. That is right: the log-odds becomes a quadratic in $x$, and
+its zero set is a conic (Figure 5.2, right).
+
+[41:02](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2462s) The connection to logistic regression is the lecture's most interesting
+property of GDA. Fix the parameters and, for a single feature, evaluate
+$p(y = 1 \mid x)$ by Bayes' rule at point after point along the axis. [43:31](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2611s) Far to
+the left, almost any point must have come from the class-0 Gaussian, so the posterior is
+near 0; far to the right it is near 1; at the midpoint between the two means, Ng says,
+you cannot tell, so it is $0.5$. Joining the dots gives an S-shaped curve, and
+[47:13](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2833s) it is exactly a sigmoid (Figure 5.3). With a shared covariance the
+quadratic terms of the two Gaussians' exponents cancel in the log-odds, leaving
+
+$$
+p(y = 1 \mid x) = \frac{1}{1 + e^{-(\theta^\top x + \theta_0)}},
+\qquad
+\theta = \Sigma^{-1}(\mu_1 - \mu_0),
+\quad
+\theta_0 = -\tfrac12\left(\mu_1^\top \Sigma^{-1}\mu_1 - \mu_0^\top \Sigma^{-1}\mu_0\right) + \log\frac{\phi}{1-\phi} .
+$$ (5.5)
+
+The generator confirms the identity at 200 random points against Bayes' rule computed
+directly.
+
+![Figure 5.3. The posterior along one feature. Two unit-variance class densities (thin), five training points from each class, and $p(y = 1 \mid x)$ computed by Bayes' rule (thick): a sigmoid crossing $0.5$ midway between the means when $\phi = 0.5$, and at $x = 1.69$ when $\phi = 0.2$. *Computed by `figures/05-gda-naive-bayes/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/05-gda-naive-bayes/diagram_posterior_1d.svg)
+
+The midpoint claim holds only when the classes are equally likely. The last term of
+$\theta_0$ is the prior log-odds, and it shifts the curve. For one feature the crossing
+point is
+
+$$
+x_{1/2} = \frac{\mu_0 + \mu_1}{2} + \frac{\sigma^2}{\mu_1 - \mu_0}\log\frac{1 - \phi}{\phi} ,
+$$
+
+so with means $0$ and $2$, unit variance and a prior of $0.2$ on class 1, the boundary
+moves from $x = 1$ to $x = 1.69$: a rarer class needs stronger evidence. On a
+malignant/benign problem, where $\phi$ is usually far from one half, this term is
+anything but negligible.
+
+[47:53](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2873s) So both algorithms end up with a sigmoid in $x$, but they do not end up with
+the same sigmoid. GDA's $\theta$ is a byproduct of fitting the joint likelihood; it is
+not the $\theta$ that maximises the conditional likelihood, which is what logistic
+regression computes. On the 80 points of Figure 5.2, logistic regression reaches a
+conditional log-likelihood of $-29.73$, and the $\theta$ GDA implies scores $-29.97$
+on the same objective. Neither is wrong; they are answering different questions.
+
+### Which one to use
+
+[48:57](https://www.youtube.com/watch?v=nt63k3bfXS0&t=2937s) Ng frames the comparison as an implication that runs only one way. If
+Equation 5.3 holds, then $p(y = 1 \mid x)$ is logistic — that was the previous section. But
+assuming that $p(y = 1 \mid x)$ is logistic says nothing about $x \mid y$ being
+Gaussian. [53:08](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3188s) Ng's counterexample: if $x \mid y = 0$ and $x \mid y = 1$ are
+Poisson with means $\lambda_0$ and $\lambda_1$, the posterior is again logistic, since
+the log-odds is $x \log(\lambda_1/\lambda_0) - (\lambda_1 - \lambda_0) + \log\frac{\phi}{1-\phi}$,
+linear in $x$.
+The same holds, Ng adds, whenever the two class-conditionals are the same exponential
+family differing only in the natural parameter, with $T(x) = x$. GDA therefore makes
+the *stronger* assumptions and logistic regression the *weaker*.
+
+[54:46](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3286s) The principle that follows is one Ng says will recur throughout the course.
+Stronger modelling assumptions, when they are roughly right, let an algorithm learn
+from less data, because the assumptions are information it no longer has to extract
+from examples. When they are wrong, they cost accuracy that more data cannot recover.
+Weaker assumptions are more robust: if you do not know whether the data are Gaussian or
+Poisson or something else from the family, logistic regression is correct in all those
+cases.
+
+Figure 5.4 puts numbers on this. In a world built to satisfy GDA's
+assumptions, GDA's average test error is lower than logistic regression's from 10 to
+about 100 training examples, by up to half a percentage point, and both converge to
+the Bayes error of $0.201$ — though at 6 examples logistic regression, with a slight
+ridge penalty to keep it finite on separable samples, is ahead. With two features the
+advantage is real but small; [Ng and Jordan
+(2002)](https://proceedings.neurips.cc/paper/2001/hash/7b7a53e239400a13bd6be6c91c4f6c4e-Abstract.html)
+analysed the same trade-off for naive Bayes against logistic regression and found it
+grows with the number of features: the generative model can approach its (higher)
+asymptotic error with a number of examples logarithmic in $n$, the discriminative one
+with roughly linear. In the Poisson world GDA is misspecified, and still it is slightly
+ahead at 6 and 10 examples — the assumptions are wrong but informative. The curves
+cross near 25 examples, and from there logistic regression pulls ahead,
+reaching $0.160$ at 400 examples against GDA's $0.168$. With 20,000 examples logistic
+regression sits at the Bayes error of $0.158$ while GDA stalls at $0.162$, an error no
+amount of data removes.
+
+![Figure 5.4. Mean test error over 400 training sets at each size; the vertical axes do not start at zero. Left, data satisfying GDA's assumptions: GDA is slightly ahead from 10 to about 100 examples. Right, Poisson classes, where logistic regression is correctly specified and GDA is not: GDA's error levels off above the Bayes error. *Computed by `figures/05-gda-naive-bayes/make_diagrams.py`.*](https://raimbekovm.github.io/cs229-2018-notes/figures/05-gda-naive-bayes/diagram_learning_curves.svg)
+
+[56:13](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3373s) Ng's own practice follows from this. With large datasets, which is most
+problems now, Ng would usually reach for logistic regression, because data can make up
+for what the algorithm was not told. There are two sources of knowledge, in Ng's account: the
+assumptions you build in and what is learned from data. With plenty of the second you
+can afford fewer of the first. [56:56](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3416s) When Ng does use GDA today it is more for
+computation than accuracy — two means and a covariance, no iterative optimisation.
+
+[58:45](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3525s) Should one test whether the data are Gaussian before using GDA? In practice,
+Ng says, if you have enough data to run a statistical test and believe it, you probably
+have enough to use logistic regression. What people actually do is plot the data, rule
+out GDA if it is obviously non-Gaussian, and otherwise — with, say, fifty healthcare
+records — use judgment, perhaps by asking doctors whether the distribution is plausibly
+Gaussian. [59:47](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3587s) This leads Ng to a broader view: the field has somewhat
+overhyped big data. More data almost never hurts, but many applications have a hundred
+examples rather than a million, and there the designer's skill — including the choice
+of what to assume — matters far more: on a million-image benchmark many teams do well,
+while with a hundred examples the skilled teams do much better than the rest.
+[1:02:42](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3762s) Asked whether the comparison carries over to more than two classes, Ng
+says it does, with softmax regression as the discriminative counterpart.
+
+**In the official notes.** cs229-notes2, section 1.3, makes the same comparison and states that GDA is
+asymptotically efficient when its assumptions hold.
+### Naive Bayes
+
+[1:04:08](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3848s) GDA needs continuous features. Naive Bayes is a generative algorithm for
+discrete ones, and Ng builds it around spam filtering, though the same method applies
+to any text classification — the lecture mentions eBay sorting free-text listings into product
+categories.
+
+[1:05:08](https://www.youtube.com/watch?v=nt63k3bfXS0&t=3908s) The first question is how to turn an e-mail into a feature vector. Take a
+list of words — conceptually the dictionary, from "a" and "aardvark" to "zymurgy", in
+practice the 10,000 most frequent words in your own training set, so that "CS229" makes
+the list even though no dictionary has it — and set $x_j = 1$ if word $j$ appears in the
+e-mail and $0$ if not. So $x \in \{0, 1\}^n$ with $n = 10{,}000$.
+
+[1:09:28](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4168s) Modelling $p(x \mid y)$ directly is hopeless: a distribution over all
+$2^{10{,}000}$ binary vectors needs $2^{10{,}000} - 1$ parameters for each class, a
+number with 3,011 digits. [1:10:00](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4200s) Naive Bayes assumes that the $x_j$ are
+*conditionally independent* given $y$. The chain rule of probability, which is always
+true, writes the joint as $p(x_1 \mid y)\, p(x_2 \mid x_1, y)\, p(x_3 \mid x_1, x_2, y)
+\cdots$; the assumption drops every conditioning variable except $y$,
+
+$$
+p(x_1, \dots, x_n \mid y) = \prod_{j=1}^n p(x_j \mid y) .
+$$ (5.6)
+
+In words: once you know whether an e-mail is spam, learning that it contains "buy" tells
+you nothing about whether it contains "aardvark". Figure 5.5 shows this as the
+graphical model Ng sketches for those who have met them.
+
+![Figure 5.5. The naive Bayes assumption as a graphical model: the label points to every word indicator, and no word indicator points to another.](https://raimbekovm.github.io/cs229-2018-notes/figures/05-gda-naive-bayes/diagram_nb_graph.svg)
+
+[1:11:53](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4313s) Ng does not defend the assumption as true. It is not, mathematically —
+words in an e-mail are obviously correlated — but, as with data that are not quite
+Gaussian, it may be not so wrong that you cannot get away with it. Where it does bite is
+worth seeing. Suppose a word appears in 60 percent of spam and 10 percent of other mail,
+and a second feature happens to be an exact copy of it (in real text, a word and its
+plural, or "click" and "here"). The true posterior from seeing the word, with equal
+priors, is $0.857$; the second feature adds no information, but naive Bayes multiplies
+its likelihood in again and reports $0.973$. Correlated features are counted as
+independent evidence, which makes naive Bayes overconfident even when its decisions are
+reasonable.
+
+[1:13:46](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4426s) The parameters are $\phi_{j \mid y=1} = p(x_j = 1 \mid y = 1)$, the chance
+that word $j$ appears in a spam e-mail, $\phi_{j \mid y=0}$ for non-spam, and the prior
+$\phi_y = p(y = 1)$ — $2n + 1$ numbers, 20,001 for the 10,000-word vocabulary, instead
+of a number with three thousand digits. [1:15:00](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4500s) Maximising the joint likelihood,
+exactly as for GDA, gives counts:
+
+$$
+\phi_y = \frac{1}{m}\sum_{i=1}^m 1\{y^{(i)} = 1\},
+\qquad
+\phi_{j \mid y=1} = \frac{\sum_i 1\{x^{(i)}_j = 1,\; y^{(i)} = 1\}}{\sum_i 1\{y^{(i)} = 1\}} ,
+$$ (5.7)
+
+and the same with $y = 0$. Of all the spam e-mails in the training set, what fraction
+contain "buy"? That fraction is $\phi_{\text{buy} \mid y=1}$. Prediction multiplies these
+numbers by Equation 5.6 and applies Bayes' rule.
+
+Naive Bayes has the same relationship to logistic regression that GDA has. Its log-odds
+is a sum over words of terms that depend on $x_j$ only through $x_j \in \{0, 1\}$, so it
+is exactly linear: $\log \frac{p(y=1 \mid x)}{p(y=0 \mid x)} = b + w^\top x$ with
+$w_j = \log \frac{\phi_{j \mid 1}(1 - \phi_{j \mid 0})}{\phi_{j \mid 0}(1 - \phi_{j \mid
+1})}$. The generator checks this on every input of a six-word vocabulary. Naive Bayes is
+a linear classifier whose weights are set by counting rather than by optimisation.
+
+[1:17:32](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4652s) Ng's verdict is that naive Bayes is "not too horrible", that logistic
+regression does better almost all the time, and that naive Bayes is nonetheless very
+efficient: fitting is counting, prediction is multiplying, and the counts can be updated
+as new labelled mail arrives without refitting anything. This is the regime Ng and
+Jordan studied: naive Bayes reaches its own, higher, asymptotic error with fewer
+examples. [1:18:14](https://www.youtube.com/watch?v=nt63k3bfXS0&t=4694s) Ng flags one flaw that makes the version above "nearly work":
+zeros. If a word never appears in any training e-mail, its estimate is $0$ in both
+classes, an e-mail containing it gets $p(x \mid y) = 0$ under both, and the posterior is
+$0/0$. Even a word seen only in non-spam drives the spam probability of any e-mail
+containing it to exactly zero, however spammy the rest. The fix, Laplace smoothing, opens
+the next lecture.
+
+**In the official notes.** cs229-notes2, section 2, develops naive Bayes for the same spam example; Laplace
+smoothing (2.1) and the multinomial event model for text (2.2) come with lecture 6.
